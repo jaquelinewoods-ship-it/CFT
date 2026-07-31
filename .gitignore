@@ -1,0 +1,12 @@
+.DS_Store
+*.bak
+*.bak-*
+*.bgforms
+.env
+.env.*
+**/STAGING-ACCESS.txt
+**/.htpasswd
+*.sql
+*.tar.gz
+.idea/
+.vscode/
