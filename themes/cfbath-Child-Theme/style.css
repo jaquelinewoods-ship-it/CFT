@@ -4,11 +4,17 @@ Description: Child theme for CF-Bath
 Author: ThemeFusion
 Author URI: 
 Template: cfbath
-Version: 1.0.8
+Version: 1.0.23
 Text Domain:  CF-Bath
 */
 
 body.home .fusion-secondary-header{display:none !important;}
+
+/* Header search icon is unused and the glyph breaks on Home. */
+.fusion-main-menu-search,
+.fusion-mobile-menu-icons .fusion-icon-search {
+	display: none !important;
+}
 
 .fusion-main-menu > ul > li > a{text-transform: uppercase;}
 .tfs-slider .slide-content-container .buttons {margin-top: 0px;}
@@ -193,7 +199,7 @@ body.home .home-scroll-cue-label {
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-family: Raleway, Helvetica, Arial, sans-serif;
+  font-family: Archivo, Helvetica, Arial, sans-serif;
 }
 
 body.home .home-scroll-cue-icon {
@@ -435,5 +441,397 @@ a[href*="twitter.com/CrossFitBath"],
 a[href*="twitter.com/crossfitbath"],
 a[href*="x.com/CrossFitBath"],
 a[href*="x.com/crossfitbath"] {
+  display: none !important;
+}
+
+/* Homepage-only type + colour refresh (staging trial)
+   Accent sampled from the Trowbridge logo (~#24549c).
+   Buttons go near-black; Raleway/all-caps stays on other pages. */
+body.home,
+body.home #wrapper,
+body.home .fusion-body,
+body.home p,
+body.home li,
+body.home .fusion-button {
+  font-family: Archivo, Helvetica, Arial, sans-serif !important;
+}
+
+body.home h1,
+body.home h2,
+body.home h3,
+body.home h4,
+body.home h5,
+body.home h6 {
+  font-family: Archivo, Helvetica, Arial, sans-serif !important;
+  text-transform: none !important;
+  letter-spacing: -0.02em !important;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+body.home .fusion-main-menu > ul > li > a {
+  font-family: Archivo, Helvetica, Arial, sans-serif !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+body.home .fusion-button {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  border-radius: 2px !important;
+}
+
+/* Default Avada blue CTAs → near-black; hover uses logo blue */
+body.home .fusion-button.button-default {
+  background: #111111 !important;
+  background-image: none !important;
+  border-color: #111111 !important;
+}
+
+body.home .fusion-button.button-default:hover,
+body.home .fusion-button.button-default:focus,
+body.home .fusion-button.button-default:active {
+  background: #24549c !important;
+  background-image: none !important;
+  border-color: #24549c !important;
+}
+
+body.home .fusion-button.button-default .fusion-button-text,
+body.home .fusion-button.button-default:hover .fusion-button-text,
+body.home .fusion-button.button-default:focus .fusion-button-text,
+body.home .fusion-button.button-default:active .fusion-button-text {
+  color: #ffffff !important;
+}
+
+/* Drop the dated play icon on Home CTAs */
+body.home .fusion-button .button-icon-left,
+body.home .fusion-button .button-icon-right,
+body.home .fusion-button .fa-play {
+  display: none !important;
+}
+
+body.home .fusion-button .fusion-button-text,
+body.home .fusion-button .fusion-button-text-left,
+body.home .fusion-button .fusion-button-text-right {
+  padding-left: 0 !important;
+}
+
+/* Logo blue for in-copy accents that were #4a75cb */
+body.home .fusion-checklist .icon-wrapper {
+  background-color: #24549c !important;
+}
+
+body.home span[style*="#4a75cb"],
+body.home h3 span[style*="#4a75cb"] {
+  color: #24549c !important;
+}
+
+body.home .fusion-social-networks .fusion-social-network-icon {
+  background-color: #111111 !important;
+  border-color: #111111 !important;
+}
+
+body.home .fusion-footer .fusion-social-network-icon {
+  background-color: #1a1a1a !important;
+  border-color: #3a3a3a !important;
+  color: #ffffff !important;
+}
+
+/* Compact footer: drop leftover Bath badges, duplicate CTA, empty columns */
+.fusion-footer-widget-area {
+  padding-top: 32px !important;
+  padding-bottom: 16px !important;
+}
+
+.fusion-footer-widget-area .fusion-column:empty,
+.fusion-footer-widget-area .fusion-column-last:empty {
+  display: none !important;
+}
+
+.fusion-footer-widget-area .fusion-column {
+  float: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.fusion-footer-widget-area .widget {
+  margin-bottom: 14px !important;
+}
+
+.fusion-footer-widget-area .widget-title {
+  font-size: 13px !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px !important;
+  font-weight: 600;
+}
+
+.fusion-footer-widget-area #text-4 .textwidget {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 28px;
+}
+
+.fusion-footer-widget-area #text-4 center {
+  display: contents;
+}
+
+.fusion-footer-widget-area #text-4 a {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.fusion-footer-widget-area #text-2 .widget-title,
+.fusion-footer-widget-area #text-2 .cfJournal,
+.fusion-footer-widget-area #text-2 img[src*="crossfit-forge-logo"],
+.fusion-footer-widget-area #text-2 .fusion-separator,
+.fusion-footer-widget-area #text-2 .fusion-sep-clear,
+.fusion-footer-widget-area #text-2 p,
+.fusion-footer-widget-area #text-2 .fusion-button-wrapper {
+  display: none !important;
+}
+
+.fusion-footer-widget-area #text-2 img[src*="crossfit-journal"] {
+  width: 96px !important;
+  height: auto !important;
+  margin: 0 auto !important;
+}
+
+.fusion-footer-widget-area #nav_menu-2,
+.fusion-footer-widget-area .menu-footer-links-container {
+  width: 100% !important;
+  float: none !important;
+  text-align: center;
+}
+
+.fusion-footer-widget-area #menu-footer-links {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  float: none !important;
+  gap: 8px 22px;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.fusion-footer-widget-area #menu-footer-links li,
+.fusion-footer-widget-area #menu-footer-links li:first-child,
+.fusion-footer-widget-area .widget_nav_menu li {
+  display: block !important;
+  float: none !important;
+  clear: none !important;
+  width: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  position: static !important;
+}
+
+.fusion-footer-widget-area #menu-footer-links a {
+  display: inline-block !important;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  opacity: 0.78;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  white-space: nowrap;
+}
+
+.fusion-footer-widget-area #menu-footer-links a:hover {
+  opacity: 1;
+}
+
+.fusion-footer-copyright-area {
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+}
+
+.fusion-copyright-notice {
+  font-size: 12px;
+  line-height: 1.55;
+  opacity: 0.72;
+}
+
+.fusion-social-links-footer {
+  margin-top: 8px;
+}
+
+.fusion-footer .fusion-social-networks-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.fusion-footer .fusion-social-network-icon {
+  width: 32px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  padding: 0 !important;
+}
+
+/* Mission: clean split — same copy + CTA, no faded wallpaper */
+body.home #home-mission {
+  background: #ffffff !important;
+}
+
+body.home #home-mission h2 {
+  max-width: 16.5em;
+  margin-bottom: 1.15em !important;
+  font-weight: 700;
+}
+
+body.home #home-mission .fusion-checklist {
+  margin: 0 0 1.85em !important;
+}
+
+body.home #home-mission .fusion-li-item {
+  margin-bottom: 1.4em !important;
+  padding-bottom: 0 !important;
+}
+
+body.home #home-mission .fusion-li-item:last-child {
+  margin-bottom: 0 !important;
+}
+
+body.home #home-mission .fusion-checklist .icon-wrapper {
+  width: 28px !important;
+  height: 28px !important;
+  line-height: 28px !important;
+  margin-top: 2px !important;
+}
+
+body.home #home-mission .fusion-li-icon {
+  font-size: 12px !important;
+}
+
+body.home #home-mission h3 {
+  font-weight: 600 !important;
+  margin: 0 0 0.65em !important;
+}
+
+body.home #home-mission .fusion-button {
+  visibility: visible !important;
+  opacity: 1 !important;
+  animation: none !important;
+}
+
+body.home #home-mission .fusion-sep,
+body.home #home-mission .fusion-separator {
+  display: none !important;
+}
+
+body.home #home-mission .cft-home-mission-photo,
+body.home #home-mission .cft-home-mission-photo .fusion-column-wrapper {
+  background-size: cover !important;
+  background-position: center 38% !important;
+  background-repeat: no-repeat !important;
+  min-height: 640px;
+}
+
+@media only screen and (max-width: 800px) {
+  body.home #home-mission .cft-home-mission-copy .fusion-column-wrapper {
+    padding: 40px 24px !important;
+  }
+
+  body.home #home-mission .fusion-layout-column {
+    height: auto !important;
+  }
+
+  body.home #home-mission .cft-home-mission-photo,
+  body.home #home-mission .cft-home-mission-photo .fusion-column-wrapper {
+    min-height: 300px !important;
+    height: 300px !important;
+    max-height: 300px !important;
+  }
+}
+
+/* Community band: photo cover instead of tiled dots */
+body.home #home-community,
+body.home .cft-home-community {
+  background-size: cover !important;
+  background-position: center 28% !important;
+  background-repeat: no-repeat !important;
+  position: relative;
+  min-height: 700px;
+}
+
+@media (min-width: 1400px) {
+  body.home #home-community,
+  body.home .cft-home-community {
+    min-height: 46vw;
+  }
+}
+
+body.home #home-community:before,
+body.home .cft-home-community:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 10, 16, 0.22);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.home #home-community .fusion-row,
+body.home .cft-home-community .fusion-row {
+  position: relative;
+  z-index: 1;
+}
+
+body.home #home-community h3 {
+  text-transform: none !important;
+  letter-spacing: -0.01em;
+  font-weight: 400 !important;
+  max-width: 42em;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.45 !important;
+}
+
+/* Instagram band under Community */
+body.home #home-instagram h2 {
+  margin-bottom: 0.35em;
+}
+
+body.home #home-instagram .cft-ig-setup {
+  text-align: center;
+  margin: 28px auto;
+  max-width: 36em;
+  color: #333;
+}
+
+body.home #home-instagram .cft-ig-setup a {
+  color: #24549c;
+}
+
+body.home #home-instagram #sb_instagram,
+body.home #home-instagram .sbi {
+  padding: 8px 0 16px !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+}
+
+body.home #home-instagram #sbi_images {
+  float: none !important;
+  padding: 0 !important;
+}
+
+body.home #home-instagram .sbi_photo {
+  border-radius: 2px;
+}
+
+body.home #home-instagram #sbi_load,
+body.home #home-instagram .sbi_follow_btn,
+body.home #home-instagram .sbi_header_text,
+body.home #home-instagram .sb_instagram_header {
   display: none !important;
 }

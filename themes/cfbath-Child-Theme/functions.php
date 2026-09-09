@@ -5,6 +5,19 @@ function theme_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 
+function cft_home_type_fonts() {
+	if ( ! is_front_page() ) {
+		return;
+	}
+	wp_enqueue_style(
+		'cft-home-fonts',
+		'https://fonts.googleapis.com/css?family=Archivo:400,600,700&display=swap',
+		array(),
+		null
+	);
+}
+add_action( 'wp_enqueue_scripts', 'cft_home_type_fonts', 20 );
+
 function avada_lang_setup() {
 	$lang = get_stylesheet_directory() . '/languages';
 	load_child_theme_textdomain( 'Avada', $lang );
@@ -286,4 +299,33 @@ if ( ! function_exists( 'avada_modern_menu' ) ) {
 		return $html;
 	}
 }
+
+/**
+ * Home Instagram grid. Renders Smash Balloon when an account is connected;
+ * admins see a setup link until then.
+ */
+function cft_instagram_feed_shortcode() {
+	if ( ! shortcode_exists( 'instagram-feed' ) ) {
+		return '';
+	}
+
+	global $wpdb;
+	$sources_table = $wpdb->prefix . 'sbi_sources';
+	$connected     = 0;
+	$table_exists  = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $sources_table ) );
+	if ( $table_exists ) {
+		$connected = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$sources_table}" );
+	}
+
+	if ( $connected < 1 ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return '';
+		}
+		$setup = admin_url( 'admin.php?page=sbi-feed-builder' );
+		return '<p class="cft-ig-setup">Connect <strong>@the.bridge.sc</strong> in Smash Balloon to show six photos here. <a href="' . esc_url( $setup ) . '">Open Instagram setup</a></p>';
+	}
+
+	return do_shortcode( '[instagram-feed num=6 cols=6 colstablet=3 colsmobile=2 showheader=false showbutton=false showfollow=false imagepadding=4]' );
+}
+add_shortcode( 'cft_instagram_feed', 'cft_instagram_feed_shortcode' );
 
