@@ -413,7 +413,7 @@ function cft_programmes_video_strip_play() {
 add_action( 'wp_footer', 'cft_programmes_video_strip_play', 30 );
 
 function cft_sc_body_class( $classes ) {
-	if ( is_page( array( 'the-bridge', 'the-gym-option-2', 'the-gym-option-3' ) ) ) {
+	if ( is_page( 'the-bridge' ) ) {
 		$classes[] = 'cft-sc-page';
 	}
 	return $classes;
@@ -459,7 +459,7 @@ function cft_sc_clip_shortcode( $atts ) {
 add_shortcode( 'cft_sc_clip', 'cft_sc_clip_shortcode' );
 
 function cft_sc_clip_play() {
-	if ( ! is_page( array( 'the-bridge', 'the-gym-option-2', 'the-gym-option-3' ) ) ) {
+	if ( ! is_page( 'the-bridge' ) ) {
 		return;
 	}
 	?>
