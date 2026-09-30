@@ -4,7 +4,7 @@ Description: Child theme for CF-Bath
 Author: ThemeFusion
 Author URI: 
 Template: cfbath
-Version: 1.0.23
+Version: 1.0.72
 Text Domain:  CF-Bath
 */
 
@@ -54,7 +54,540 @@ h2.flip-box-heading.without-text {
     font-size: 19px !important;
 }
 
-.fusion-page-title-bar{background-position: top right;}
+/* Inner-page title banners: taller photo strip, cover crop, dark overlay */
+body:not(.home) .fusion-page-title-bar {
+  position: relative;
+  overflow: hidden;
+  height: 380px !important;
+  background-image: url("/cfbathmedia/uploads/cft-inner-banner-community.webp") !important;
+  background-size: cover !important;
+  background-position: center 38% !important;
+  background-repeat: no-repeat !important;
+}
+
+@media only screen and (max-width: 800px) {
+  body:not(.home) .fusion-page-title-bar {
+    height: 220px !important;
+  }
+}
+
+body.cft-sc-page .fusion-page-title-bar,
+body.cft-sc-page #wrapper .fusion-page-title-bar {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  max-width: none !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  background-image: none !important;
+  background-color: #ffffff !important;
+  background-size: auto !important;
+  background-position: 0 0 !important;
+  padding-top: 56px !important;
+  padding-bottom: 28px !important;
+  overflow: visible;
+  border: 0 !important;
+  box-shadow: none;
+}
+
+body.cft-sc-page .fusion-page-title-bar:before {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+}
+
+body.cft-sc-page .fusion-page-title-bar .fusion-page-title-row {
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+body.cft-sc-page .fusion-page-title-bar .fusion-breadcrumbs,
+body.cft-sc-page .fusion-page-title-bar .fusion-page-title-secondary {
+  display: none !important;
+}
+
+body.cft-sc-page .fusion-page-title-bar h1 {
+  color: #111111 !important;
+  text-shadow: none !important;
+}
+
+@media only screen and (max-width: 800px) {
+  body.cft-sc-page #wrapper .fusion-page-title-bar,
+  body.cft-sc-page .fusion-page-title-bar {
+    height: auto !important;
+    min-height: 0 !important;
+    padding-top: 48px !important;
+    padding-bottom: 24px !important;
+  }
+}
+
+.fusion-page-title-bar:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(8, 10, 16, 0.42);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.fusion-page-title-bar .fusion-page-title-row,
+.fusion-page-title-bar .fusion-page-title-wrapper,
+.fusion-page-title-bar .fusion-page-title-captions,
+.fusion-page-title-bar .fusion-breadcrumbs {
+  position: relative;
+  z-index: 1;
+}
+
+.fusion-page-title-bar h1 {
+  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.35);
+}
+
+/* Programmes, The Team, Schedule, and Hybrid Fitness: compact in-page
+   title — no photo, overlay, or cinematic bar. Other inner pages keep
+   the full-bleed photo banners. Beat Avada
+   #wrapper .fusion-page-title-bar { height: 380px !important }. */
+body.page-id-12401 #wrapper .fusion-page-title-bar,
+body.page-id-12401 .fusion-page-title-bar,
+body.page-id-613 #wrapper .fusion-page-title-bar,
+body.page-id-613 .fusion-page-title-bar,
+body.page-id-1354 #wrapper .fusion-page-title-bar,
+body.page-id-1354 .fusion-page-title-bar,
+body.page-id-12672 #wrapper .fusion-page-title-bar,
+body.page-id-12672 .fusion-page-title-bar {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  max-width: none !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  background-image: none !important;
+  background-color: #ffffff !important;
+  background-size: auto !important;
+  background-position: 0 0 !important;
+  padding-top: 56px !important;
+  padding-bottom: 28px !important;
+  overflow: visible;
+  border: 0 !important;
+  box-shadow: none;
+}
+
+body.page-id-12401 .fusion-page-title-bar:before,
+body.page-id-613 .fusion-page-title-bar:before,
+body.page-id-1354 .fusion-page-title-bar:before,
+body.page-id-12672 .fusion-page-title-bar:before {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+}
+
+body.page-id-12401 .fusion-page-title-bar .fusion-page-title-row,
+body.page-id-613 .fusion-page-title-bar .fusion-page-title-row,
+body.page-id-1354 .fusion-page-title-bar .fusion-page-title-row,
+body.page-id-12672 .fusion-page-title-bar .fusion-page-title-row {
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+body.page-id-12401 .fusion-page-title-bar .fusion-breadcrumbs,
+body.page-id-12401 .fusion-page-title-bar .fusion-page-title-secondary,
+body.page-id-613 .fusion-page-title-bar .fusion-breadcrumbs,
+body.page-id-613 .fusion-page-title-bar .fusion-page-title-secondary,
+body.page-id-1354 .fusion-page-title-bar .fusion-breadcrumbs,
+body.page-id-1354 .fusion-page-title-bar .fusion-page-title-secondary,
+body.page-id-12672 .fusion-page-title-bar .fusion-breadcrumbs,
+body.page-id-12672 .fusion-page-title-bar .fusion-page-title-secondary {
+  display: none !important;
+}
+
+body.page-id-12401 .fusion-page-title-bar h1,
+body.page-id-613 .fusion-page-title-bar h1,
+body.page-id-1354 .fusion-page-title-bar h1,
+body.page-id-12672 .fusion-page-title-bar h1 {
+  color: #111111 !important;
+  text-shadow: none !important;
+}
+
+@media only screen and (max-width: 800px) {
+  body.page-id-12401 #wrapper .fusion-page-title-bar,
+  body.page-id-12401 .fusion-page-title-bar,
+  body.page-id-613 #wrapper .fusion-page-title-bar,
+  body.page-id-613 .fusion-page-title-bar,
+  body.page-id-1354 #wrapper .fusion-page-title-bar,
+  body.page-id-1354 .fusion-page-title-bar,
+  body.page-id-12672 #wrapper .fusion-page-title-bar,
+  body.page-id-12672 .fusion-page-title-bar {
+    height: auto !important;
+    min-height: 0 !important;
+    padding-top: 48px !important;
+    padding-bottom: 24px !important;
+  }
+}
+
+/* Programmes: full-viewport muted 9:16 trio under the title, before the intro. */
+body.page-id-12401 {
+  overflow-x: hidden;
+}
+
+body.page-id-12401 .cft-programmes-strip {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: #0b0c0e;
+  overflow: hidden;
+}
+
+body.page-id-12401 .cft-programmes-strip-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  height: 480px;
+}
+
+body.page-id-12401 .cft-programmes-strip video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  pointer-events: none;
+  background: #0b0c0e;
+}
+
+@media only screen and (max-width: 850px) {
+  body.page-id-12401 .cft-programmes-strip-inner {
+    grid-template-columns: 1fr;
+    height: 520px;
+  }
+
+  body.page-id-12401 .cft-programmes-strip video:not(.is-primary) {
+    display: none;
+  }
+}
+
+/* Programmes intro copy + Book a free class CTA under the video strip. */
+body.page-id-12401 .cft-programmes-intro .fusion-text p {
+  margin-bottom: 0;
+}
+
+body.page-id-12401 .cft-programmes-intro .fusion-button-wrapper {
+  display: block;
+  text-align: center;
+  margin-top: 22px;
+  margin-bottom: 0;
+}
+
+/* Programmes quiet closer: one line + black CTA. Replaces the
+   dotted 100% / photo banner on this page only. */
+body.page-id-12401 .cft-programmes-closer {
+  background: #ffffff !important;
+  background-image: none !important;
+}
+
+body.page-id-12401 .cft-programmes-closer .fusion-text p {
+  max-width: 40em;
+  margin: 0 auto;
+  color: #111111;
+}
+
+body.page-id-12401 .cft-programmes-closer .fusion-button-wrapper {
+  display: block;
+  text-align: center;
+  margin-top: 22px;
+  margin-bottom: 0;
+}
+
+/* Programmes: zigzag photo/copy split rows.
+   Targets Avada hundred-percent equal-height containers only:
+   fullwidth-2 WOD, 3 Intro, 4 Legends, 5 PT, 6 Olympic, 7 Skills,
+   8 Kids, 9 Nutrition. Skips title, video strip, intro
+   (fullwidth-1), and the final CTA (fullwidth-10). Kids is a
+   two-column photo+text row (not a gallery), so it stays in the
+   zigzag. Odd rows already photo-left; even rows reverse. */
+body.page-id-12401 .fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+body.page-id-12401 .fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-clearfix {
+  display: none;
+}
+
+body.page-id-12401 .fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half {
+  float: none;
+  clear: none;
+  display: flex;
+  flex-direction: column;
+  width: 50% !important;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+body.page-id-12401 .fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half .fusion-column-wrapper {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+@media only screen and (min-width: 851px) {
+  body.page-id-12401 .fusion-fullwidth-3 > .fusion-row,
+  body.page-id-12401 .fusion-fullwidth-5 > .fusion-row,
+  body.page-id-12401 .fusion-fullwidth-7 > .fusion-row,
+  body.page-id-12401 .fusion-fullwidth-9 > .fusion-row {
+    flex-direction: row-reverse;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  body.page-id-12401 .fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  body.page-id-12401 .fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half {
+    width: 100% !important;
+    float: none;
+  }
+}
+
+/* Programmes photo crops. Avada uses background-size:cover on column
+   wrappers; shift focal point so faces / bar / head stay in frame. */
+body.page-id-12401 .fusion-fullwidth-2 .fusion-column-wrapper {
+  background-position: center 44% !important; /* WOD rowers' faces, not ceiling */
+}
+body.page-id-12401 .fusion-fullwidth-4 .fusion-column-wrapper {
+  background-position: center 26% !important; /* Legends box-jump head/torso */
+}
+body.page-id-12401 .fusion-fullwidth-5 .fusion-column-wrapper {
+  background-position: center 34% !important; /* PT coach + member faces */
+}
+body.page-id-12401 .fusion-fullwidth-6 .fusion-column-wrapper {
+  background-position: center 38% !important; /* Olympic: overhead lift, keep bar + head */
+}
+/* Skills pull-up is a tall portrait; cover chops too much. Contain
+   letterboxed into a postage stamp, so zoom out vs cover with 80%
+   auto — more of the athlete/bar, still fairly full-bleed. Side
+   gutters match the adjacent Skills copy grey. */
+body.page-id-12401 .fusion-fullwidth-7 .fusion-column-wrapper[data-bg-url*="cft-programmes-skills"] {
+  background-color: #363636 !important;
+  background-repeat: no-repeat !important;
+  background-position: center 18% !important;
+  background-size: 80% auto !important;
+}
+body.page-id-12401 .fusion-fullwidth-8 .fusion-column-wrapper {
+  background-position: center 40% !important; /* Kids class, not ceiling */
+}
+
+/* Hybrid Fitness: intro 50/50 + 3 zigzag beats + closer. Not a station grid. */
+body.page-id-12672 .cft-hybrid-intro,
+body.page-id-12672 .cft-hybrid-beat,
+body.page-id-12672 .cft-hybrid-closer {
+  border: 0 !important;
+}
+
+body.page-id-12672 .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row,
+body.page-id-12672 .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+body.page-id-12672 .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-clearfix,
+body.page-id-12672 .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-clearfix {
+  display: none;
+}
+
+body.page-id-12672 .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half,
+body.page-id-12672 .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half {
+  float: none;
+  clear: none;
+  display: flex;
+  flex-direction: column;
+  width: 50% !important;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+body.page-id-12672 .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half .fusion-column-wrapper,
+body.page-id-12672 .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half .fusion-column-wrapper {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+@media only screen and (min-width: 851px) {
+  body.page-id-12672 .cft-hybrid-beat-alt > .fusion-row,
+  body.page-id-12672 .cft-hybrid-intro > .fusion-row {
+    flex-direction: row-reverse;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  body.page-id-12672 .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row,
+  body.page-id-12672 .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  body.page-id-12672 .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half,
+  body.page-id-12672 .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half {
+    width: 100% !important;
+    float: none;
+  }
+}
+
+/* Portrait stills need a tall column or cover chops to ceiling.
+   Avada writes inline min-height after equal-height JS; beat it. */
+body.page-id-12672 .cft-hybrid-intro .fusion-one-half,
+body.page-id-12672 .cft-hybrid-intro .fusion-column-wrapper,
+body.page-id-12672 .cft-hybrid-beat .fusion-one-half,
+body.page-id-12672 .cft-hybrid-beat .fusion-column-wrapper {
+  min-height: 460px !important;
+}
+
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-photo,
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-photo .fusion-column-wrapper {
+  min-height: 520px !important;
+}
+
+body.page-id-12672 .cft-hybrid-photo .fusion-column-wrapper {
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+
+body.page-id-12672 .cft-hybrid-photo-intro .fusion-column-wrapper {
+  background-position: center 58% !important; /* rower + coach faces */
+}
+
+body.page-id-12672 .cft-hybrid-photo-ski .fusion-column-wrapper {
+  background-position: center 40% !important; /* B&W rower + coach */
+}
+
+body.page-id-12672 .cft-hybrid-photo-bike .fusion-column-wrapper {
+  background-position: center 48% !important;
+}
+
+body.page-id-12672 .cft-hybrid-photo-lift .fusion-column-wrapper {
+  background-position: center 22% !important; /* overhead DB, keep bell in frame */
+}
+
+/* Intro copy: left-aligned, constrained measure, not a Word-doc stack. */
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-copy,
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-copy .fusion-column-wrapper {
+  background-color: #dddddd !important;
+}
+
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-copy .fusion-column-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 56px !important;
+  padding-bottom: 56px !important;
+  padding-left: 7% !important;
+  padding-right: 10% !important;
+}
+
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-copy .fusion-column-tablecell,
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-copy .fusion-text {
+  max-width: 40rem;
+  text-align: left;
+}
+
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-copy p {
+  margin: 0 0 1.15em;
+  color: inherit !important;
+  text-align: left !important;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  max-width: 40rem;
+}
+
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-copy p:last-child {
+  margin-bottom: 0;
+}
+
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-lead {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  text-transform: none;
+}
+
+body.page-id-12672 .cft-hybrid-beat .name {
+  margin: 0 0 0.55em;
+}
+
+body.page-id-12672 .cft-hybrid-beat .theService {
+  margin: 0;
+}
+
+body.page-id-12672 .cft-hybrid-closer {
+  background: #ffffff !important;
+  background-image: none !important;
+}
+
+body.page-id-12672 .cft-hybrid-closer .fusion-text p {
+  max-width: 40em;
+  margin: 0 auto;
+  color: #111111;
+}
+
+body.page-id-12672 .cft-hybrid-closer .fusion-button-wrapper {
+  display: block;
+  text-align: center;
+  margin-top: 22px;
+  margin-bottom: 0;
+}
+
+body.page-id-12672 .cft-hybrid-timetable {
+  margin: 16px 0 0;
+  text-align: center;
+  color: #111111;
+}
+
+body.page-id-12672 .cft-hybrid-timetable a {
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body.page-id-12672 .cft-hybrid-timetable a:hover {
+  color: #24549c;
+}
+
+@media only screen and (max-width: 850px) {
+  body.page-id-12672 .cft-hybrid-intro .fusion-one-half,
+  body.page-id-12672 .cft-hybrid-intro .fusion-column-wrapper,
+  body.page-id-12672 .cft-hybrid-beat .fusion-one-half,
+  body.page-id-12672 .cft-hybrid-beat .fusion-column-wrapper {
+    min-height: 360px !important;
+  }
+
+  body.page-id-12672 .cft-hybrid-intro .cft-hybrid-photo,
+  body.page-id-12672 .cft-hybrid-intro .cft-hybrid-photo .fusion-column-wrapper {
+    min-height: 420px !important;
+  }
+
+  body.page-id-12672 .cft-hybrid-intro .cft-hybrid-copy .fusion-column-wrapper {
+    min-height: 0 !important;
+    padding-top: 36px !important;
+    padding-bottom: 40px !important;
+    padding-left: 8% !important;
+    padding-right: 8% !important;
+  }
+}
 
 .tfs-slider .slide-content-container h2, .tfs-slider .slide-content-container h3, .stroke-text{
 
@@ -85,11 +618,6 @@ h2.flip-box-heading.without-text {
 /* CONTACT FORM*/
 .wpcf7-form input[type="submit"], .wpcf7-submit{background:#2c2d2e;color:#fff;}
 .wpcf7-form input[type="submit"]:hover, .wpcf7-submit:hover{background:#f6f6f6;color:#2c2d2e;}
-
-h1, h2, h3, h4, h5, h6 {
-    text-transform: uppercase !important;
-    letter-spacing: 1.5px;
-}
 
 h4.fusion-rollover-title a{color:#fff !important;}
 
@@ -444,24 +972,19 @@ a[href*="x.com/crossfitbath"] {
   display: none !important;
 }
 
-/* Homepage-only type + colour refresh (staging trial)
+/* Site-wide type + colour (lifted from Home)
    Accent sampled from the Trowbridge logo (~#24549c).
-   Buttons go near-black; Raleway/all-caps stays on other pages. */
-body.home,
-body.home #wrapper,
-body.home .fusion-body,
-body.home p,
-body.home li,
-body.home .fusion-button {
+   Buttons go near-black. Nav stays uppercase. */
+body,
+#wrapper,
+.fusion-body,
+p,
+li,
+.fusion-button {
   font-family: Archivo, Helvetica, Arial, sans-serif !important;
 }
 
-body.home h1,
-body.home h2,
-body.home h3,
-body.home h4,
-body.home h5,
-body.home h6 {
+h1, h2, h3, h4, h5, h6 {
   font-family: Archivo, Helvetica, Arial, sans-serif !important;
   text-transform: none !important;
   letter-spacing: -0.02em !important;
@@ -469,14 +992,15 @@ body.home h6 {
   line-height: 1.15;
 }
 
-body.home .fusion-main-menu > ul > li > a {
+.fusion-main-menu > ul > li > a,
+.fusion-mobile-nav-holder a {
   font-family: Archivo, Helvetica, Arial, sans-serif !important;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 600;
 }
 
-body.home .fusion-button {
+.fusion-button {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 600;
@@ -484,56 +1008,77 @@ body.home .fusion-button {
 }
 
 /* Default Avada blue CTAs → near-black; hover uses logo blue */
-body.home .fusion-button.button-default {
+.fusion-button.button-default {
   background: #111111 !important;
   background-image: none !important;
   border-color: #111111 !important;
 }
 
-body.home .fusion-button.button-default:hover,
-body.home .fusion-button.button-default:focus,
-body.home .fusion-button.button-default:active {
+.fusion-button.button-default:hover,
+.fusion-button.button-default:focus,
+.fusion-button.button-default:active {
   background: #24549c !important;
   background-image: none !important;
   border-color: #24549c !important;
 }
 
-body.home .fusion-button.button-default .fusion-button-text,
-body.home .fusion-button.button-default:hover .fusion-button-text,
-body.home .fusion-button.button-default:focus .fusion-button-text,
-body.home .fusion-button.button-default:active .fusion-button-text {
+.fusion-button.button-default .fusion-button-text,
+.fusion-button.button-default:hover .fusion-button-text,
+.fusion-button.button-default:focus .fusion-button-text,
+.fusion-button.button-default:active .fusion-button-text {
   color: #ffffff !important;
 }
 
-/* Drop the dated play icon on Home CTAs */
-body.home .fusion-button .button-icon-left,
-body.home .fusion-button .button-icon-right,
-body.home .fusion-button .fa-play {
+/* Drop the dated play icon on CTAs */
+.fusion-button .button-icon-left,
+.fusion-button .button-icon-right,
+.fusion-button .button-icon-divider-left,
+.fusion-button .button-icon-divider-right,
+.fusion-button .fa-play {
   display: none !important;
 }
 
-body.home .fusion-button .fusion-button-text,
-body.home .fusion-button .fusion-button-text-left,
-body.home .fusion-button .fusion-button-text-right {
+.fusion-button .fusion-button-text,
+.fusion-button .fusion-button-text-left,
+.fusion-button .fusion-button-text-right {
   padding-left: 0 !important;
 }
 
 /* Logo blue for in-copy accents that were #4a75cb */
-body.home .fusion-checklist .icon-wrapper {
+.fusion-checklist .icon-wrapper {
   background-color: #24549c !important;
 }
 
-body.home span[style*="#4a75cb"],
-body.home h3 span[style*="#4a75cb"] {
+span[style*="#4a75cb"],
+h3 span[style*="#4a75cb"] {
   color: #24549c !important;
 }
 
-body.home .fusion-social-networks .fusion-social-network-icon {
+.fusion-social-networks .fusion-social-network-icon {
   background-color: #111111 !important;
   border-color: #111111 !important;
 }
 
-body.home .fusion-footer .fusion-social-network-icon {
+/* Top bar socials: white glyphs on the blue bar, not black boxed badges.
+   The rule above is for footer / in-page boxed icons. */
+.fusion-body .fusion-secondary-header .fusion-social-links-header .fusion-social-network-icon {
+  background: none !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  border-color: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: #ffffff !important;
+  opacity: 0.92;
+}
+
+.fusion-body .fusion-secondary-header .fusion-social-links-header .fusion-social-network-icon:hover,
+.fusion-body .fusion-secondary-header .fusion-social-links-header .fusion-social-network-icon:focus {
+  color: #ffffff !important;
+  opacity: 1;
+}
+
+.fusion-footer .fusion-social-network-icon {
   background-color: #1a1a1a !important;
   border-color: #3a3a3a !important;
   color: #ffffff !important;
@@ -563,7 +1108,7 @@ body.home .fusion-footer .fusion-social-network-icon {
 .fusion-footer-widget-area .widget-title {
   font-size: 13px !important;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
+  text-transform: uppercase !important;
   margin-bottom: 8px !important;
   font-weight: 600;
 }
@@ -758,7 +1303,7 @@ body.home #home-mission .cft-home-mission-photo .fusion-column-wrapper {
 body.home #home-community,
 body.home .cft-home-community {
   background-size: cover !important;
-  background-position: center 28% !important;
+  background-position: center 48% !important; /* cropped briefing, faces not ceiling */
   background-repeat: no-repeat !important;
   position: relative;
   min-height: 700px;
@@ -776,7 +1321,7 @@ body.home .cft-home-community:before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(8, 10, 16, 0.22);
+  background: rgba(8, 10, 16, 0.38);
   pointer-events: none;
   z-index: 0;
 }
@@ -834,4 +1379,354 @@ body.home #home-instagram .sbi_follow_btn,
 body.home #home-instagram .sbi_header_text,
 body.home #home-instagram .sb_instagram_header {
   display: none !important;
+}
+
+/* The gym / The Bridge S&C — review layouts (option 2 + 3) */
+body.cft-sc-page .cft-sc-reviewbar {
+  background: #111111 !important;
+  border: 0 !important;
+}
+
+body.cft-sc-page .cft-sc-review {
+  margin: 0;
+  padding: 12px 20px;
+  color: #ffffff;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+body.cft-sc-page .cft-sc-review a {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body.cft-sc-page .cft-sc-intro,
+body.cft-sc-page .cft-sc-beat,
+body.cft-sc-page .cft-sc-closer {
+  border: 0 !important;
+}
+
+body.cft-sc-page .cft-sc-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row,
+body.cft-sc-page .cft-sc-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+body.cft-sc-page .cft-sc-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-clearfix,
+body.cft-sc-page .cft-sc-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-clearfix {
+  display: none;
+}
+
+body.cft-sc-page .cft-sc-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half,
+body.cft-sc-page .cft-sc-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half {
+  float: none;
+  clear: none;
+  display: flex;
+  flex-direction: column;
+  width: 50% !important;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+body.cft-sc-page .cft-sc-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half .fusion-column-wrapper,
+body.cft-sc-page .cft-sc-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half .fusion-column-wrapper {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+@media only screen and (min-width: 851px) {
+  body.cft-sc-page .cft-sc-beat-alt > .fusion-row {
+    flex-direction: row-reverse;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  body.cft-sc-page .cft-sc-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row,
+  body.cft-sc-page .cft-sc-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  body.cft-sc-page .cft-sc-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half,
+  body.cft-sc-page .cft-sc-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half {
+    width: 100% !important;
+    float: none;
+  }
+}
+
+body.cft-sc-page .cft-sc-intro .fusion-one-half,
+body.cft-sc-page .cft-sc-intro .fusion-column-wrapper,
+body.cft-sc-page .cft-sc-beat .fusion-one-half,
+body.cft-sc-page .cft-sc-beat .fusion-column-wrapper {
+  min-height: 460px !important;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-photo-kit,
+body.cft-sc-page .cft-sc-intro .cft-sc-photo-kit .fusion-column-wrapper,
+body.cft-sc-page .cft-sc-beat .cft-sc-photo-kit,
+body.cft-sc-page .cft-sc-beat .cft-sc-photo-kit .fusion-column-wrapper {
+  min-height: 620px !important;
+}
+
+body.cft-sc-page .cft-sc-beat .cft-sc-photo-hours,
+body.cft-sc-page .cft-sc-beat .cft-sc-photo-hours .fusion-column-wrapper,
+body.cft-sc-page .cft-sc-beat .cft-sc-photo-coffee,
+body.cft-sc-page .cft-sc-beat .cft-sc-photo-coffee .fusion-column-wrapper {
+  min-height: 520px !important;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-photo,
+body.cft-sc-page .cft-sc-intro .cft-sc-photo .fusion-column-wrapper {
+  min-height: 520px !important;
+}
+
+body.cft-sc-page .cft-sc-photo .fusion-column-wrapper {
+  position: relative !important;
+  overflow: hidden;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+
+body.cft-sc-page .cft-sc-photo-intro .fusion-column-wrapper {
+  background-position: center 36% !important; /* Bridge wall + overhead */
+}
+
+body.cft-sc-page .cft-sc-photo-hours .fusion-column-wrapper {
+  background-position: center 42% !important; /* cable fly, keep head */
+}
+
+body.cft-sc-page .cft-sc-photo-coffee .fusion-column-wrapper {
+  background-position: center 50% !important; /* coffee bar, chalkboard + machine */
+}
+
+body.cft-sc-page .cft-sc-photo-kit .fusion-column-wrapper {
+  padding: 0 !important;
+}
+
+body.cft-sc-page .cft-sc-photo-kit .fusion-text {
+  position: absolute;
+  inset: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.cft-sc-page .cft-sc-clip {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+body.cft-sc-page .cft-sc-photo-kit .cft-sc-clip {
+  object-position: 50% 40%;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-copy,
+body.cft-sc-page .cft-sc-intro .cft-sc-copy .fusion-column-wrapper {
+  background-color: #363636 !important;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-copy .fusion-text,
+body.cft-sc-page .cft-sc-intro .cft-sc-copy p,
+body.cft-sc-page .cft-sc-intro .cft-sc-copy h2 {
+  color: #ffffff !important;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-copy h2 {
+  margin: 0 0 0.55em;
+  font-size: 1.65rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-copy .fusion-column-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 56px !important;
+  padding-bottom: 56px !important;
+  padding-left: 7% !important;
+  padding-right: 10% !important;
+  color: #ffffff;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-copy .fusion-text,
+body.cft-sc-page .cft-sc-intro .cft-sc-copy h2,
+body.cft-sc-page .cft-sc-intro .cft-sc-copy p {
+  max-width: 40rem;
+  text-align: left !important;
+  color: #ffffff !important;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-copy p {
+  margin: 0 0 1.15em;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-copy p:last-child {
+  margin-bottom: 0;
+}
+
+body.cft-sc-page .cft-sc-kicker {
+  display: block;
+  margin: 0 0 0.55em;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #111111;
+}
+
+body.cft-sc-page .cft-sc-beat .name {
+  margin: 0 0 0.55em;
+}
+
+body.cft-sc-page .cft-sc-beat .theService {
+  margin: 0;
+}
+
+body.cft-sc-page .cft-sc-plans {
+  background: #111111 !important;
+  border: 0 !important;
+}
+
+body.cft-sc-page .cft-sc-plans .fusion-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: center;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+body.cft-sc-page .cft-sc-plans .fusion-one-third,
+body.cft-sc-page .cft-sc-plans .fusion-one-full {
+  float: none;
+  width: 100% !important;
+  max-width: 420px;
+  margin: 0 auto !important;
+}
+
+body.cft-sc-page .cft-sc-plan {
+  height: 100%;
+  padding: 8px;
+}
+
+body.cft-sc-page .cft-sc-plan-inner {
+  height: 100%;
+  padding: 36px 28px 40px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  text-align: center;
+  color: #ffffff;
+}
+
+body.cft-sc-page .cft-sc-plan h2,
+body.cft-sc-page .cft-sc-plan h3 {
+  margin: 0 0 0.35em;
+  color: #ffffff !important;
+  font-size: 1.15rem !important;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+body.cft-sc-page .cft-sc-price {
+  display: block;
+  margin: 0 0 0.85em;
+  font-size: 2.4rem;
+  line-height: 1;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+body.cft-sc-page .cft-sc-plan p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+body.cft-sc-page .cft-sc-closer {
+  background: #ffffff !important;
+}
+
+body.cft-sc-page .cft-sc-closer .fusion-text p {
+  max-width: 40em;
+  margin: 0 auto;
+  color: #111111;
+  text-align: center;
+}
+
+body.cft-sc-page .cft-sc-closer .fusion-button-wrapper {
+  display: block;
+  text-align: center;
+  margin-top: 22px;
+}
+
+body.cft-sc-page .cft-sc-facts {
+  margin: 16px 0 0;
+  text-align: center;
+  color: #111111;
+}
+
+body.cft-sc-page .cft-sc-facts a {
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body.cft-sc-page .cft-sc-facts a:hover {
+  color: #24549c;
+}
+
+@media only screen and (max-width: 850px) {
+  body.cft-sc-page .cft-sc-intro .fusion-one-half,
+  body.cft-sc-page .cft-sc-intro .fusion-column-wrapper,
+  body.cft-sc-page .cft-sc-beat .fusion-one-half,
+  body.cft-sc-page .cft-sc-beat .fusion-column-wrapper {
+    min-height: 360px !important;
+  }
+
+  body.cft-sc-page .cft-sc-intro .cft-sc-photo-kit,
+  body.cft-sc-page .cft-sc-intro .cft-sc-photo-kit .fusion-column-wrapper,
+  body.cft-sc-page .cft-sc-beat .cft-sc-photo-kit,
+  body.cft-sc-page .cft-sc-beat .cft-sc-photo-kit .fusion-column-wrapper {
+    min-height: 480px !important;
+  }
+
+  body.cft-sc-page .cft-sc-beat .cft-sc-photo-hours,
+  body.cft-sc-page .cft-sc-beat .cft-sc-photo-hours .fusion-column-wrapper,
+  body.cft-sc-page .cft-sc-beat .cft-sc-photo-coffee,
+  body.cft-sc-page .cft-sc-beat .cft-sc-photo-coffee .fusion-column-wrapper {
+    min-height: 420px !important;
+  }
+
+  body.cft-sc-page .cft-sc-intro .cft-sc-photo,
+  body.cft-sc-page .cft-sc-intro .cft-sc-photo .fusion-column-wrapper {
+    min-height: 420px !important;
+  }
+
+  body.cft-sc-page .cft-sc-intro .cft-sc-copy .fusion-column-wrapper {
+    min-height: 0 !important;
+    padding-top: 36px !important;
+    padding-bottom: 40px !important;
+    padding-left: 8% !important;
+    padding-right: 8% !important;
+  }
+
+  body.cft-sc-page .cft-sc-plans .fusion-row {
+    flex-direction: column;
+  }
+
+  body.cft-sc-page .cft-sc-plans .fusion-one-third,
+  body.cft-sc-page .cft-sc-plans .fusion-one-full {
+    width: 100% !important;
+    max-width: none;
+  }
 }

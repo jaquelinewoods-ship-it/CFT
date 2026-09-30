@@ -5,18 +5,15 @@ function theme_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 
-function cft_home_type_fonts() {
-	if ( ! is_front_page() ) {
-		return;
-	}
+function cft_type_fonts() {
 	wp_enqueue_style(
-		'cft-home-fonts',
+		'cft-type-fonts',
 		'https://fonts.googleapis.com/css?family=Archivo:400,600,700&display=swap',
 		array(),
 		null
 	);
 }
-add_action( 'wp_enqueue_scripts', 'cft_home_type_fonts', 20 );
+add_action( 'wp_enqueue_scripts', 'cft_type_fonts', 20 );
 
 function avada_lang_setup() {
 	$lang = get_stylesheet_directory() . '/languages';
@@ -328,4 +325,159 @@ function cft_instagram_feed_shortcode() {
 	return do_shortcode( '[instagram-feed num=6 cols=6 colstablet=3 colsmobile=2 showheader=false showbutton=false showfollow=false imagepadding=4]' );
 }
 add_shortcode( 'cft_instagram_feed', 'cft_instagram_feed_shortcode' );
+
+/**
+ * Programmes only: three muted looping portrait clips under the page title.
+ * Hooked on avada_before_main so it sits after the title bar, not inside it.
+ */
+function cft_programmes_video_strip() {
+	if ( ! is_page( 12401 ) ) {
+		return;
+	}
+
+	$base  = trailingslashit( content_url( 'uploads/cft-programmes' ) );
+	$clips = array(
+		array(
+			'mp4'     => 'cft-programmes-bike.mp4',
+			'webm'    => 'cft-programmes-bike.webm',
+			'poster'  => 'cft-programmes-bike.jpg',
+			'primary' => false,
+		),
+		array(
+			'mp4'     => 'cft-programmes-coach.mp4',
+			'webm'    => 'cft-programmes-coach.webm',
+			'poster'  => 'cft-programmes-coach.jpg',
+			'primary' => true,
+		),
+		array(
+			'mp4'     => 'cft-programmes-pullup.mp4',
+			'webm'    => 'cft-programmes-pullup.webm',
+			'poster'  => 'cft-programmes-pullup.jpg',
+			'primary' => false,
+		),
+	);
+	?>
+	<section class="cft-programmes-strip" aria-label="Gym footage">
+		<p class="screen-reader-text">Gym footage</p>
+		<div class="cft-programmes-strip-inner">
+			<?php foreach ( $clips as $clip ) : ?>
+				<?php $is_primary = ! empty( $clip['primary'] ); ?>
+				<video
+					class="cft-programmes-clip<?php echo $is_primary ? ' is-primary' : ''; ?>"
+					<?php echo $is_primary ? 'autoplay' : ''; ?>
+					muted
+					loop
+					playsinline
+					webkit-playsinline
+					preload="<?php echo $is_primary ? 'auto' : 'none'; ?>"
+					poster="<?php echo esc_url( $base . $clip['poster'] ); ?>"
+					aria-hidden="true"
+					disablepictureinpicture
+					controlslist="nodownload nofullscreen noremoteplayback"
+				>
+					<source src="<?php echo esc_url( $base . $clip['webm'] ); ?>" type="video/webm">
+					<source src="<?php echo esc_url( $base . $clip['mp4'] ); ?>" type="video/mp4">
+				</video>
+			<?php endforeach; ?>
+		</div>
+	</section>
+	<?php
+}
+add_action( 'avada_before_main', 'cft_programmes_video_strip', 5 );
+
+function cft_programmes_video_strip_play() {
+	if ( ! is_page( 12401 ) ) {
+		return;
+	}
+	?>
+	<script>
+	(function () {
+		var mq = window.matchMedia('(max-width: 850px)');
+		document.querySelectorAll('.cft-programmes-strip video').forEach(function (video) {
+			video.muted = true;
+			video.defaultMuted = true;
+			video.setAttribute('muted', '');
+			video.playsInline = true;
+			if (mq.matches && !video.classList.contains('is-primary')) {
+				return;
+			}
+			var play = video.play();
+			if (play && play.catch) {
+				play.catch(function () {});
+			}
+		});
+	})();
+	</script>
+	<?php
+}
+add_action( 'wp_footer', 'cft_programmes_video_strip_play', 30 );
+
+function cft_sc_body_class( $classes ) {
+	if ( is_page( array( 'the-bridge', 'the-gym-option-2', 'the-gym-option-3' ) ) ) {
+		$classes[] = 'cft-sc-page';
+	}
+	return $classes;
+}
+add_filter( 'body_class', 'cft_sc_body_class' );
+
+/**
+ * Muted looping open-gym clips on The Bridge S&C page (hours + kit rows).
+ */
+function cft_sc_clip_shortcode( $atts ) {
+	$atts = shortcode_atts( array( 'clip' => '' ), $atts );
+	$clip = sanitize_key( $atts['clip'] );
+	if ( ! in_array( $clip, array( 'kit' ), true ) ) {
+		return '';
+	}
+
+	$base = trailingslashit( content_url( 'uploads' ) );
+	$stem = 'cft-gym-sc-' . $clip;
+	$ver  = '20260930d';
+	$title = 'Walkthrough of The Bridge Strength & Conditioning open gym in Trowbridge';
+	ob_start();
+	?>
+	<video
+		class="cft-sc-clip"
+		autoplay
+		muted
+		loop
+		playsinline
+		webkit-playsinline
+		preload="auto"
+		poster="<?php echo esc_url( $base . $stem . '.webp?v=' . $ver ); ?>"
+		title="<?php echo esc_attr( $title ); ?>"
+		aria-hidden="true"
+		disablepictureinpicture
+		controlslist="nodownload nofullscreen noremoteplayback"
+	>
+		<source src="<?php echo esc_url( $base . $stem . '.webm?v=' . $ver ); ?>" type="video/webm">
+		<source src="<?php echo esc_url( $base . $stem . '.mp4?v=' . $ver ); ?>" type="video/mp4">
+	</video>
+	<?php
+	return ob_get_clean();
+}
+add_shortcode( 'cft_sc_clip', 'cft_sc_clip_shortcode' );
+
+function cft_sc_clip_play() {
+	if ( ! is_page( array( 'the-bridge', 'the-gym-option-2', 'the-gym-option-3' ) ) ) {
+		return;
+	}
+	?>
+	<script>
+	(function () {
+		document.querySelectorAll('video.cft-sc-clip').forEach(function (video) {
+			video.muted = true;
+			video.defaultMuted = true;
+			video.setAttribute('muted', '');
+			video.playsInline = true;
+			var play = video.play();
+			if (play && play.catch) {
+				play.catch(function () {});
+			}
+		});
+	})();
+	</script>
+	<?php
+}
+add_action( 'wp_footer', 'cft_sc_clip_play', 30 );
 
