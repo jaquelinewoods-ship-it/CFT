@@ -4,7 +4,7 @@ Description: Child theme for CF-Bath
 Author: ThemeFusion
 Author URI: 
 Template: cfbath
-Version: 1.0.72
+Version: 1.0.99
 Text Domain:  CF-Bath
 */
 
@@ -385,6 +385,14 @@ body.page-id-12401 .fusion-fullwidth-7 .fusion-column-wrapper[data-bg-url*="cft-
 }
 body.page-id-12401 .fusion-fullwidth-8 .fusion-column-wrapper {
   background-position: center 40% !important; /* Kids class, not ceiling */
+}
+
+body.page-id-12401 .fusion-fullwidth-8 .fusion-text p {
+  margin: 0 0 0.8em;
+}
+
+body.page-id-12401 .fusion-fullwidth-8 .fusion-text p:last-child {
+  margin-bottom: 0;
 }
 
 /* Hybrid Fitness: intro 50/50 + 3 zigzag beats + closer. Not a station grid. */
@@ -1029,6 +1037,21 @@ h1, h2, h3, h4, h5, h6 {
   color: #ffffff !important;
 }
 
+/* Homepage hero: Get started stays logo blue so it reads on the photo. */
+.fusion-button.button-banner.button-default {
+  background: #24549c !important;
+  background-image: none !important;
+  border-color: #24549c !important;
+}
+
+.fusion-button.button-banner.button-default:hover,
+.fusion-button.button-banner.button-default:focus,
+.fusion-button.button-banner.button-default:active {
+  background: #1c427c !important;
+  background-image: none !important;
+  border-color: #1c427c !important;
+}
+
 /* Drop the dated play icon on CTAs */
 .fusion-button .button-icon-left,
 .fusion-button .button-icon-right,
@@ -1084,7 +1107,8 @@ h3 span[style*="#4a75cb"] {
   color: #ffffff !important;
 }
 
-/* Compact footer: drop leftover Bath badges, duplicate CTA, empty columns */
+/* Compact footer: drop leftover Bath badges and empty columns.
+   The enquiry line and Free taster button stay visible. */
 .fusion-footer-widget-area {
   padding-top: 32px !important;
   padding-bottom: 16px !important;
@@ -1130,14 +1154,63 @@ h3 span[style*="#4a75cb"] {
   white-space: nowrap;
 }
 
-.fusion-footer-widget-area #text-2 .widget-title,
 .fusion-footer-widget-area #text-2 .cfJournal,
 .fusion-footer-widget-area #text-2 img[src*="crossfit-forge-logo"],
 .fusion-footer-widget-area #text-2 .fusion-separator,
-.fusion-footer-widget-area #text-2 .fusion-sep-clear,
-.fusion-footer-widget-area #text-2 p,
-.fusion-footer-widget-area #text-2 .fusion-button-wrapper {
+.fusion-footer-widget-area #text-2 .fusion-sep-clear {
   display: none !important;
+}
+
+.fusion-footer-widget-area #text-2 .textwidget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fusion-footer-widget-area #text-2 .widget-title {
+  margin-bottom: 8px !important;
+}
+
+.fusion-footer-widget-area #text-2 p {
+  order: 1;
+  display: block !important;
+  max-width: 36em;
+  margin: 0 auto 16px !important;
+  text-align: center;
+  color: #ffffff;
+}
+
+.fusion-footer-widget-area #text-2 .fusion-button-wrapper {
+  order: 2;
+  display: block !important;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto 8px !important;
+  text-align: center;
+}
+
+.fusion-footer-widget-area #text-2 .textwidget > a {
+  order: 3;
+  margin-top: 14px;
+}
+
+/* Dark footer (#2c2d2f): this button cannot stay near-black. */
+.fusion-footer-widget-area #text-2 .fusion-button.button-default {
+  width: 100% !important;
+  background: #24549c !important;
+  background-image: none !important;
+  border-color: #24549c !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  animation: none !important;
+}
+
+.fusion-footer-widget-area #text-2 .fusion-button.button-default:hover,
+.fusion-footer-widget-area #text-2 .fusion-button.button-default:focus,
+.fusion-footer-widget-area #text-2 .fusion-button.button-default:active {
+  background: #1c427c !important;
+  background-image: none !important;
+  border-color: #1c427c !important;
 }
 
 .fusion-footer-widget-area #text-2 img[src*="crossfit-journal"] {
@@ -1234,6 +1307,19 @@ body.home #home-mission h2 {
   font-weight: 700;
 }
 
+body.home .cft-home-h1 {
+  max-width: 12em;
+  margin: 0 0 0.45em;
+  color: #111111;
+  font-size: 40px;
+  line-height: 1.12;
+}
+
+body.home .tfs-slider .cft-slide-logo,
+body.home .tfs-slider .cft-slide-caption {
+  margin: 0.67em 0;
+}
+
 body.home #home-mission .fusion-checklist {
   margin: 0 0 1.85em !important;
 }
@@ -1303,7 +1389,7 @@ body.home #home-mission .cft-home-mission-photo .fusion-column-wrapper {
 body.home #home-community,
 body.home .cft-home-community {
   background-size: cover !important;
-  background-position: center 48% !important; /* cropped briefing, faces not ceiling */
+  background-position: center 42% !important; /* fistbump, keep faces in frame */
   background-repeat: no-repeat !important;
   position: relative;
   min-height: 700px;
@@ -1524,12 +1610,25 @@ body.cft-sc-page .cft-sc-clip {
 }
 
 body.cft-sc-page .cft-sc-photo-kit .cft-sc-clip {
-  object-position: 50% 40%;
+  object-position: center center;
+}
+
+/* Portrait gym film: let the intro column match 9:16 instead of a short crop. */
+body.cft-sc-page .cft-sc-intro .cft-sc-photo-kit,
+body.cft-sc-page .cft-sc-intro .cft-sc-photo-kit .fusion-column-wrapper {
+  aspect-ratio: 9 / 16;
+  min-height: 0 !important;
+  height: auto !important;
 }
 
 body.cft-sc-page .cft-sc-intro .cft-sc-copy,
 body.cft-sc-page .cft-sc-intro .cft-sc-copy .fusion-column-wrapper {
   background-color: #363636 !important;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-copy .fusion-column-wrapper {
+  display: flex !important;
+  align-items: center;
 }
 
 body.cft-sc-page .cft-sc-intro .cft-sc-copy .fusion-text,
@@ -1697,7 +1796,9 @@ body.cft-sc-page .cft-sc-facts a:hover {
   body.cft-sc-page .cft-sc-intro .cft-sc-photo-kit .fusion-column-wrapper,
   body.cft-sc-page .cft-sc-beat .cft-sc-photo-kit,
   body.cft-sc-page .cft-sc-beat .cft-sc-photo-kit .fusion-column-wrapper {
-    min-height: 480px !important;
+    aspect-ratio: 9 / 16;
+    min-height: 0 !important;
+    height: auto !important;
   }
 
   body.cft-sc-page .cft-sc-beat .cft-sc-photo-hours,
@@ -1728,5 +1829,984 @@ body.cft-sc-page .cft-sc-facts a:hover {
   body.cft-sc-page .cft-sc-plans .fusion-one-full {
     width: 100% !important;
     max-width: none;
+  }
+}
+
+/* Mobile nav: full-screen overlay so items are not clipped by
+   the sticky header / page footer, with a fade if the list scrolls. */
+@media only screen and (max-width: 850px) {
+  html.cft-nav-open,
+  html.cft-nav-open body {
+    overflow: hidden !important;
+    height: 100% !important;
+  }
+
+  .fusion-header-wrapper {
+    overflow: visible !important;
+    z-index: 100020 !important;
+    background-color: #ffffff !important;
+  }
+
+  .fusion-mobile-menu-design-modern .fusion-mobile-nav-holder,
+  .fusion-mobile-nav-holder {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    z-index: 100010 !important;
+    width: 100% !important;
+    max-height: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  .fusion-mobile-nav-holder.fusion-mobile-sticky-nav-holder {
+    display: none !important;
+  }
+
+  html.cft-nav-open .fusion-mobile-nav-holder > ul {
+    margin: 0 !important;
+    padding: 80px 0 56px !important;
+  }
+
+  .fusion-mobile-nav-holder a {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+  }
+
+  html.cft-nav-open .fusion-mobile-nav-holder::after {
+    content: "";
+    position: sticky;
+    bottom: 0;
+    display: block;
+    height: 48px;
+    margin-top: -48px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff 72%);
+    pointer-events: none;
+  }
+}
+
+/* Community hub and offer pages: compact title, same treatment as
+   Programmes. The video strip and cards sit in the page body. */
+body.cft-community-page #wrapper .fusion-page-title-bar,
+body.cft-community-page .fusion-page-title-bar {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  max-width: none !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  background-image: none !important;
+  background-color: #ffffff !important;
+  background-size: auto !important;
+  background-position: 0 0 !important;
+  padding-top: 56px !important;
+  padding-bottom: 28px !important;
+  overflow: visible;
+  border: 0 !important;
+  box-shadow: none;
+}
+
+body.cft-community-page .fusion-page-title-bar:before {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+}
+
+body.cft-community-page .fusion-page-title-bar .fusion-page-title-row {
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+body.cft-community-page .fusion-page-title-bar .fusion-breadcrumbs,
+body.cft-community-page .fusion-page-title-bar .fusion-page-title-secondary {
+  display: none !important;
+}
+
+body.cft-community-page .fusion-page-title-bar h1 {
+  color: #111111 !important;
+  text-shadow: none !important;
+}
+
+body.cft-community-page {
+  overflow-x: hidden;
+}
+
+body.cft-community-page .cft-comm-strip {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: #0b0c0e;
+  overflow: hidden;
+}
+
+body.cft-community-page .cft-comm-strip-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  height: 480px;
+}
+
+body.cft-community-page .cft-comm-strip video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  pointer-events: none;
+  background: #0b0c0e;
+}
+
+body.cft-community-page .post-content .cft-comm {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 8px 0 64px;
+}
+
+body.cft-community-page .cft-comm-lead {
+  max-width: 40em;
+  margin: 8px auto 36px;
+  text-align: center;
+  color: #111111;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+body.cft-community-page .cft-comm-prose {
+  max-width: 42em;
+}
+
+body.cft-community-hub .cft-comm-prose {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+body.cft-community-hub .cft-comm > h2,
+body.cft-community-hub .cft-comm-prose h2,
+body.cft-community-hub.cft-community-page .cft-comm .cft-faq h2 {
+  text-align: center;
+}
+
+body.cft-community-page .cft-comm h2 {
+  margin: 36px 0 16px;
+  color: #111111;
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+body.cft-community-page .cft-comm h3 {
+  margin: 22px 0 8px;
+  color: #111111;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+body.cft-community-page .cft-comm-prose p {
+  margin: 0 0 16px;
+  color: #111111;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+body.cft-community-page .cft-comm-prose a {
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body.cft-community-page .cft-comm-prose ul {
+  margin: 0 0 16px;
+  padding-left: 1.2em;
+}
+
+body.cft-community-page .cft-comm-prose li {
+  margin: 0 0 10px;
+  color: #111111;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+body.cft-community-page .cft-comm-result {
+  margin: 28px 0 8px;
+  padding: 18px 20px 4px;
+  background: #f3f4f6;
+}
+
+body.cft-community-page .cft-comm-result h2 {
+  margin-top: 0;
+}
+
+body.cft-community-page .cft-comm-events {
+  width: 100%;
+  margin: 0 0 16px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+body.cft-community-page .cft-comm-events th,
+body.cft-community-page .cft-comm-events td {
+  padding: 14px 18px 14px 0;
+  border-bottom: 1px solid #e4e4e4;
+  text-align: left;
+  vertical-align: top;
+  color: #111111;
+}
+
+body.cft-community-page .cft-comm-events thead th {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #333333;
+  white-space: nowrap;
+}
+
+body.cft-community-page .cft-comm-events thead th:nth-child(1) {
+  width: 30%;
+}
+
+body.cft-community-page .cft-comm-events thead th:nth-child(2) {
+  width: 24%;
+}
+
+body.cft-community-page .cft-comm-events tbody th {
+  font-weight: 700;
+}
+
+body.cft-community-page .cft-comm-copy .cft-comm-result {
+  margin-top: 8px;
+}
+
+body.cft-community-page .cft-comm-related {
+  max-width: 42em;
+  margin-top: 28px;
+  padding-top: 18px;
+  border-top: 1px solid #e4e4e4;
+}
+
+body.cft-community-page .cft-comm-related a {
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body.cft-community-page .cft-comm-band {
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+body.cft-community-page .cft-comm-band img {
+  aspect-ratio: 3 / 2;
+}
+
+body.cft-community-page .cft-comm-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 22px;
+}
+
+body.cft-community-page .cft-comm-card {
+  display: flex;
+  flex-direction: column;
+  color: #111111;
+  text-decoration: none;
+  background: #ffffff;
+}
+
+body.cft-community-page .cft-comm-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  background: #111111;
+}
+
+body.cft-community-page .cft-comm-card strong {
+  display: block;
+  margin-top: 14px;
+  font-size: 18px;
+  letter-spacing: 0.01em;
+}
+
+body.cft-community-page .cft-comm-card span {
+  display: block;
+  margin-top: 6px;
+  color: #333333;
+  line-height: 1.45;
+}
+
+body.cft-community-page .cft-comm-card em {
+  display: inline-block;
+  margin-top: auto;
+  padding-top: 16px;
+  font-style: normal;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+body.cft-community-page .cft-comm-card:hover em,
+body.cft-community-page .cft-comm-card:focus em {
+  color: #24549c;
+}
+
+body.cft-community-page .cft-comm-wide {
+  margin: 48px 0 0;
+}
+
+body.cft-community-page .cft-comm-wide img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+body.cft-community-page .cft-comm-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+body.cft-community-page .cft-comm-split img,
+body.cft-community-page .cft-comm-gallery img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #111111;
+}
+
+body.cft-community-page .cft-comm-split img {
+  aspect-ratio: 3 / 4;
+  max-height: 720px;
+}
+
+body.cft-community-page .cft-comm-copy h2 {
+  margin: 28px 0 10px;
+  color: #111111;
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+body.cft-community-page .cft-comm-copy .cft-comm-result h2 {
+  margin-top: 0;
+}
+
+body.cft-community-page .cft-comm-copy p,
+body.cft-community-page .cft-comm-copy li {
+  margin: 0 0 16px;
+  color: #111111;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+body.cft-community-page .cft-comm-copy ul {
+  margin: 0 0 16px;
+  padding-left: 1.2em;
+}
+
+body.cft-community-page .cft-comm-copy li {
+  margin-bottom: 8px;
+}
+
+body.cft-community-page .cft-comm-copy a {
+  color: #111111;
+}
+
+body.cft-community-page a.cft-comm-btn {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+body.cft-community-page .cft-comm-note {
+  color: #333333;
+}
+
+body.cft-community-page .cft-comm-btn {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 14px 22px;
+  border: 0;
+  background: #111111;
+  color: #ffffff;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+body.cft-community-page .cft-comm-btn:hover,
+body.cft-community-page .cft-comm-btn:focus {
+  background: #24549c;
+  color: #ffffff;
+}
+
+body.cft-community-page button.cft-comm-inline {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #111111;
+  font: inherit;
+  letter-spacing: 0;
+  text-transform: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+body.cft-community-page button.cft-comm-inline:hover,
+body.cft-community-page button.cft-comm-inline:focus {
+  background: transparent;
+  color: #24549c;
+}
+
+body.cft-community-page .cft-comm-steps {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+  counter-reset: cft-step;
+}
+
+body.cft-community-page .cft-comm-copy .cft-comm-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0;
+  padding: 12px 0;
+  border-top: 1px solid #e4e4e4;
+}
+
+body.cft-community-page .cft-comm-steps li::before {
+  flex: 0 0 1.6em;
+}
+
+body.cft-community-page .cft-comm-copy .cft-comm-steps li:last-child {
+  border-bottom: 1px solid #e4e4e4;
+}
+
+body.cft-community-page .cft-comm-steps li::before {
+  counter-increment: cft-step;
+  content: counter(cft-step);
+  font-weight: 700;
+}
+
+body.cft-community-page .cft-comm-offer {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  align-items: stretch;
+  margin: 48px 0 0;
+  background: #f3f4f6;
+}
+
+body.cft-community-page .cft-comm-offer p.cft-comm-offer-figure {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 28px 24px;
+  background: #111111;
+  color: #ffffff;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+body.cft-community-page .cft-comm-offer div {
+  padding: 28px 32px;
+}
+
+body.cft-community-page #wrapper .post-content .cft-comm .cft-comm-offer h2 {
+  margin: 0 0 8px;
+  color: #333333;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em !important;
+  line-height: 1.4;
+  text-transform: uppercase !important;
+}
+
+body.cft-community-page .cft-comm-offer p {
+  margin: 0;
+  color: #111111;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+body.cft-community-page .cft-comm-offer.cft-meet-next {
+  grid-template-columns: 1fr;
+  margin: 4px 0 8px;
+}
+
+body.cft-community-page .cft-comm-offer.cft-meet-next p.cft-comm-offer-figure {
+  padding: 18px 20px;
+  font-size: 28px;
+}
+
+body.cft-community-page .cft-comm-offer.cft-meet-next div {
+  padding: 16px 20px 18px;
+}
+
+body.cft-community-page .cft-meet-list {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+body.cft-community-page .cft-comm-copy .cft-meet-list li {
+  margin: 0;
+  padding: 12px 0;
+  border-top: 1px solid #e4e4e4;
+}
+
+body.cft-community-page .cft-comm-copy .cft-meet-list li:last-child {
+  border-bottom: 1px solid #e4e4e4;
+}
+
+body.cft-community-page .cft-comm-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+body.cft-community-page .cft-comm-gallery.cft-comm-trio {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+body.cft-community-page .cft-comm-gallery img {
+  aspect-ratio: 3 / 4;
+}
+
+body.cft-community-page .cft-comm-gallery.cft-comm-band img {
+  aspect-ratio: 3 / 2;
+  height: auto;
+}
+
+body.cft-community-page .cft-comm-copy p.cft-fit-status {
+  margin: 4px 0 18px;
+  padding-top: 12px;
+  border-top: 1px solid #e4e4e4;
+  font-weight: 700;
+}
+
+body.cft-community-page .cft-fit-block {
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid #e4e4e4;
+}
+
+body.cft-community-page .cft-comm .cft-fit-block h2 {
+  margin-top: 0;
+}
+
+body.cft-community-page .cft-fit-block p,
+body.cft-community-page .cft-fit-day dd {
+  margin: 0 0 16px;
+  color: #111111;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+body.cft-community-page .cft-fit-block p.cft-fit-kicker {
+  margin: 0 0 12px;
+  color: #333333;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+body.cft-community-page .cft-fit-enter {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 40px;
+  align-items: start;
+}
+
+body.cft-community-page .cft-fit-block p.cft-fit-price {
+  margin: 8px 0 0;
+  padding: 16px 18px;
+  background: #f3f4f6;
+  font-weight: 700;
+}
+
+body.cft-community-page .cft-fit-cats,
+body.cft-community-page .cft-fit-asks,
+body.cft-community-page .cft-fit-score ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+body.cft-community-page .cft-fit-cats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+body.cft-community-page .cft-fit-cats li,
+body.cft-community-page .cft-fit-asks li,
+body.cft-community-page .cft-fit-score li {
+  margin: 0;
+}
+
+body.cft-community-page .cft-fit-cats li {
+  padding: 16px 14px;
+  border: 1px solid #e4e4e4;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+body.cft-community-page .cft-fit-events {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+body.cft-community-page .cft-fit-event {
+  padding: 18px 18px 4px;
+  background: #f3f4f6;
+}
+
+body.cft-community-page .cft-comm .cft-fit-event h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+body.cft-community-page .cft-fit-score {
+  margin-top: 28px;
+}
+
+body.cft-community-page .cft-fit-score ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+body.cft-community-page .cft-fit-score li {
+  padding: 14px 0 0;
+  border-top: 2px solid #111111;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+body.cft-community-page .cft-fit-score strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 28px;
+  line-height: 1;
+}
+
+body.cft-community-page .cft-fit-block .cft-fit-score p {
+  max-width: 46em;
+  color: #333333;
+  font-size: 16px;
+}
+
+body.cft-community-page .cft-fit-photos {
+  margin-top: 56px;
+}
+
+body.cft-community-page .cft-fit-day {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 36px;
+  margin: 0;
+}
+
+body.cft-community-page .cft-fit-day div {
+  padding-top: 12px;
+  border-top: 1px solid #e4e4e4;
+}
+
+body.cft-community-page .cft-fit-day .cft-span {
+  grid-column: 1 / -1;
+}
+
+body.cft-community-page .cft-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+body.cft-community-page .cft-pair article {
+  padding: 18px 18px 4px;
+  background: #f3f4f6;
+}
+
+body.cft-community-page .cft-fit-block a {
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body.cft-community-page .cft-fit-day dt {
+  color: #333333;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+body.cft-community-page .cft-fit-day dd {
+  margin: 8px 0 0;
+}
+
+body.cft-community-page .cft-fit-lead {
+  max-width: 40em;
+}
+
+body.cft-community-page .cft-fit-asks {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+body.cft-community-page .cft-fit-asks li {
+  padding: 18px 16px;
+  background: #111111;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+body.cft-community-page .cft-fit-block p.cft-fit-close {
+  max-width: 40em;
+  margin-bottom: 0;
+}
+
+@media only screen and (max-width: 850px) {
+  body.cft-community-page #wrapper .fusion-page-title-bar,
+  body.cft-community-page .fusion-page-title-bar {
+    height: auto !important;
+    min-height: 0 !important;
+    padding-top: 48px !important;
+    padding-bottom: 24px !important;
+  }
+
+  body.cft-community-page .cft-comm-strip-inner {
+    grid-template-columns: 1fr;
+    height: 520px;
+  }
+
+  body.cft-community-page .cft-comm-strip video:not(.is-primary) {
+    display: none;
+  }
+
+  body.cft-community-page .cft-comm-cards,
+  body.cft-community-page .cft-comm-split,
+  body.cft-community-page .cft-comm-gallery,
+  body.cft-community-page .cft-comm-gallery.cft-comm-trio {
+    grid-template-columns: 1fr;
+  }
+
+  body.cft-community-page .cft-comm-events thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  body.cft-community-page .cft-comm-events,
+  body.cft-community-page .cft-comm-events tbody,
+  body.cft-community-page .cft-comm-events tr,
+  body.cft-community-page .cft-comm-events th,
+  body.cft-community-page .cft-comm-events td {
+    display: block;
+    width: auto;
+  }
+
+  body.cft-community-page .cft-comm-events tr {
+    padding: 14px 0 6px;
+    border-top: 1px solid #e4e4e4;
+  }
+
+  body.cft-community-page .cft-comm-events th,
+  body.cft-community-page .cft-comm-events td {
+    padding: 0 0 8px;
+    border-bottom: 0;
+  }
+
+  body.cft-community-page .cft-comm-events td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 2px;
+    color: #333333;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  body.cft-community-page .post-content .cft-comm {
+    padding-bottom: 40px;
+  }
+
+  body.cft-community-page .cft-fit-enter,
+  body.cft-community-page .cft-fit-events,
+  body.cft-community-page .cft-fit-day,
+  body.cft-community-page .cft-fit-score ul {
+    grid-template-columns: 1fr;
+  }
+
+  body.cft-community-page .cft-fit-asks,
+  body.cft-community-page .cft-pair,
+  body.cft-community-page .cft-comm-offer {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Reusable FAQ accordion. Used by the [cft_faq] shortcode. */
+.cft-faq {
+  interpolate-size: allow-keywords;
+}
+
+.cft-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cft-faq-item {
+  background: #f3f4f6;
+}
+
+.cft-faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 16px 16px 20px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.cft-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.cft-faq-item summary::marker {
+  content: "";
+}
+
+.cft-faq summary h3 {
+  margin: 0;
+  flex: 1 1 auto;
+  color: #111111;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.cft-faq-item summary::after {
+  content: "";
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  background-color: #111111;
+  background-image:
+    linear-gradient(#ffffff, #ffffff),
+    linear-gradient(#ffffff, #ffffff);
+  background-position: center, center;
+  background-size: 12px 1.5px, 1.5px 12px;
+  background-repeat: no-repeat;
+  transition: transform 0.25s ease, background-color 0.2s ease;
+}
+
+.cft-faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.cft-faq-item summary:hover::after,
+.cft-faq-item summary:focus-visible::after {
+  background-color: #24549c;
+}
+
+.cft-faq-item summary:hover,
+.cft-faq-item summary:focus-visible {
+  background: #eceef1;
+}
+
+.cft-faq-item summary:focus-visible {
+  outline: 2px solid #24549c;
+  outline-offset: -2px;
+}
+
+.cft-faq-item::details-content {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.28s ease, content-visibility 0.28s allow-discrete;
+}
+
+.cft-faq-item[open]::details-content {
+  height: auto;
+}
+
+.cft-faq-a {
+  margin: 0 20px 0 20px;
+  padding: 2px 52px 18px 0;
+  border-top: 1px solid #e0e2e6;
+}
+
+.cft-faq-a p,
+body.cft-community-page .cft-fit-block .cft-faq-a p {
+  margin: 12px 0 0;
+  color: #111111;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.cft-faq-a a {
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cft-faq-a a:hover,
+.cft-faq-a a:focus {
+  color: #24549c;
+}
+
+body.cft-community-page .cft-comm .cft-faq h2 {
+  margin-bottom: 16px;
+}
+
+body.cft-community-page .cft-comm .cft-faq summary h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cft-faq-item summary::after,
+  .cft-faq-item::details-content {
+    transition: none;
   }
 }

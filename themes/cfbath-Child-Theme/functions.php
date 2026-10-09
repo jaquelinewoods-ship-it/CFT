@@ -416,9 +416,213 @@ function cft_sc_body_class( $classes ) {
 	if ( is_page( 'the-bridge' ) ) {
 		$classes[] = 'cft-sc-page';
 	}
+	if ( is_page( array( 'community', 'bring-a-friend', 'fittest-in-ba', 'charity-throwdown', 'mumfit', 'new-member-meet-and-greet', 'quiz-night' ) ) ) {
+		$classes[] = 'cft-community-page';
+	}
+	if ( is_page( 'community' ) ) {
+		$classes[] = 'cft-community-hub';
+	}
 	return $classes;
 }
 add_filter( 'body_class', 'cft_sc_body_class' );
+
+/**
+ * Home has no title bar. The slider logo is an H2 whose only content is a
+ * link to this page, so Google's first heading is the URL. Keep the logo,
+ * and give the page a real H1.
+ */
+function cft_home_heading_buffer_start() {
+	if ( is_front_page() ) {
+		ob_start( 'cft_home_heading_buffer' );
+	}
+}
+add_action( 'template_redirect', 'cft_home_heading_buffer_start' );
+
+function cft_home_heading_buffer( $html ) {
+	if ( ! is_string( $html ) || '' === $html ) {
+		return $html;
+	}
+
+	$html = preg_replace(
+		'/<div class="heading ([^"]*)"><h2 style="([^"]*)">(.*?)<\/h2><\/div>/s',
+		'<div class="heading $1"><div class="cft-slide-logo" style="$2">$3</div></div>',
+		$html,
+		1
+	);
+
+	$html = preg_replace(
+		'/<div class="caption ([^"]*)"><h3 style="([^"]*)">(.*?)<\/h3><\/div>/s',
+		'<div class="caption $1"><p class="cft-slide-caption" style="$2">$3</p></div>',
+		$html,
+		1
+	);
+
+	$h1       = '<h1 class="cft-home-h1">CrossFit and open gym in Trowbridge</h1>';
+	$replaced = preg_replace(
+		'/(<h2 style="text-align: left; margin-top: 0px !important;">)/',
+		$h1 . '$1',
+		$html,
+		1,
+		$count
+	);
+	if ( $count ) {
+		$html = $replaced;
+	}
+
+	return $html;
+}
+
+/**
+ * Community hub: three muted portrait clips under the title.
+ */
+function cft_community_video_strip() {
+	if ( ! is_page( 'community' ) ) {
+		return;
+	}
+
+	$base  = trailingslashit( content_url( 'uploads/cft-community' ) );
+	$clips = array(
+		array(
+			'stem'    => 'cft-comm-bar',
+			'primary' => false,
+		),
+		array(
+			'stem'    => 'cft-comm-pull',
+			'primary' => true,
+		),
+		array(
+			'stem'    => 'cft-comm-step',
+			'primary' => false,
+		),
+	);
+	?>
+	<section class="cft-comm-strip" aria-label="Gym footage">
+		<p class="screen-reader-text">Gym footage</p>
+		<div class="cft-comm-strip-inner">
+			<?php foreach ( $clips as $clip ) : ?>
+				<?php $is_primary = ! empty( $clip['primary'] ); ?>
+				<video
+					class="cft-comm-clip<?php echo $is_primary ? ' is-primary' : ''; ?>"
+					<?php echo $is_primary ? 'autoplay' : ''; ?>
+					muted
+					loop
+					playsinline
+					webkit-playsinline
+					preload="<?php echo $is_primary ? 'auto' : 'none'; ?>"
+					poster="<?php echo esc_url( $base . $clip['stem'] . '.jpg' ); ?>"
+					aria-hidden="true"
+					disablepictureinpicture
+					controlslist="nodownload nofullscreen noremoteplayback"
+				>
+					<source src="<?php echo esc_url( $base . $clip['stem'] . '.webm' ); ?>" type="video/webm">
+					<source src="<?php echo esc_url( $base . $clip['stem'] . '.mp4' ); ?>" type="video/mp4">
+				</video>
+			<?php endforeach; ?>
+		</div>
+	</section>
+	<?php
+}
+add_action( 'avada_before_main', 'cft_community_video_strip', 5 );
+
+function cft_community_video_strip_play() {
+	if ( ! is_page( 'community' ) ) {
+		return;
+	}
+	?>
+	<script>
+	(function () {
+		var mq = window.matchMedia('(max-width: 850px)');
+		document.querySelectorAll('.cft-comm-strip video').forEach(function (video) {
+			video.muted = true;
+			video.defaultMuted = true;
+			video.setAttribute('muted', '');
+			video.playsInline = true;
+			if (mq.matches && !video.classList.contains('is-primary')) {
+				return;
+			}
+			var play = video.play();
+			if (play && play.catch) {
+				play.catch(function () {});
+			}
+		});
+	})();
+	</script>
+	<?php
+}
+add_action( 'wp_footer', 'cft_community_video_strip_play', 30 );
+
+/**
+ * Bring a friend: WodBoard popup for form 526|1083|9183a314dd9570eb.
+ * The loader does not open the form. The button on the page does.
+ */
+/**
+ * Reusable FAQ accordion. Question is the first line, answer is the rest.
+ *
+ * [cft_faq]
+ * [cft_faq_item]
+ * Question text
+ * Answer text, including links.
+ * [/cft_faq_item]
+ * [/cft_faq]
+ */
+function cft_faq_shortcode( $atts, $content = null ) {
+	$atts = shortcode_atts(
+		array(
+			'title' => 'Questions people ask',
+		),
+		$atts,
+		'cft_faq'
+	);
+
+	preg_match_all( '/\[cft_faq_item\](.*?)\[\/cft_faq_item\]/s', (string) $content, $matches );
+	if ( empty( $matches[1] ) ) {
+		return '';
+	}
+
+	$html  = '<section class="cft-faq">';
+	$title = trim( (string) $atts['title'] );
+	if ( '' !== $title ) {
+		$html .= '<h2>' . esc_html( $title ) . '</h2>';
+	}
+	$html .= '<div class="cft-faq-list">';
+
+	foreach ( $matches[1] as $raw ) {
+		$raw = trim( $raw );
+		if ( '' === $raw ) {
+			continue;
+		}
+		$parts    = preg_split( "/\r\n|\n|\r/", $raw, 2 );
+		$question = trim( $parts[0] );
+		$answer   = isset( $parts[1] ) ? trim( $parts[1] ) : '';
+		if ( '' === $question ) {
+			continue;
+		}
+		$html .= '<details class="cft-faq-item">';
+		$html .= '<summary><h3>' . esc_html( $question ) . '</h3></summary>';
+		$html .= '<div class="cft-faq-a">' . wpautop( wp_kses_post( $answer ) ) . '</div>';
+		$html .= '</details>';
+	}
+
+	$html .= '</div></section>';
+	return $html;
+}
+add_shortcode( 'cft_faq', 'cft_faq_shortcode' );
+
+function cft_community_disable_wpautop() {
+	if ( is_page( array( 'community', 'bring-a-friend', 'fittest-in-ba', 'charity-throwdown', 'mumfit', 'new-member-meet-and-greet', 'quiz-night' ) ) ) {
+		remove_filter( 'the_content', 'wpautop' );
+		remove_filter( 'the_content', 'shortcode_unautop' );
+	}
+}
+add_action( 'wp', 'cft_community_disable_wpautop' );
+
+function cft_bring_a_friend_form() {
+	if ( ! is_page( 'bring-a-friend' ) ) {
+		return;
+	}
+	echo '<script>(function(e,v,i,n,j,m){m=e.getElementById("evini_popup_script");n=m||e.createElement(v);n.dataset.eviniFormId=[n.dataset.eviniFormId||\'\',"526|1083|9183a314dd9570eb"].join(",");;if(!m){n.id="evini_popup_script";n.async=1;n.src=i;j=e.querySelector(v);j.parentNode.insertBefore(n,j)}})(document,"script","https://www.wodboard.com/popup.js?t=1774958702");</script>';
+}
+add_action( 'wp_footer', 'cft_bring_a_friend_form', 20 );
 
 /**
  * Muted looping open-gym clips on The Bridge S&C page (hours + kit rows).
@@ -426,13 +630,13 @@ add_filter( 'body_class', 'cft_sc_body_class' );
 function cft_sc_clip_shortcode( $atts ) {
 	$atts = shortcode_atts( array( 'clip' => '' ), $atts );
 	$clip = sanitize_key( $atts['clip'] );
-	if ( ! in_array( $clip, array( 'kit' ), true ) ) {
+	if ( ! in_array( $clip, array( 'kit', 'film' ), true ) ) {
 		return '';
 	}
 
 	$base = trailingslashit( content_url( 'uploads' ) );
-	$stem = 'cft-gym-sc-' . $clip;
-	$ver  = '20260930d';
+	$stem = ( 'film' === $clip ) ? 'cft-gym-film' : 'cft-gym-sc-' . $clip;
+	$ver  = ( 'film' === $clip ) ? '20261009a' : '20260930d';
 	$title = 'Walkthrough of The Bridge Strength & Conditioning open gym in Trowbridge';
 	ob_start();
 	?>
@@ -480,4 +684,120 @@ function cft_sc_clip_play() {
 	<?php
 }
 add_action( 'wp_footer', 'cft_sc_clip_play', 30 );
+
+/**
+ * Avada registers portfolio URLs from $smof_data['portfolio_slug'].
+ * After a rewrite flush that global is empty, so stories 404 at
+ * /testimonials/{slug}/ while the listing still links there.
+ */
+function cft_portfolio_testimonials_slug() {
+	register_post_type(
+		'avada_portfolio',
+		array(
+			'labels'          => array(
+				'name'          => 'Portfolio',
+				'singular_name' => 'Portfolio',
+			),
+			'public'          => true,
+			'has_archive'     => true,
+			'rewrite'         => array(
+				'slug' => 'testimonials',
+			),
+			'supports'        => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', 'page-attributes', 'post-formats' ),
+			'can_export'      => true,
+		)
+	);
+}
+add_action( 'init', 'cft_portfolio_testimonials_slug', 20 );
+
+function cft_mobile_nav_open_class() {
+	?>
+	<script>
+	(function () {
+		function syncNav() {
+			var open = false;
+			document.querySelectorAll('.fusion-mobile-nav-holder').forEach(function (el) {
+				if (el.classList.contains('fusion-mobile-sticky-nav-holder')) {
+					return;
+				}
+				if (el.offsetHeight > 0 && window.getComputedStyle(el).display !== 'none') {
+					open = true;
+				}
+			});
+			document.documentElement.classList.toggle('cft-nav-open', open);
+		}
+		document.addEventListener('click', function () {
+			window.setTimeout(syncNav, 0);
+		});
+		window.addEventListener('resize', syncNav);
+	})();
+	</script>
+	<?php
+}
+add_action( 'wp_footer', 'cft_mobile_nav_open_class', 50 );
+
+function cft_home_meta_description() {
+	if ( ! is_front_page() || defined( 'WPSEO_VERSION' ) || defined( 'RANK_MATH_VERSION' ) ) {
+		return;
+	}
+
+	$description = 'Open gym from 4am to 11pm, seven days a week, plus CrossFit classes at The Bridge in Trowbridge. Free parking for 30 cars. Book a free taster.';
+	echo '<meta name="description" content="' . esc_attr( $description ) . '">' . "\n";
+}
+add_action( 'wp_head', 'cft_home_meta_description', 1 );
+
+function cft_community_document_title( $title ) {
+	if ( is_page( 'community' ) ) {
+		return 'Gym Events and Community | CrossFit Trowbridge';
+	}
+	if ( is_page( 'fittest-in-ba' ) ) {
+		return 'Fittest in BA 2026 | Fitness Competition, Trowbridge';
+	}
+	if ( is_page( 'bring-a-friend' ) ) {
+		return 'Bring a Friend to CrossFit | CrossFit Trowbridge';
+	}
+	if ( is_page( 'mumfit' ) ) {
+		return 'MumFit: Postnatal Fitness Classes in Trowbridge';
+	}
+	if ( is_page( 'charity-throwdown' ) ) {
+		return 'Charity Pairs Throwdown | CrossFit Trowbridge';
+	}
+	if ( is_page( 'new-member-meet-and-greet' ) ) {
+		return 'New Member Meet and Greet | CrossFit Trowbridge';
+	}
+	if ( is_page( 'quiz-night' ) ) {
+		return 'Quiz Night, 13 November | CrossFit Trowbridge';
+	}
+	return $title;
+}
+add_filter( 'pre_get_document_title', 'cft_community_document_title' );
+
+function cft_community_meta_description() {
+	if ( defined( 'WPSEO_VERSION' ) || defined( 'RANK_MATH_VERSION' ) ) {
+		return;
+	}
+
+	$description = '';
+	if ( is_page( 'community' ) ) {
+		$description = 'Partner workouts, MumFit, Fittest in BA, charity throwdowns and quiz nights at The Bridge in Trowbridge. See what\'s on, who it\'s for and how to book.';
+	} elseif ( is_page( 'fittest-in-ba' ) ) {
+		$description = 'Fittest in BA finds the fittest athlete in the BA postcode. Three events in 90 minutes at The Bridge, Trowbridge, on Saturday 17 October 2026.';
+	} elseif ( is_page( 'bring-a-friend' ) ) {
+		$description = 'Bring a friend to a coached class at The Bridge, Trowbridge. Next partner workout Wednesday 14 October. If they join, your next month is half price.';
+	} elseif ( is_page( 'mumfit' ) ) {
+		$description = 'MumFit is a postnatal fitness class at CrossFit Trowbridge. Train with your baby, no childcare needed. Mondays and Fridays at 12:30pm at The Bridge.';
+	} elseif ( is_page( 'charity-throwdown' ) ) {
+		$description = 'An annual pairs fitness competition at The Bridge, Trowbridge, raising money for Child.org and Make 2nds Count. Three workouts, any ability, cake after.';
+	} elseif ( is_page( 'new-member-meet-and-greet' ) ) {
+		$description = 'New to CrossFit Trowbridge? Join the meet and greet on the last Saturday of each month: group workout, coffee and cake on us, and time with the coaches.';
+	} elseif ( is_page( 'quiz-night' ) ) {
+		$description = 'CrossFit Trowbridge quiz night on Friday 13 November. £5 per person, teams of about six. Book your place on WodBoard, just like a class.';
+	}
+	if ( ! $description ) {
+		return;
+	}
+
+	echo '<meta name="description" content="' . esc_attr( $description ) . '">' . "\n";
+}
+add_action( 'wp_head', 'cft_community_meta_description', 1 );
 
