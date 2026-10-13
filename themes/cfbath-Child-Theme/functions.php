@@ -736,6 +736,13 @@ function cft_mobile_nav_open_class() {
 }
 add_action( 'wp_footer', 'cft_mobile_nav_open_class', 50 );
 
+/*
+ * Titles and meta descriptions for the homepage and community pages are
+ * printed here. An existing Open Graph integration (not this file) already
+ * prints og:title, og:description, og:url and og:image. Do not activate Yoast
+ * and Rank Math together, and do not add a second title, description,
+ * canonical or schema output beside these hooks.
+ */
 function cft_home_meta_description() {
 	if ( ! is_front_page() || defined( 'WPSEO_VERSION' ) || defined( 'RANK_MATH_VERSION' ) ) {
 		return;
@@ -747,6 +754,9 @@ function cft_home_meta_description() {
 add_action( 'wp_head', 'cft_home_meta_description', 1 );
 
 function cft_community_document_title( $title ) {
+	if ( defined( 'WPSEO_VERSION' ) || defined( 'RANK_MATH_VERSION' ) ) {
+		return $title;
+	}
 	if ( is_page( 'community' ) ) {
 		return 'Gym Events and Community | CrossFit Trowbridge';
 	}
@@ -800,4 +810,192 @@ function cft_community_meta_description() {
 	echo '<meta name="description" content="' . esc_attr( $description ) . '">' . "\n";
 }
 add_action( 'wp_head', 'cft_community_meta_description', 1 );
+
+/**
+ * Staging hostnames stay noindex. Live never inherits that, even when
+ * SiteGround Push to Live copies blog_public, robots.txt output, or a
+ * canonical that still contains a staging host.
+ */
+function cft_normalise_host( $host ) {
+	$host = strtolower( trim( (string) $host ) );
+	return preg_replace( '/:\d+$/', '', $host );
+}
+
+function cft_host_is_staging( $host ) {
+	return (bool) preg_match( '/^(?:www\.)?staging\d+\.crossfit-trowbridge\.com$/', cft_normalise_host( $host ) );
+}
+
+function cft_host_is_live( $host ) {
+	return in_array( cft_normalise_host( $host ), array( 'crossfit-trowbridge.com', 'www.crossfit-trowbridge.com' ), true );
+}
+
+function cft_request_host() {
+	if ( empty( $_SERVER['HTTP_HOST'] ) ) {
+		return '';
+	}
+	return cft_normalise_host( wp_unslash( $_SERVER['HTTP_HOST'] ) );
+}
+
+function cft_live_origin() {
+	return 'https://crossfit-trowbridge.com';
+}
+
+function cft_rewrite_environment_url( $url ) {
+	if ( ! is_string( $url ) || '' === $url ) {
+		return $url;
+	}
+
+	$host = cft_request_host();
+	if ( cft_host_is_live( $host ) ) {
+		return preg_replace(
+			'#https?://(?:www\.)?staging\d+\.crossfit-trowbridge\.com#i',
+			cft_live_origin(),
+			$url
+		);
+	}
+
+	if ( cft_host_is_staging( $host ) ) {
+		return preg_replace(
+			'#https?://(?!(?:www\.)?staging\d+\.)(?:www\.)?crossfit-trowbridge\.com#i',
+			'https://' . $host,
+			$url
+		);
+	}
+
+	return $url;
+}
+
+function cft_rewrite_head_metadata_hosts( $html ) {
+	if ( ! is_string( $html ) || '' === $html ) {
+		return $html;
+	}
+
+	return preg_replace_callback(
+		'#<link\b[^>]*\brel=["\']canonical["\'][^>]*>|<meta\b[^>]*\bproperty=["\']og:url["\'][^>]*>|<meta\b[^>]*\bname=["\']twitter:url["\'][^>]*>#i',
+		function ( $matches ) {
+			return preg_replace_callback(
+				'#https?://[^"\'\s>]+#i',
+				function ( $url ) {
+					return cft_rewrite_environment_url( $url[0] );
+				},
+				$matches[0]
+			);
+		},
+		$html
+	);
+}
+
+function cft_environment_robots( $robots ) {
+	$host = cft_request_host();
+
+	if ( cft_host_is_staging( $host ) ) {
+		$robots['noindex']  = true;
+		$robots['nofollow'] = true;
+		unset( $robots['follow'] );
+		return $robots;
+	}
+
+	if ( cft_host_is_live( $host ) && '0' === (string) get_option( 'blog_public' ) ) {
+		unset( $robots['noindex'], $robots['nofollow'] );
+		if ( is_search() ) {
+			$robots['noindex'] = true;
+		}
+	}
+
+	return $robots;
+}
+add_filter( 'wp_robots', 'cft_environment_robots', PHP_INT_MAX );
+
+function cft_environment_robots_txt( $output, $public ) {
+	$host = cft_request_host();
+
+	if ( cft_host_is_staging( $host ) ) {
+		return "User-agent: *\nDisallow: /\n";
+	}
+
+	if ( cft_host_is_live( $host ) ) {
+		$disallows_site = ( '0' == $public ) || preg_match( '/^Disallow:\s*\/\s*$/mi', (string) $output );
+		if ( $disallows_site ) {
+			return "User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n\nUser-agent: msnbot\nUser-agent: bingbot\nCrawl-delay: 3\n";
+		}
+	}
+
+	return $output;
+}
+add_filter( 'robots_txt', 'cft_environment_robots_txt', PHP_INT_MAX, 2 );
+
+function cft_environment_canonical_url( $url ) {
+	return cft_rewrite_environment_url( $url );
+}
+add_filter( 'get_canonical_url', 'cft_environment_canonical_url' );
+add_filter( 'wpseo_canonical', 'cft_environment_canonical_url' );
+add_filter( 'rank_math/frontend/canonical', 'cft_environment_canonical_url' );
+
+function cft_environment_head_buffer_start() {
+	$host = cft_request_host();
+	if ( ! cft_host_is_live( $host ) && ! cft_host_is_staging( $host ) ) {
+		return;
+	}
+	$GLOBALS['cft_head_buffer_level'] = ob_get_level();
+	ob_start();
+}
+add_action( 'wp_head', 'cft_environment_head_buffer_start', -10000 );
+
+function cft_environment_head_buffer_end() {
+	if ( ! isset( $GLOBALS['cft_head_buffer_level'] ) ) {
+		return;
+	}
+	$expected = (int) $GLOBALS['cft_head_buffer_level'] + 1;
+	unset( $GLOBALS['cft_head_buffer_level'] );
+	if ( ob_get_level() !== $expected ) {
+		return;
+	}
+
+	$html = ob_get_clean();
+	if ( ! is_string( $html ) ) {
+		return;
+	}
+
+	echo cft_rewrite_head_metadata_hosts( $html );
+}
+add_action( 'wp_head', 'cft_environment_head_buffer_end', 100000 );
+
+function cft_block_cross_environment_redirect( $redirect_url ) {
+	if ( ! is_string( $redirect_url ) || '' === $redirect_url ) {
+		return $redirect_url;
+	}
+
+	$target_host = wp_parse_url( $redirect_url, PHP_URL_HOST );
+	$here        = cft_request_host();
+	if ( ! $target_host || ! $here ) {
+		return $redirect_url;
+	}
+
+	$cross = ( cft_host_is_live( $here ) && cft_host_is_staging( $target_host ) )
+		|| ( cft_host_is_staging( $here ) && cft_host_is_live( $target_host ) );
+	if ( $cross ) {
+		return false;
+	}
+
+	return $redirect_url;
+}
+add_filter( 'redirect_canonical', 'cft_block_cross_environment_redirect' );
+
+function cft_sync_search_visibility_to_host() {
+	$host = cft_request_host();
+	if ( cft_host_is_live( $host ) && '0' === (string) get_option( 'blog_public' ) ) {
+		update_option( 'blog_public', '1' );
+	}
+	if ( cft_host_is_staging( $host ) && '1' === (string) get_option( 'blog_public' ) ) {
+		update_option( 'blog_public', '0' );
+	}
+}
+add_action( 'init', 'cft_sync_search_visibility_to_host' );
+
+function cft_staging_noindex_header() {
+	if ( cft_host_is_staging( cft_request_host() ) ) {
+		header( 'X-Robots-Tag: noindex, nofollow', true );
+	}
+}
+add_action( 'send_headers', 'cft_staging_noindex_header' );
 
