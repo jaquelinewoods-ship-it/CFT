@@ -4,7 +4,7 @@ Description: Child theme for CF-Bath
 Author: ThemeFusion
 Author URI: 
 Template: cfbath
-Version: 1.0.99
+Version: 1.0.100
 Text Domain:  CF-Bath
 */
 
@@ -2258,7 +2258,8 @@ body.cft-community-page .cft-comm-btn:focus {
   color: #ffffff;
 }
 
-body.cft-community-page button.cft-comm-inline {
+body.cft-community-page button.cft-comm-inline,
+body.cft-community-page a.cft-comm-inline {
   display: inline;
   margin: 0;
   padding: 0;
@@ -2274,7 +2275,9 @@ body.cft-community-page button.cft-comm-inline {
 }
 
 body.cft-community-page button.cft-comm-inline:hover,
-body.cft-community-page button.cft-comm-inline:focus {
+body.cft-community-page button.cft-comm-inline:focus,
+body.cft-community-page a.cft-comm-inline:hover,
+body.cft-community-page a.cft-comm-inline:focus {
   background: transparent;
   color: #24549c;
 }

@@ -21,20 +21,6 @@ function avada_lang_setup() {
 }
 add_action( 'after_setup_theme', 'avada_lang_setup' );
 
-function sd_nav_menu_attr( $atts, $item, $args )
-{
-	// The ID of the target menu item
-	$menu_target = 8016;
-
-	// inspect $item
-	if ($item->ID == $menu_target) {
-	$atts['data-toggle'] = 'modal';
-    $atts['data-target'] = '.contact-us-popup';
-	}
-	return $atts;
-}
-add_filter( 'nav_menu_link_attributes', 'sd_nav_menu_attr', 10, 3 );
-
 function remove_dashboard_meta() {
         remove_meta_box( 'dashboard_incoming_links', 'dashboard', 'normal' );
         remove_meta_box( 'dashboard_plugins', 'dashboard', 'normal' );
@@ -552,10 +538,6 @@ function cft_community_video_strip_play() {
 add_action( 'wp_footer', 'cft_community_video_strip_play', 30 );
 
 /**
- * Bring a friend: WodBoard popup for form 526|1083|9183a314dd9570eb.
- * The loader does not open the form. The button on the page does.
- */
-/**
  * Reusable FAQ accordion. Question is the first line, answer is the rest.
  *
  * [cft_faq]
@@ -615,14 +597,6 @@ function cft_community_disable_wpautop() {
 	}
 }
 add_action( 'wp', 'cft_community_disable_wpautop' );
-
-function cft_bring_a_friend_form() {
-	if ( ! is_page( 'bring-a-friend' ) ) {
-		return;
-	}
-	echo '<script>(function(e,v,i,n,j,m){m=e.getElementById("evini_popup_script");n=m||e.createElement(v);n.dataset.eviniFormId=[n.dataset.eviniFormId||\'\',"526|1083|9183a314dd9570eb"].join(",");;if(!m){n.id="evini_popup_script";n.async=1;n.src=i;j=e.querySelector(v);j.parentNode.insertBefore(n,j)}})(document,"script","https://www.wodboard.com/popup.js?t=1774958702");</script>';
-}
-add_action( 'wp_footer', 'cft_bring_a_friend_form', 20 );
 
 /**
  * Muted looping open-gym clips on The Bridge S&C page (hours + kit rows).
