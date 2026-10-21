@@ -42,7 +42,7 @@ This document is for anyone taking over site changes. Keep secrets (passwords, S
    - Do not deploy straight to live
 4. Review on staging (desktop + mobile).
 5. In SiteGround Site Tools → **WordPress → Staging**, use **Push to Live** when approved.
-6. Spot-check live after push.
+6. Spot-check live after push, including the search-visibility checks below. Purge LiteSpeed.
 7. Commit any child-theme changes back to this git repo so the next person has them.
 
 ## Creating or refreshing staging
@@ -69,6 +69,26 @@ SiteGround rewrites `siteurl` / `home`, but this site uses a custom content dire
 3. Staging is password protected.
 4. Search engines are discouraged (`Settings → Reading`, plus `robots.txt` / noindex).
 5. SSL is valid (no browser certificate warning).
+6. There is **no physical** `robots.txt` in the staging or live web root. WordPress serves `/robots.txt`. A static staging file with `Disallow: /` is copied onto live by Push to Live and bypasses the theme.
+
+### Search visibility does not travel with Push to Live
+
+Push to Live copies the database and files. Staging keeps `blog_public = 0`, a robots `Disallow: /`, and must stay behind HTTP basic auth. The child theme keys those signals off the hostname so a copied setting cannot publish staging `noindex` or a staging canonical on the live domain:
+
+| Host | What the theme does |
+|---|---|
+| `stagingN.crossfit-trowbridge.com` | `noindex, nofollow` meta, `X-Robots-Tag`, robots `Disallow: /`, and canonical / `og:url` rewritten to the staging host. Basic auth is left to the server. |
+| `crossfit-trowbridge.com` | If `blog_public` arrived as `0`, the next request sets it back to `1` and serves the public robots.txt. Canonical and `og:url` values that still contain a staging host are rewritten to `https://crossfit-trowbridge.com`. |
+
+After every push, confirm all of these before calling it done:
+
+1. `https://crossfit-trowbridge.com/robots.txt` allows crawling (it must not be only `Disallow: /`).
+2. A live page has a canonical on `https://crossfit-trowbridge.com/...` and its robots meta is not `noindex`.
+3. `https://staging2.crossfit-trowbridge.com/` still returns **401** with the staging basic-auth realm.
+4. `https://staging2.crossfit-trowbridge.com/robots.txt` is still `Disallow: /`.
+5. LiteSpeed cache has been purged on live.
+
+The child theme already prints the homepage and community titles and meta descriptions, and it skips those descriptions when Yoast or Rank Math is present. Open Graph tags already come from elsewhere. Do **not** activate Yoast and Rank Math together, and do not add a second title, description, canonical, or schema output.
 
 ## What to change where
 
@@ -86,6 +106,8 @@ SiteGround rewrites `siteurl` / `home`, but this site uses a custom content dire
 - Do **not** edit the parent theme `cfbath` for custom work — use `cfbath-Child-Theme`.
 - Do **not** commit passwords, `.htpasswd`, DB dumps, or full site tarballs to git.
 - Do **not** push staging → live until someone has reviewed staging.
+- Do **not** leave a physical `robots.txt` in either web root. Push to Live would copy a staging `Disallow: /` onto the public site.
+- Do **not** activate both Yoast and Rank Math, or add another plugin that prints title, description, canonical, or schema tags. The child theme is already the source for the homepage and community titles and descriptions.
 - Be careful with search-replace across databases — always confirm you are on the staging database/path.
 
 ## Child theme (this repo)
