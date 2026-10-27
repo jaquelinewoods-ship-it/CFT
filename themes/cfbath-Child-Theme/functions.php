@@ -8,7 +8,7 @@ add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 function cft_type_fonts() {
 	wp_enqueue_style(
 		'cft-type-fonts',
-		'https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Oswald:wght@500;600&display=swap',
+		'https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&display=swap',
 		array(),
 		null
 	);
@@ -428,12 +428,12 @@ add_action( 'template_redirect', 'cft_home_heading_buffer_start' );
 function cft_home_hero_markup() {
 	$contact = esc_url( home_url( '/contact/' ) );
 	$classes = esc_url( home_url( '/programmes/' ) );
+	$logo    = esc_url( content_url( 'uploads/cfTrowbridge_white-1.png' ) );
 
 	return '<div class="cft-hero">'
-		. '<div class="cft-hero-copy">'
-		. '<h1 class="cft-hero-title"><span>CrossFit &amp;</span><span>open gym</span><span>in Trowbridge</span></h1>'
-		. '<p class="cft-hero-lead">Building a <strong>happier, healthier, stronger</strong> you.</p>'
-		. '</div>'
+		. '<img class="cft-hero-logo" src="' . $logo . '" alt="CrossFit Trowbridge" width="280" height="78" />'
+		. '<span class="cft-hero-rule" aria-hidden="true"></span>'
+		. '<h1 class="cft-hero-title">Building a happier, healthier, stronger you.</h1>'
 		. '<div class="cft-hero-actions">'
 		. '<a class="cft-pill" href="' . $contact . '">Contact Us</a>'
 		. '<a class="cft-pill" href="' . $classes . '">Classes</a>'
