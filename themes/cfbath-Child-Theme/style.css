@@ -4,7 +4,7 @@ Description: Child theme for CF-Bath
 Author: ThemeFusion
 Author URI: 
 Template: cfbath
-Version: 1.0.105
+Version: 1.0.106
 Text Domain:  CF-Bath
 */
 
@@ -2927,8 +2927,8 @@ body.cft-community-page .cft-comm .cft-faq summary h3 {
   }
 }
 
-/* Homepage hero: large stacked headline and olive pills.
-   Sampled from the reference buttons: #4f693c. */
+/* Homepage hero: large stacked headline and site-blue pills.
+   Blue matches the logo and existing CTAs (#24549c). */
 body.home .tfs-slider .background::after {
   content: "";
   position: absolute;
@@ -3020,7 +3020,7 @@ body.home .cft-pill {
   padding: 16px 28px;
   border: 0;
   border-radius: 999px;
-  background: #4f693c;
+  background: #24549c;
   color: #ffffff !important;
   font-family: Archivo, Helvetica, Arial, sans-serif;
   font-size: 13px;
@@ -3036,7 +3036,7 @@ body.home .cft-pill {
 
 body.home .cft-pill:hover,
 body.home .cft-pill:focus {
-  background: #3e542e;
+  background: #1c427c;
   color: #ffffff !important;
 }
 
@@ -3048,9 +3048,9 @@ body.home .cft-pill:focus-visible {
 /* Other homepage CTAs use the same pill, so the page matches the hero. */
 body.home a.fusion-button.button-default,
 body.home a.fusion-button.button-custom {
-  background: #4f693c !important;
+  background: #24549c !important;
   background-image: none !important;
-  border-color: #4f693c !important;
+  border-color: #24549c !important;
   border-radius: 999px !important;
   letter-spacing: 0.12em !important;
 }
@@ -3072,9 +3072,9 @@ body.home a.fusion-button.button-default:active,
 body.home a.fusion-button.button-custom:hover,
 body.home a.fusion-button.button-custom:focus,
 body.home a.fusion-button.button-custom:active {
-  background: #3e542e !important;
+  background: #1c427c !important;
   background-image: none !important;
-  border-color: #3e542e !important;
+  border-color: #1c427c !important;
 }
 
 body.home .modal-footer .fusion-button,

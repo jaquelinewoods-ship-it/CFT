@@ -427,6 +427,7 @@ add_action( 'template_redirect', 'cft_home_heading_buffer_start' );
 
 function cft_home_hero_markup() {
 	$contact = esc_url( home_url( '/contact/' ) );
+	$classes = esc_url( home_url( '/programmes/' ) );
 
 	return '<div class="cft-hero">'
 		. '<div class="cft-hero-copy">'
@@ -434,8 +435,8 @@ function cft_home_hero_markup() {
 		. '<p class="cft-hero-lead">Building a <strong>happier, healthier, stronger</strong> you.</p>'
 		. '</div>'
 		. '<div class="cft-hero-actions">'
-		. '<a class="cft-pill" href="' . $contact . '">Get started today</a>'
-		. '<a class="cft-pill" href="' . $contact . '">Free taster</a>'
+		. '<a class="cft-pill" href="' . $contact . '">Contact Us</a>'
+		. '<a class="cft-pill" href="' . $classes . '">Classes</a>'
 		. '</div>'
 		. '</div>';
 }
