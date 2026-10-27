@@ -4,7 +4,7 @@ Description: Child theme for CF-Bath
 Author: ThemeFusion
 Author URI: 
 Template: cfbath
-Version: 1.0.100
+Version: 1.0.105
 Text Domain:  CF-Bath
 */
 
@@ -1320,6 +1320,19 @@ body.home .tfs-slider .cft-slide-caption {
   margin: 0.67em 0;
 }
 
+/* Flexslider sets every slide image to width:100% and display:block,
+   which pins the hero logo to the left of the centred caption and button. */
+body.home .tfs-slider .cft-slide-logo a {
+  display: block;
+  text-align: center;
+}
+
+body.home .tfs-slider .cft-slide-logo img {
+  display: inline-block;
+  width: auto;
+  max-width: 440px;
+}
+
 body.home #home-mission .fusion-checklist {
   margin: 0 0 1.85em !important;
 }
@@ -1382,6 +1395,32 @@ body.home #home-mission .cft-home-mission-photo .fusion-column-wrapper {
     min-height: 300px !important;
     height: 300px !important;
     max-height: 300px !important;
+  }
+}
+
+/* Homepage FAQ, between Why us and the community band. */
+body.home #home-faq {
+  background: #ffffff !important;
+}
+
+body.home #home-faq .fusion-text {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.home #home-faq .cft-faq h2 {
+  margin: 0 0 18px;
+  color: #111111;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: left;
+}
+
+@media only screen and (max-width: 800px) {
+  body.home #home-faq .cft-faq h2 {
+    font-size: 32px;
   }
 }
 
@@ -2047,6 +2086,80 @@ body.cft-community-page .cft-comm-result {
 
 body.cft-community-page .cft-comm-result h2 {
   margin-top: 0;
+}
+
+body.cft-community-page .cft-fit-block h3 {
+  margin: 36px 0 12px;
+  color: #111111;
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+body.cft-community-page .cft-fit-podium {
+  margin-bottom: 8px;
+}
+
+body.cft-community-page .cft-fit-board-wrap {
+  overflow-x: auto;
+  margin: 0 0 8px;
+  -webkit-overflow-scrolling: touch;
+}
+
+body.cft-community-page table.cft-fit-board {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+body.cft-community-page table.cft-fit-board th,
+body.cft-community-page table.cft-fit-board td {
+  padding: 10px 10px 10px 0;
+  border-bottom: 1px solid #e4e4e4;
+  text-align: left;
+  white-space: nowrap;
+  color: #111111;
+  font-weight: 400;
+}
+
+body.cft-community-page table.cft-fit-board thead th {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #333333;
+}
+
+body.cft-community-page table.cft-fit-board tbody th {
+  font-weight: 700;
+}
+
+body.cft-community-page table.cft-fit-board td:nth-child(3),
+body.cft-community-page table.cft-fit-board td:nth-child(4) {
+  font-weight: 700;
+}
+
+body.cft-community-page .cft-fit-block p.cft-fit-note {
+  margin: 0 0 8px;
+  color: #333333;
+  font-size: 15px;
+}
+
+body.cft-community-page .cft-fit-acc {
+  margin-top: 28px;
+}
+
+body.cft-community-page .cft-fit-block .cft-fit-acc summary h3 {
+  margin: 0;
+}
+
+body.cft-community-page .cft-fit-acc-body {
+  padding: 4px 16px 8px 20px;
+}
+
+body.cft-community-page .cft-fit-acc .cft-fit-board-wrap {
+  margin: 12px 0 8px;
 }
 
 body.cft-community-page .cft-comm-events {
@@ -2811,5 +2924,196 @@ body.cft-community-page .cft-comm .cft-faq summary h3 {
   .cft-faq-item summary::after,
   .cft-faq-item::details-content {
     transition: none;
+  }
+}
+
+/* Homepage hero: large stacked headline and olive pills.
+   Sampled from the reference buttons: #4f693c. */
+body.home .tfs-slider .background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, 0.45) 100%);
+}
+
+body.home .cft-hero-slide.slide-content-container {
+  top: auto !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  transform: none !important;
+  padding: 0 5vw 88px !important;
+  box-sizing: border-box;
+  text-align: left !important;
+}
+
+body.home .cft-hero-slide .slide-content {
+  display: block !important;
+  width: 100% !important;
+  max-width: 1180px !important;
+  margin: 0 auto !important;
+  text-align: left !important;
+}
+
+body.home .cft-hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 48px;
+  width: 100%;
+}
+
+body.home .cft-hero-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 740px;
+}
+
+body.home .cft-hero-title {
+  margin: 0 0 18px !important;
+  color: #f4f1ea !important;
+  font-family: Oswald, "Arial Narrow", sans-serif !important;
+  font-weight: 600 !important;
+  font-size: clamp(52px, 6.1vw, 88px) !important;
+  line-height: 0.88 !important;
+  letter-spacing: 0.01em !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
+}
+
+body.home .cft-hero-title span {
+  display: block;
+}
+
+body.home .cft-hero-lead {
+  margin: 0;
+  max-width: 36em;
+  color: #f4f1ea;
+  font-family: Archivo, Helvetica, Arial, sans-serif !important;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.45;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
+}
+
+body.home .cft-hero-lead strong {
+  font-weight: 700;
+}
+
+body.home .cft-hero-actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 6px;
+}
+
+body.home .cft-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 232px;
+  margin: 0;
+  padding: 16px 28px;
+  border: 0;
+  border-radius: 999px;
+  background: #4f693c;
+  color: #ffffff !important;
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  box-shadow: none;
+  transition: background-color 0.15s ease;
+}
+
+body.home .cft-pill:hover,
+body.home .cft-pill:focus {
+  background: #3e542e;
+  color: #ffffff !important;
+}
+
+body.home .cft-pill:focus-visible {
+  outline: 2px solid #f4f1ea;
+  outline-offset: 3px;
+}
+
+/* Other homepage CTAs use the same pill, so the page matches the hero. */
+body.home a.fusion-button.button-default,
+body.home a.fusion-button.button-custom {
+  background: #4f693c !important;
+  background-image: none !important;
+  border-color: #4f693c !important;
+  border-radius: 999px !important;
+  letter-spacing: 0.12em !important;
+}
+
+body.home a.fusion-button.button-default .fusion-button-text,
+body.home a.fusion-button.button-default .fusion-button-text-left,
+body.home a.fusion-button.button-default .fusion-button-text-right,
+body.home a.fusion-button.button-custom .fusion-button-text,
+body.home a.fusion-button.button-custom .fusion-button-text-left,
+body.home a.fusion-button.button-custom .fusion-button-text-right,
+body.home a.fusion-button.button-default,
+body.home a.fusion-button.button-custom {
+  color: #ffffff !important;
+}
+
+body.home a.fusion-button.button-default:hover,
+body.home a.fusion-button.button-default:focus,
+body.home a.fusion-button.button-default:active,
+body.home a.fusion-button.button-custom:hover,
+body.home a.fusion-button.button-custom:focus,
+body.home a.fusion-button.button-custom:active {
+  background: #3e542e !important;
+  background-image: none !important;
+  border-color: #3e542e !important;
+}
+
+body.home .modal-footer .fusion-button,
+body.home .modal-footer .fusion-button:hover,
+body.home .modal-footer .fusion-button:focus {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: #333333 !important;
+  letter-spacing: 0.04em !important;
+  box-shadow: none !important;
+}
+
+@media only screen and (max-width: 800px) {
+  body.home .cft-hero-slide.slide-content-container {
+    padding: 0 22px 78px !important;
+  }
+
+  body.home .cft-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+  }
+
+  body.home .cft-hero-title {
+    font-size: clamp(42px, 12vw, 58px) !important;
+  }
+
+  body.home .cft-hero-lead {
+    font-size: 15px;
+  }
+
+  body.home .cft-hero-actions {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  body.home .cft-pill {
+    width: 100%;
+    min-width: 0;
   }
 }

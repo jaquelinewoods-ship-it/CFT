@@ -8,7 +8,7 @@ add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 function cft_type_fonts() {
 	wp_enqueue_style(
 		'cft-type-fonts',
-		'https://fonts.googleapis.com/css?family=Archivo:400,600,700&display=swap',
+		'https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Oswald:wght@500;600&display=swap',
 		array(),
 		null
 	);
@@ -414,8 +414,9 @@ add_filter( 'body_class', 'cft_sc_body_class' );
 
 /**
  * Home has no title bar. The slider logo is an H2 whose only content is a
- * link to this page, so Google's first heading is the URL. Keep the logo,
- * and give the page a real H1.
+ * link to this page, so Google's first heading is the URL. Replace that
+ * slide with a real H1. If the slider markup is not what we expect, fall
+ * back to demoting the logo and placing the H1 in the mission section.
  */
 function cft_home_heading_buffer_start() {
 	if ( is_front_page() ) {
@@ -424,8 +425,41 @@ function cft_home_heading_buffer_start() {
 }
 add_action( 'template_redirect', 'cft_home_heading_buffer_start' );
 
+function cft_home_hero_markup() {
+	$contact = esc_url( home_url( '/contact/' ) );
+
+	return '<div class="cft-hero">'
+		. '<div class="cft-hero-copy">'
+		. '<h1 class="cft-hero-title"><span>CrossFit &amp;</span><span>open gym</span><span>in Trowbridge</span></h1>'
+		. '<p class="cft-hero-lead">Building a <strong>happier, healthier, stronger</strong> you.</p>'
+		. '</div>'
+		. '<div class="cft-hero-actions">'
+		. '<a class="cft-pill" href="' . $contact . '">Get started today</a>'
+		. '<a class="cft-pill" href="' . $contact . '">Free taster</a>'
+		. '</div>'
+		. '</div>';
+}
+
 function cft_home_heading_buffer( $html ) {
 	if ( ! is_string( $html ) || '' === $html ) {
+		return $html;
+	}
+
+	$replaced = preg_replace(
+		'/(<div class="slide-content"[^>]*>).*?(<\/div>\s*<\/div>\s*<div class="background)/s',
+		'$1' . cft_home_hero_markup() . '$2',
+		$html,
+		1,
+		$count
+	);
+
+	if ( $count ) {
+		$html = preg_replace(
+			'/slide-content-center/',
+			'slide-content-center cft-hero-slide',
+			$replaced,
+			1
+		);
 		return $html;
 	}
 
