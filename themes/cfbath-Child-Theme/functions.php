@@ -721,6 +721,9 @@ function cft_home_meta_description() {
 add_action( 'wp_head', 'cft_home_meta_description', 1 );
 
 function cft_community_document_title( $title ) {
+	if ( is_page( 'hyrox' ) ) {
+		return 'Hyrox in Trowbridge | CrossFit Trowbridge';
+	}
 	if ( is_page( 'community' ) ) {
 		return 'Gym Events and Community | CrossFit Trowbridge';
 	}
@@ -752,7 +755,9 @@ function cft_community_meta_description() {
 	}
 
 	$description = '';
-	if ( is_page( 'community' ) ) {
+	if ( is_page( 'hyrox' ) ) {
+		$description = 'CrossFit Trowbridge was the first Hyrox gym in Trowbridge. Hybrid classes mix ski, row, bike or run, carries, and lifts, coached and scaled.';
+	} elseif ( is_page( 'community' ) ) {
 		$description = 'Partner workouts, MumFit, Fittest in BA, charity throwdowns and quiz nights at The Bridge in Trowbridge. See what\'s on, who it\'s for and how to book.';
 	} elseif ( is_page( 'fittest-in-ba' ) ) {
 		$description = 'Fittest in BA finds the fittest athlete in the BA postcode. Three events in 90 minutes at The Bridge, Trowbridge, on Saturday 17 October 2026.';
@@ -774,4 +779,25 @@ function cft_community_meta_description() {
 	echo '<meta name="description" content="' . esc_attr( $description ) . '">' . "\n";
 }
 add_action( 'wp_head', 'cft_community_meta_description', 1 );
+
+function cft_hyrox_legacy_redirect() {
+	if ( ! is_404() ) {
+		return;
+	}
+
+	$path = isset( $_SERVER['REQUEST_URI'] ) ? wp_parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ) : '';
+	$path = trim( (string) $path, '/' );
+	if ( ! in_array( $path, array( 'hybrid_fitness', 'hybrid-fitness' ), true ) ) {
+		return;
+	}
+
+	$page = get_page_by_path( 'hyrox' );
+	if ( ! $page ) {
+		return;
+	}
+
+	wp_safe_redirect( get_permalink( $page ), 301 );
+	exit;
+}
+add_action( 'template_redirect', 'cft_hyrox_legacy_redirect' );
 
