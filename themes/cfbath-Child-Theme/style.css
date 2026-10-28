@@ -4,7 +4,7 @@ Description: Child theme for CF-Bath
 Author: ThemeFusion
 Author URI: 
 Template: cfbath
-Version: 1.0.107
+Version: 1.0.113
 Text Domain:  CF-Bath
 */
 
@@ -878,7 +878,11 @@ body.home .home-scroll-cue-icon {
 .fusion-body .fusion-secondary-header .fusion-secondary-menu > ul > li > a {
   display: inline-flex !important;
   align-items: center;
-  padding: 0 !important;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+  padding: 14px 12px !important;
+  min-height: 40px;
   height: auto !important;
   line-height: 1 !important;
   border: 0 !important;
@@ -886,6 +890,10 @@ body.home .home-scroll-cue-icon {
   color: #ffffff !important;
   text-decoration: none !important;
   opacity: 0.92;
+}
+
+#cft-enquire {
+  scroll-margin-top: 120px;
 }
 
 .fusion-body .fusion-secondary-header .fusion-secondary-menu > ul > li > a:hover {
@@ -1302,7 +1310,7 @@ body.home #home-mission {
 }
 
 body.home #home-mission h2 {
-  max-width: 16.5em;
+  max-width: 22em;
   margin-bottom: 1.15em !important;
   font-weight: 700;
 }
@@ -1399,6 +1407,67 @@ body.home #home-mission .cft-home-mission-photo .fusion-column-wrapper {
 }
 
 /* Homepage FAQ, between Why us and the community band. */
+body.home .fusion-fullwidth:has(.cft-why-values) > .fusion-row {
+  display: flex;
+  align-items: stretch;
+}
+
+body.home .fusion-fullwidth:has(.cft-why-values) .fusion-one-half,
+body.home .fusion-fullwidth:has(.cft-why-values) .fusion-column-wrapper,
+body.home .fusion-fullwidth:has(.cft-why-values) .fusion-column-table,
+body.home .fusion-fullwidth:has(.cft-why-values) .fusion-column-tablecell {
+  height: auto !important;
+  overflow: visible !important;
+}
+
+body.home .fusion-fullwidth:has(.cft-why-values) .fusion-column-last .fusion-column-wrapper {
+  height: 100% !important;
+  min-height: 100%;
+}
+
+body.home .fusion-column-wrapper:has(.cft-why-values) {
+  padding: 56px 48px 64px !important;
+}
+
+body.home .fusion-column-wrapper:has(.cft-why-values) .fusion-separator {
+  margin-top: 0 !important;
+  margin-bottom: 28px !important;
+}
+
+body.home .cft-why-title {
+  margin: 0 0 22px !important;
+}
+
+body.home .cft-why-values {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+body.home .cft-why-value h3 {
+  margin: 0 0 6px !important;
+  color: #24549c !important;
+  font-family: Archivo, Helvetica, Arial, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  line-height: 1.2 !important;
+  text-transform: uppercase !important;
+}
+
+body.home .cft-why-value p {
+  margin: 0;
+  color: #222222;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+@media only screen and (max-width: 800px) {
+  body.home .fusion-column-wrapper:has(.cft-why-values) {
+    padding: 36px 24px !important;
+  }
+}
+
 body.home #home-faq {
   background: #ffffff !important;
 }
@@ -1871,19 +1940,25 @@ body.cft-sc-page .cft-sc-facts a:hover {
   }
 }
 
-/* Mobile nav: full-screen overlay so items are not clipped by
-   the sticky header / page footer, with a fade if the list scrolls. */
+/* Mobile nav: one full-screen list, with the header bar kept above it
+   so the same button can close it. The sticky copy stays hidden until
+   the header is stuck; forcing it hidden always made the button toggle
+   a menu that never appeared after the first scroll. */
 @media only screen and (max-width: 850px) {
   html.cft-nav-open,
   html.cft-nav-open body {
     overflow: hidden !important;
-    height: 100% !important;
   }
 
   .fusion-header-wrapper {
     overflow: visible !important;
-    z-index: 100020 !important;
+    z-index: 100050 !important;
     background-color: #ffffff !important;
+  }
+
+  .fusion-mobile-menu-icons {
+    position: relative;
+    z-index: 100060 !important;
   }
 
   .fusion-mobile-menu-design-modern .fusion-mobile-nav-holder,
@@ -1905,8 +1980,13 @@ body.cft-sc-page .cft-sc-facts a:hover {
     overscroll-behavior: contain;
   }
 
-  .fusion-mobile-nav-holder.fusion-mobile-sticky-nav-holder {
+  .fusion-header-wrapper:not(.fusion-is-sticky) .fusion-mobile-sticky-nav-holder {
     display: none !important;
+  }
+
+  .fusion-mobile-nav-holder > ul {
+    width: 100% !important;
+    float: none !important;
   }
 
   html.cft-nav-open .fusion-mobile-nav-holder > ul {
@@ -2963,7 +3043,7 @@ body.home .cft-hero-slide .slide-content {
 
 body.home .cft-hero {
   width: 100%;
-  max-width: 560px;
+  max-width: 620px;
 }
 
 body.home .cft-hero-logo {
@@ -2987,11 +3067,33 @@ body.home .cft-hero-title {
   color: #f4f1ea !important;
   font-family: Archivo, Helvetica, Arial, sans-serif !important;
   font-weight: 700 !important;
-  font-size: clamp(36px, 4.2vw, 58px) !important;
+  font-size: clamp(34px, 3.8vw, 52px) !important;
   line-height: 1.08 !important;
   letter-spacing: -0.03em !important;
   text-transform: none !important;
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
+}
+
+body.home .cft-hero-promise {
+  margin: 16px 0 0;
+  max-width: 38em;
+  color: #f4f1ea;
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.45;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
+}
+
+body.home .cft-hero-values {
+  margin: 14px 0 0;
+  color: #f4f1ea;
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
 }
 
 body.home .cft-hero-actions {
@@ -2999,7 +3101,7 @@ body.home .cft-hero-actions {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 28px;
+  margin-top: 22px;
 }
 
 body.home .cft-pill {
@@ -3099,7 +3201,15 @@ body.home .modal-footer .fusion-button:focus {
   }
 
   body.home .cft-hero-title {
-    font-size: clamp(32px, 9vw, 44px) !important;
+    font-size: clamp(30px, 8.5vw, 40px) !important;
+  }
+
+  body.home .cft-hero-promise {
+    font-size: 15px;
+  }
+
+  body.home .cft-hero-values {
+    font-size: 12px;
   }
 
   body.home .cft-pill {

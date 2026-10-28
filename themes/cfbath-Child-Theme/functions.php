@@ -434,11 +434,62 @@ function cft_home_hero_markup() {
 		. '<img class="cft-hero-logo" src="' . $logo . '" alt="CrossFit Trowbridge" width="280" height="78" />'
 		. '<span class="cft-hero-rule" aria-hidden="true"></span>'
 		. '<h1 class="cft-hero-title">Building a happier, healthier, stronger you.</h1>'
+		. '<p class="cft-hero-promise">Our promise is to inspire, educate and support our members to live healthy and happy lives. We do this in an inclusive, fun community environment.</p>'
+		. '<p class="cft-hero-values">inspire · educate · support · inclusive · fun · community</p>'
 		. '<div class="cft-hero-actions">'
 		. '<a class="cft-pill" href="' . $contact . '">Contact Us</a>'
 		. '<a class="cft-pill" href="' . $classes . '">Classes</a>'
 		. '</div>'
 		. '</div>';
+}
+
+function cft_home_why_markup() {
+	$values = array(
+		array(
+			'Inspire',
+			'We aim to be the spark that gets you excited about your health and fitness. We set the example in our own lives and we strive to keep our community accountable.',
+		),
+		array(
+			'Educate',
+			'“Teach a man to fish and he will never go hungry.” We consistently share our knowledge with the community and give you the tools to live a happy and healthy life.',
+		),
+		array(
+			'Support',
+			'We meet every member of the community, regardless of the level they are at. We understand when you need encouragement or a kick up the ass. We are relentless in our support through your fitness journey. Our success is your success, and your success is our success.',
+		),
+		array(
+			'Inclusive',
+			'If you have seen Dodgeball, we are the average Joes. We pride ourselves on the inclusivity of our community, and everyone is welcome. We constantly review how we can improve our diversity.',
+		),
+		array(
+			'Fun',
+			'Fitness should be fun. We strive to make your hour with us the best hour of your day. Gone are the days of loathing the gym. We want you excited and looking forward to arriving. We promise to set the tone and bring the energy to each class and interaction.',
+		),
+		array(
+			'Community',
+			'This encompasses everything above. We are a family, a tribe, a community of very different people, connected and united by our willingness to do our best and leave our ego at the door.',
+		),
+	);
+
+	$html = '<div class="cft-why-values">';
+	foreach ( $values as $value ) {
+		$html .= '<div class="cft-why-value"><h3>' . esc_html( $value[0] ) . '</h3><p>' . esc_html( $value[1] ) . '</p></div>';
+	}
+	$html .= '</div>';
+
+	return $html;
+}
+
+function cft_home_replace_why_us( $html ) {
+	$replaced = preg_replace(
+		'/<h2 style="text-align: left;">Why us<\/h2>\s*<h4 style="text-align: left;">.*?<\/h4>\s*<p style="letter-spacing: 4px;[^"]*">Adam Shackell<\/p>\s*<p style="letter-spacing: 4px;[^"]*">.*?<\/p>/s',
+		'<h2 class="cft-why-title" style="text-align: left;">Why us</h2>' . cft_home_why_markup(),
+		$html,
+		1,
+		$count
+	);
+
+	return $count ? $replaced : $html;
 }
 
 function cft_home_heading_buffer( $html ) {
@@ -461,6 +512,12 @@ function cft_home_heading_buffer( $html ) {
 			$replaced,
 			1
 		);
+		$html = str_replace(
+			'Our mission is to help people of all fitness levels change their life through exercise and nutrition.',
+			'Our promise is to inspire, educate and support our members to live healthy and happy lives. We do this in an inclusive, fun community environment.',
+			$html
+		);
+		$html = cft_home_replace_why_us( $html );
 		return $html;
 	}
 
@@ -582,6 +639,54 @@ add_action( 'wp_footer', 'cft_community_video_strip_play', 30 );
  * [/cft_faq_item]
  * [/cft_faq]
  */
+function cft_join_us_menu_link( $atts, $item ) {
+	if ( isset( $item->ID ) && 8016 === (int) $item->ID ) {
+		$atts['href'] = esc_url( home_url( '/contact/#cft-enquire' ) );
+	}
+	return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'cft_join_us_menu_link', 10, 2 );
+
+function cft_contact_enquire_anchor( $content ) {
+	if ( ! is_page( 'contact' ) || false !== strpos( $content, 'id="cft-enquire"' ) ) {
+		return $content;
+	}
+	$updated = preg_replace(
+		'/(<h[1-6][^>]*>\s*)Email The Bridge/i',
+		'<span id="cft-enquire"></span>$1Email The Bridge',
+		$content,
+		1
+	);
+	return is_string( $updated ) ? $updated : $content;
+}
+add_filter( 'the_content', 'cft_contact_enquire_anchor', 20 );
+
+function cft_faq_item_parts( $raw ) {
+	$raw = trim( (string) $raw );
+	$raw = preg_replace( '/<\/p>\s*<p[^>]*>/i', "\n", $raw );
+	$raw = preg_replace( '/<\/?p[^>]*>/i', '', $raw );
+	$raw = preg_replace( '/<br\s*\/?>/i', "\n", $raw );
+	$raw = trim( $raw );
+
+	$lines = preg_split( "/\r\n|\n|\r/", $raw );
+	$lines = array_values(
+		array_filter(
+			array_map( 'trim', $lines ),
+			static function ( $line ) {
+				return '' !== $line && ! preg_match( '/^(?:<br\s*\/?>|&lt;br\s*\/?&gt;)$/i', $line );
+			}
+		)
+	);
+	if ( empty( $lines ) ) {
+		return array( '', '' );
+	}
+
+	$question = trim( wp_strip_all_tags( array_shift( $lines ) ) );
+	$answer   = trim( implode( "\n", $lines ) );
+
+	return array( $question, $answer );
+}
+
 function cft_faq_shortcode( $atts, $content = null ) {
 	$atts = shortcode_atts(
 		array(
@@ -604,13 +709,7 @@ function cft_faq_shortcode( $atts, $content = null ) {
 	$html .= '<div class="cft-faq-list">';
 
 	foreach ( $matches[1] as $raw ) {
-		$raw = trim( $raw );
-		if ( '' === $raw ) {
-			continue;
-		}
-		$parts    = preg_split( "/\r\n|\n|\r/", $raw, 2 );
-		$question = trim( $parts[0] );
-		$answer   = isset( $parts[1] ) ? trim( $parts[1] ) : '';
+		list( $question, $answer ) = cft_faq_item_parts( $raw );
 		if ( '' === $question ) {
 			continue;
 		}
@@ -723,22 +822,78 @@ function cft_mobile_nav_open_class() {
 	?>
 	<script>
 	(function () {
-		function syncNav() {
-			var open = false;
+		function menuPanel() {
+			var stuck = document.querySelector('.fusion-header-wrapper.fusion-is-sticky');
+			if (stuck) {
+				return document.querySelector('.fusion-mobile-sticky-nav-holder');
+			}
+			return document.querySelector('.fusion-secondary-main-menu .fusion-mobile-nav-holder:not(.fusion-mobile-sticky-nav-holder)')
+				|| document.querySelector('.fusion-mobile-nav-holder:not(.fusion-mobile-sticky-nav-holder)');
+		}
+
+		function isOpen(el) {
+			return !!(el && window.getComputedStyle(el).display !== 'none' && el.getBoundingClientRect().height > 40);
+		}
+
+		function setOpen(open) {
+			var current = menuPanel();
+			document.documentElement.classList.toggle('cft-nav-open', !!open);
 			document.querySelectorAll('.fusion-mobile-nav-holder').forEach(function (el) {
-				if (el.classList.contains('fusion-mobile-sticky-nav-holder')) {
-					return;
-				}
-				if (el.offsetHeight > 0 && window.getComputedStyle(el).display !== 'none') {
-					open = true;
+				if (el !== current) {
+					el.style.display = 'none';
 				}
 			});
-			document.documentElement.classList.toggle('cft-nav-open', open);
+			if (current) {
+				current.style.display = open ? 'block' : 'none';
+				current.style.height = '';
+			}
+			var bars = document.querySelector('.fusion-icon-bars');
+			if (bars) {
+				bars.setAttribute('aria-expanded', open ? 'true' : 'false');
+			}
 		}
-		document.addEventListener('click', function () {
-			window.setTimeout(syncNav, 0);
+
+		function onBarsClick(event) {
+			if (!event.target.closest('.fusion-icon-bars')) {
+				return;
+			}
+			event.preventDefault();
+			event.stopImmediatePropagation();
+			var panel = menuPanel();
+			setOpen(!isOpen(panel));
+		}
+
+		document.addEventListener('click', onBarsClick, true);
+
+		document.addEventListener('click', function (event) {
+			if (!document.documentElement.classList.contains('cft-nav-open')) {
+				return;
+			}
+			var link = event.target.closest('.fusion-mobile-nav-holder a');
+			if (link) {
+				setOpen(false);
+			}
 		});
-		window.addEventListener('resize', syncNav);
+
+		function unbindAvadaToggle() {
+			if (window.jQuery) {
+				window.jQuery('.fusion-icon-bars').off('click');
+			}
+		}
+		window.addEventListener('scroll', function () {
+			if (!document.documentElement.classList.contains('cft-nav-open')) {
+				return;
+			}
+			var current = menuPanel();
+			if (!isOpen(current)) {
+				setOpen(true);
+			}
+		}, { passive: true });
+
+		document.addEventListener('DOMContentLoaded', function () {
+			window.setTimeout(unbindAvadaToggle, 0);
+		});
+		window.addEventListener('load', unbindAvadaToggle);
 	})();
 	</script>
 	<?php
