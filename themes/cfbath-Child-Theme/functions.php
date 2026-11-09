@@ -285,7 +285,7 @@ if ( ! function_exists( 'avada_modern_menu' ) ) {
 
 			$html .= '<div class="fusion-mobile-menu-icons">';
 			if ( ! function_exists( 'ubermenu_get_menu_instance_by_theme_location' ) || ( function_exists( 'ubermenu_get_menu_instance_by_theme_location' ) && ! ubermenu_get_menu_instance_by_theme_location( 'main_navigation' ) ) ) {
-				$html .= '<a href="#" class="fusion-icon fusion-icon-bars"></a><a href="tel:07825337397" style="line-height: 22px"><i class="fa fa-phone"></i></a>';
+				$html .= '<a href="#" class="fusion-icon fusion-icon-bars"></a><a href="tel:07700170518" style="line-height: 22px"><i class="fa fa-phone"></i></a>';
 			}
 
 			if ( ( 'v4' == Avada()->settings->get( 'header_layout' ) || 'Top' != Avada()->settings->get( 'header_position' ) ) && ( 'Tagline And Search' == $header_content_3 || 'Search' == $header_content_3 ) ) {
