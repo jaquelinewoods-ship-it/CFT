@@ -4,7 +4,7 @@ Description: Child theme for CF-Bath
 Author: ThemeFusion
 Author URI: 
 Template: cfbath
-Version: 1.0.23
+Version: 1.0.125
 Text Domain:  CF-Bath
 */
 
@@ -54,7 +54,548 @@ h2.flip-box-heading.without-text {
     font-size: 19px !important;
 }
 
-.fusion-page-title-bar{background-position: top right;}
+/* Inner-page title banners: taller photo strip, cover crop, dark overlay */
+body:not(.home) .fusion-page-title-bar {
+  position: relative;
+  overflow: hidden;
+  height: 380px !important;
+  background-image: url("/cfbathmedia/uploads/cft-inner-banner-community.webp") !important;
+  background-size: cover !important;
+  background-position: center 38% !important;
+  background-repeat: no-repeat !important;
+}
+
+@media only screen and (max-width: 800px) {
+  body:not(.home) .fusion-page-title-bar {
+    height: 220px !important;
+  }
+}
+
+body.cft-sc-page .fusion-page-title-bar,
+body.cft-sc-page #wrapper .fusion-page-title-bar {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  max-width: none !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  background-image: none !important;
+  background-color: #ffffff !important;
+  background-size: auto !important;
+  background-position: 0 0 !important;
+  padding-top: 56px !important;
+  padding-bottom: 28px !important;
+  overflow: visible;
+  border: 0 !important;
+  box-shadow: none;
+}
+
+body.cft-sc-page .fusion-page-title-bar:before {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+}
+
+body.cft-sc-page .fusion-page-title-bar .fusion-page-title-row {
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+body.cft-sc-page .fusion-page-title-bar .fusion-breadcrumbs,
+body.cft-sc-page .fusion-page-title-bar .fusion-page-title-secondary {
+  display: none !important;
+}
+
+body.cft-sc-page .fusion-page-title-bar h1 {
+  color: #111111 !important;
+  text-shadow: none !important;
+}
+
+@media only screen and (max-width: 800px) {
+  body.cft-sc-page #wrapper .fusion-page-title-bar,
+  body.cft-sc-page .fusion-page-title-bar {
+    height: auto !important;
+    min-height: 0 !important;
+    padding-top: 48px !important;
+    padding-bottom: 24px !important;
+  }
+}
+
+.fusion-page-title-bar:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(8, 10, 16, 0.42);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.fusion-page-title-bar .fusion-page-title-row,
+.fusion-page-title-bar .fusion-page-title-wrapper,
+.fusion-page-title-bar .fusion-page-title-captions,
+.fusion-page-title-bar .fusion-breadcrumbs {
+  position: relative;
+  z-index: 1;
+}
+
+.fusion-page-title-bar h1 {
+  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.35);
+}
+
+/* Programmes, The Team, Schedule, and Hybrid Fitness: compact in-page
+   title — no photo, overlay, or cinematic bar. Other inner pages keep
+   the full-bleed photo banners. Beat Avada
+   #wrapper .fusion-page-title-bar { height: 380px !important }. */
+body.page-id-12401 #wrapper .fusion-page-title-bar,
+body.page-id-12401 .fusion-page-title-bar,
+body.page-id-613 #wrapper .fusion-page-title-bar,
+body.page-id-613 .fusion-page-title-bar,
+body.page-id-1354 #wrapper .fusion-page-title-bar,
+body.page-id-1354 .fusion-page-title-bar,
+body.page-id-12672 #wrapper .fusion-page-title-bar, body.cft-split-page #wrapper .fusion-page-title-bar,
+body.page-id-12672 .fusion-page-title-bar , body.cft-split-page .fusion-page-title-bar {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  max-width: none !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  background-image: none !important;
+  background-color: #ffffff !important;
+  background-size: auto !important;
+  background-position: 0 0 !important;
+  padding-top: 56px !important;
+  padding-bottom: 28px !important;
+  overflow: visible;
+  border: 0 !important;
+  box-shadow: none;
+}
+
+body.page-id-12401 .fusion-page-title-bar:before,
+body.page-id-613 .fusion-page-title-bar:before,
+body.page-id-1354 .fusion-page-title-bar:before,
+body.page-id-12672 .fusion-page-title-bar:before , body.cft-split-page .fusion-page-title-bar:before {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+}
+
+body.page-id-12401 .fusion-page-title-bar .fusion-page-title-row,
+body.page-id-613 .fusion-page-title-bar .fusion-page-title-row,
+body.page-id-1354 .fusion-page-title-bar .fusion-page-title-row,
+body.page-id-12672 .fusion-page-title-bar .fusion-page-title-row , body.cft-split-page .fusion-page-title-bar .fusion-page-title-row {
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+body.page-id-12401 .fusion-page-title-bar .fusion-breadcrumbs,
+body.page-id-12401 .fusion-page-title-bar .fusion-page-title-secondary,
+body.page-id-613 .fusion-page-title-bar .fusion-breadcrumbs,
+body.page-id-613 .fusion-page-title-bar .fusion-page-title-secondary,
+body.page-id-1354 .fusion-page-title-bar .fusion-breadcrumbs,
+body.page-id-1354 .fusion-page-title-bar .fusion-page-title-secondary,
+body.page-id-12672 .fusion-page-title-bar .fusion-breadcrumbs, body.cft-split-page .fusion-page-title-bar .fusion-breadcrumbs,
+body.page-id-12672 .fusion-page-title-bar .fusion-page-title-secondary , body.cft-split-page .fusion-page-title-bar .fusion-page-title-secondary {
+  display: none !important;
+}
+
+body.page-id-12401 .fusion-page-title-bar h1,
+body.page-id-613 .fusion-page-title-bar h1,
+body.page-id-1354 .fusion-page-title-bar h1,
+body.page-id-12672 .fusion-page-title-bar h1 , body.cft-split-page .fusion-page-title-bar h1 {
+  color: #111111 !important;
+  text-shadow: none !important;
+}
+
+@media only screen and (max-width: 800px) {
+  body.page-id-12401 #wrapper .fusion-page-title-bar,
+  body.page-id-12401 .fusion-page-title-bar,
+  body.page-id-613 #wrapper .fusion-page-title-bar,
+  body.page-id-613 .fusion-page-title-bar,
+  body.page-id-1354 #wrapper .fusion-page-title-bar,
+  body.page-id-1354 .fusion-page-title-bar,
+  body.page-id-12672 #wrapper .fusion-page-title-bar, body.cft-split-page #wrapper .fusion-page-title-bar,
+  body.page-id-12672 .fusion-page-title-bar , body.cft-split-page .fusion-page-title-bar {
+    height: auto !important;
+    min-height: 0 !important;
+    padding-top: 48px !important;
+    padding-bottom: 24px !important;
+  }
+}
+
+/* Programmes: full-viewport muted 9:16 trio under the title, before the intro. */
+body.page-id-12401 {
+  overflow-x: hidden;
+}
+
+body.page-id-12401 .cft-programmes-strip {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: #0b0c0e;
+  overflow: hidden;
+}
+
+body.page-id-12401 .cft-programmes-strip-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  height: 480px;
+}
+
+body.page-id-12401 .cft-programmes-strip video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  pointer-events: none;
+  background: #0b0c0e;
+}
+
+@media only screen and (max-width: 850px) {
+  body.page-id-12401 .cft-programmes-strip-inner {
+    grid-template-columns: 1fr;
+    height: 520px;
+  }
+
+  body.page-id-12401 .cft-programmes-strip video:not(.is-primary) {
+    display: none;
+  }
+}
+
+/* Programmes intro copy + Book a free class CTA under the video strip. */
+body.page-id-12401 .cft-programmes-intro .fusion-text p {
+  margin-bottom: 0;
+}
+
+body.page-id-12401 .cft-programmes-intro .fusion-button-wrapper {
+  display: block;
+  text-align: center;
+  margin-top: 22px;
+  margin-bottom: 0;
+}
+
+/* Programmes quiet closer: one line + black CTA. Replaces the
+   dotted 100% / photo banner on this page only. */
+body.page-id-12401 .cft-programmes-closer {
+  background: #ffffff !important;
+  background-image: none !important;
+}
+
+body.page-id-12401 .cft-programmes-closer .fusion-text p {
+  max-width: 40em;
+  margin: 0 auto;
+  color: #111111;
+}
+
+body.page-id-12401 .cft-programmes-closer .fusion-button-wrapper {
+  display: block;
+  text-align: center;
+  margin-top: 22px;
+  margin-bottom: 0;
+}
+
+/* Programmes: zigzag photo/copy split rows.
+   Targets Avada hundred-percent equal-height containers only:
+   fullwidth-2 WOD, 3 Intro, 4 Legends, 5 PT, 6 Olympic, 7 Skills,
+   8 Kids, 9 Nutrition. Skips title, video strip, intro
+   (fullwidth-1), and the final CTA (fullwidth-10). Kids is a
+   two-column photo+text row (not a gallery), so it stays in the
+   zigzag. Odd rows already photo-left; even rows reverse. */
+body.page-id-12401 .fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+body.page-id-12401 .fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-clearfix {
+  display: none;
+}
+
+body.page-id-12401 .fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half {
+  float: none;
+  clear: none;
+  display: flex;
+  flex-direction: column;
+  width: 50% !important;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+body.page-id-12401 .fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half .fusion-column-wrapper {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+@media only screen and (min-width: 851px) {
+  body.page-id-12401 .fusion-fullwidth-3 > .fusion-row,
+  body.page-id-12401 .fusion-fullwidth-5 > .fusion-row,
+  body.page-id-12401 .fusion-fullwidth-7 > .fusion-row,
+  body.page-id-12401 .fusion-fullwidth-9 > .fusion-row {
+    flex-direction: row-reverse;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  body.page-id-12401 .fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  body.page-id-12401 .fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half {
+    width: 100% !important;
+    float: none;
+  }
+}
+
+/* Programmes photo crops. Avada uses background-size:cover on column
+   wrappers; shift focal point so faces / bar / head stay in frame. */
+body.page-id-12401 .fusion-fullwidth-2 .fusion-column-wrapper {
+  background-position: center 44% !important; /* WOD rowers' faces, not ceiling */
+}
+body.page-id-12401 .fusion-fullwidth-4 .fusion-column-wrapper {
+  background-position: center 26% !important; /* Legends box-jump head/torso */
+}
+body.page-id-12401 .fusion-fullwidth-5 .fusion-column-wrapper {
+  background-position: center 34% !important; /* PT coach + member faces */
+}
+body.page-id-12401 .fusion-fullwidth-6 .fusion-column-wrapper {
+  background-position: center 38% !important; /* Olympic: overhead lift, keep bar + head */
+}
+/* Skills pull-up is a tall portrait; cover chops too much. Contain
+   letterboxed into a postage stamp, so zoom out vs cover with 80%
+   auto — more of the athlete/bar, still fairly full-bleed. Side
+   gutters match the adjacent Skills copy grey. */
+body.page-id-12401 .fusion-fullwidth-7 .fusion-column-wrapper[data-bg-url*="cft-programmes-skills"] {
+  background-color: #363636 !important;
+  background-repeat: no-repeat !important;
+  background-position: center 18% !important;
+  background-size: 80% auto !important;
+}
+body.page-id-12401 .fusion-fullwidth-8 .fusion-column-wrapper {
+  background-position: center 40% !important; /* Kids class, not ceiling */
+}
+
+body.page-id-12401 .fusion-fullwidth-8 .fusion-text p {
+  margin: 0 0 0.8em;
+}
+
+body.page-id-12401 .fusion-fullwidth-8 .fusion-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Hybrid Fitness: intro 50/50 + 3 zigzag beats + closer. Not a station grid. */
+body.page-id-12672 .cft-hybrid-intro, body.cft-split-page .cft-hybrid-intro,
+body.page-id-12672 .cft-hybrid-beat, body.cft-split-page .cft-hybrid-beat,
+body.page-id-12672 .cft-hybrid-closer , body.cft-split-page .cft-hybrid-closer {
+  border: 0 !important;
+}
+
+body.page-id-12672 .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row, body.cft-split-page .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row,
+body.page-id-12672 .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row , body.cft-split-page .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+body.page-id-12672 .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-clearfix, body.cft-split-page .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-clearfix,
+body.page-id-12672 .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-clearfix , body.cft-split-page .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-clearfix {
+  display: none;
+}
+
+body.page-id-12672 .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half, body.cft-split-page .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half,
+body.page-id-12672 .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half , body.cft-split-page .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half {
+  float: none;
+  clear: none;
+  display: flex;
+  flex-direction: column;
+  width: 50% !important;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+body.page-id-12672 .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half .fusion-column-wrapper, body.cft-split-page .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half .fusion-column-wrapper,
+body.page-id-12672 .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half .fusion-column-wrapper , body.cft-split-page .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half .fusion-column-wrapper {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+@media only screen and (min-width: 851px) {
+  body.page-id-12672 .cft-hybrid-beat-alt > .fusion-row, body.cft-split-page .cft-hybrid-beat-alt > .fusion-row,
+  body.page-id-12672 .cft-hybrid-intro > .fusion-row , body.cft-split-page .cft-hybrid-intro > .fusion-row {
+    flex-direction: row-reverse;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  body.page-id-12672 .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row, body.cft-split-page .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row,
+  body.page-id-12672 .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row , body.cft-split-page .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  body.page-id-12672 .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half, body.cft-split-page .cft-hybrid-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half,
+  body.page-id-12672 .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half , body.cft-split-page .cft-hybrid-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half {
+    width: 100% !important;
+    float: none;
+  }
+}
+
+/* Portrait stills need a tall column or cover chops to ceiling.
+   Avada writes inline min-height after equal-height JS; beat it. */
+body.page-id-12672 .cft-hybrid-intro .fusion-one-half, body.cft-split-page .cft-hybrid-intro .fusion-one-half,
+body.page-id-12672 .cft-hybrid-intro .fusion-column-wrapper, body.cft-split-page .cft-hybrid-intro .fusion-column-wrapper,
+body.page-id-12672 .cft-hybrid-beat .fusion-one-half, body.cft-split-page .cft-hybrid-beat .fusion-one-half,
+body.page-id-12672 .cft-hybrid-beat .fusion-column-wrapper , body.cft-split-page .cft-hybrid-beat .fusion-column-wrapper {
+  min-height: 460px !important;
+}
+
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-photo, body.cft-split-page .cft-hybrid-intro .cft-hybrid-photo,
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-photo .fusion-column-wrapper , body.cft-split-page .cft-hybrid-intro .cft-hybrid-photo .fusion-column-wrapper {
+  min-height: 520px !important;
+}
+
+body.page-id-12672 .cft-hybrid-photo .fusion-column-wrapper , body.cft-split-page .cft-hybrid-photo .fusion-column-wrapper {
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+
+body.page-id-12672 .cft-hybrid-photo-intro .fusion-column-wrapper , body.cft-split-page .cft-hybrid-photo-intro .fusion-column-wrapper {
+  background-position: center 58% !important; /* rower + coach faces */
+}
+
+body.page-id-12672 .cft-hybrid-photo-ski .fusion-column-wrapper , body.cft-split-page .cft-hybrid-photo-ski .fusion-column-wrapper {
+  background-position: center 40% !important; /* B&W rower + coach */
+}
+
+body.page-id-12672 .cft-hybrid-photo-bike .fusion-column-wrapper , body.cft-split-page .cft-hybrid-photo-bike .fusion-column-wrapper {
+  background-position: center 48% !important;
+}
+
+body.page-id-12672 .cft-hybrid-photo-lift .fusion-column-wrapper , body.cft-split-page .cft-hybrid-photo-lift .fusion-column-wrapper {
+  background-position: center 22% !important; /* overhead DB, keep bell in frame */
+}
+
+/* Intro copy: left-aligned, constrained measure, not a Word-doc stack. */
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-copy, body.cft-split-page .cft-hybrid-intro .cft-hybrid-copy,
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-copy .fusion-column-wrapper , body.cft-split-page .cft-hybrid-intro .cft-hybrid-copy .fusion-column-wrapper {
+  background-color: #dddddd !important;
+}
+
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-copy .fusion-column-wrapper , body.cft-split-page .cft-hybrid-intro .cft-hybrid-copy .fusion-column-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 56px !important;
+  padding-bottom: 56px !important;
+  padding-left: 7% !important;
+  padding-right: 10% !important;
+}
+
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-copy .fusion-column-tablecell, body.cft-split-page .cft-hybrid-intro .cft-hybrid-copy .fusion-column-tablecell,
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-copy .fusion-text , body.cft-split-page .cft-hybrid-intro .cft-hybrid-copy .fusion-text {
+  max-width: 40rem;
+  text-align: left;
+}
+
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-copy p , body.cft-split-page .cft-hybrid-intro .cft-hybrid-copy p {
+  margin: 0 0 1.15em;
+  color: inherit !important;
+  text-align: left !important;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  max-width: 40rem;
+}
+
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-copy p:last-child , body.cft-split-page .cft-hybrid-intro .cft-hybrid-copy p:last-child {
+  margin-bottom: 0;
+}
+
+body.page-id-12672 .cft-hybrid-intro .cft-hybrid-lead , body.cft-split-page .cft-hybrid-intro .cft-hybrid-lead {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  text-transform: none;
+}
+
+body.page-id-12672 .cft-hybrid-beat .name , body.cft-split-page .cft-hybrid-beat .name {
+  margin: 0 0 0.55em;
+}
+
+body.page-id-12672 .cft-hybrid-beat .theService , body.cft-split-page .cft-hybrid-beat .theService {
+  margin: 0;
+}
+
+body.page-id-12672 .cft-hybrid-closer , body.cft-split-page .cft-hybrid-closer {
+  background: #ffffff !important;
+  background-image: none !important;
+}
+
+body.page-id-12672 .cft-hybrid-closer .fusion-text p , body.cft-split-page .cft-hybrid-closer .fusion-text p {
+  max-width: 40em;
+  margin: 0 auto;
+  color: #111111;
+}
+
+body.page-id-12672 .cft-hybrid-closer .fusion-button-wrapper , body.cft-split-page .cft-hybrid-closer .fusion-button-wrapper {
+  display: block;
+  text-align: center;
+  margin-top: 22px;
+  margin-bottom: 0;
+}
+
+body.page-id-12672 .cft-hybrid-timetable , body.cft-split-page .cft-hybrid-timetable {
+  margin: 16px 0 0;
+  text-align: center;
+  color: #111111;
+}
+
+body.page-id-12672 .cft-hybrid-timetable a , body.cft-split-page .cft-hybrid-timetable a {
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body.page-id-12672 .cft-hybrid-timetable a:hover , body.cft-split-page .cft-hybrid-timetable a:hover {
+  color: #24549c;
+}
+
+@media only screen and (max-width: 850px) {
+  body.page-id-12672 .cft-hybrid-intro .fusion-one-half, body.cft-split-page .cft-hybrid-intro .fusion-one-half,
+  body.page-id-12672 .cft-hybrid-intro .fusion-column-wrapper, body.cft-split-page .cft-hybrid-intro .fusion-column-wrapper,
+  body.page-id-12672 .cft-hybrid-beat .fusion-one-half, body.cft-split-page .cft-hybrid-beat .fusion-one-half,
+  body.page-id-12672 .cft-hybrid-beat .fusion-column-wrapper , body.cft-split-page .cft-hybrid-beat .fusion-column-wrapper {
+    min-height: 360px !important;
+  }
+
+  body.page-id-12672 .cft-hybrid-intro .cft-hybrid-photo, body.cft-split-page .cft-hybrid-intro .cft-hybrid-photo,
+  body.page-id-12672 .cft-hybrid-intro .cft-hybrid-photo .fusion-column-wrapper , body.cft-split-page .cft-hybrid-intro .cft-hybrid-photo .fusion-column-wrapper {
+    min-height: 420px !important;
+  }
+
+  body.page-id-12672 .cft-hybrid-intro .cft-hybrid-copy .fusion-column-wrapper , body.cft-split-page .cft-hybrid-intro .cft-hybrid-copy .fusion-column-wrapper {
+    min-height: 0 !important;
+    padding-top: 36px !important;
+    padding-bottom: 40px !important;
+    padding-left: 8% !important;
+    padding-right: 8% !important;
+  }
+}
 
 .tfs-slider .slide-content-container h2, .tfs-slider .slide-content-container h3, .stroke-text{
 
@@ -85,11 +626,6 @@ h2.flip-box-heading.without-text {
 /* CONTACT FORM*/
 .wpcf7-form input[type="submit"], .wpcf7-submit{background:#2c2d2e;color:#fff;}
 .wpcf7-form input[type="submit"]:hover, .wpcf7-submit:hover{background:#f6f6f6;color:#2c2d2e;}
-
-h1, h2, h3, h4, h5, h6 {
-    text-transform: uppercase !important;
-    letter-spacing: 1.5px;
-}
 
 h4.fusion-rollover-title a{color:#fff !important;}
 
@@ -342,7 +878,11 @@ body.home .home-scroll-cue-icon {
 .fusion-body .fusion-secondary-header .fusion-secondary-menu > ul > li > a {
   display: inline-flex !important;
   align-items: center;
-  padding: 0 !important;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+  padding: 14px 12px !important;
+  min-height: 40px;
   height: auto !important;
   line-height: 1 !important;
   border: 0 !important;
@@ -350,6 +890,10 @@ body.home .home-scroll-cue-icon {
   color: #ffffff !important;
   text-decoration: none !important;
   opacity: 0.92;
+}
+
+#cft-enquire {
+  scroll-margin-top: 120px;
 }
 
 .fusion-body .fusion-secondary-header .fusion-secondary-menu > ul > li > a:hover {
@@ -444,24 +988,19 @@ a[href*="x.com/crossfitbath"] {
   display: none !important;
 }
 
-/* Homepage-only type + colour refresh (staging trial)
+/* Site-wide type + colour (lifted from Home)
    Accent sampled from the Trowbridge logo (~#24549c).
-   Buttons go near-black; Raleway/all-caps stays on other pages. */
-body.home,
-body.home #wrapper,
-body.home .fusion-body,
-body.home p,
-body.home li,
-body.home .fusion-button {
+   Buttons go near-black. Nav stays uppercase. */
+body,
+#wrapper,
+.fusion-body,
+p,
+li,
+.fusion-button {
   font-family: Archivo, Helvetica, Arial, sans-serif !important;
 }
 
-body.home h1,
-body.home h2,
-body.home h3,
-body.home h4,
-body.home h5,
-body.home h6 {
+h1, h2, h3, h4, h5, h6 {
   font-family: Archivo, Helvetica, Arial, sans-serif !important;
   text-transform: none !important;
   letter-spacing: -0.02em !important;
@@ -469,77 +1008,115 @@ body.home h6 {
   line-height: 1.15;
 }
 
-body.home .fusion-main-menu > ul > li > a {
+.fusion-main-menu > ul > li > a,
+.fusion-mobile-nav-holder a {
   font-family: Archivo, Helvetica, Arial, sans-serif !important;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 600;
 }
 
-body.home .fusion-button {
+.fusion-button {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 600;
-  border-radius: 2px !important;
+  border-radius: 999px !important;
 }
 
 /* Default Avada blue CTAs → near-black; hover uses logo blue */
-body.home .fusion-button.button-default {
+.fusion-button.button-default {
   background: #111111 !important;
   background-image: none !important;
   border-color: #111111 !important;
 }
 
-body.home .fusion-button.button-default:hover,
-body.home .fusion-button.button-default:focus,
-body.home .fusion-button.button-default:active {
+.fusion-button.button-default:hover,
+.fusion-button.button-default:focus,
+.fusion-button.button-default:active {
   background: #24549c !important;
   background-image: none !important;
   border-color: #24549c !important;
 }
 
-body.home .fusion-button.button-default .fusion-button-text,
-body.home .fusion-button.button-default:hover .fusion-button-text,
-body.home .fusion-button.button-default:focus .fusion-button-text,
-body.home .fusion-button.button-default:active .fusion-button-text {
+.fusion-button.button-default .fusion-button-text,
+.fusion-button.button-default:hover .fusion-button-text,
+.fusion-button.button-default:focus .fusion-button-text,
+.fusion-button.button-default:active .fusion-button-text {
   color: #ffffff !important;
 }
 
-/* Drop the dated play icon on Home CTAs */
-body.home .fusion-button .button-icon-left,
-body.home .fusion-button .button-icon-right,
-body.home .fusion-button .fa-play {
+/* Homepage hero: Get started stays logo blue so it reads on the photo. */
+.fusion-button.button-banner.button-default {
+  background: #24549c !important;
+  background-image: none !important;
+  border-color: #24549c !important;
+}
+
+.fusion-button.button-banner.button-default:hover,
+.fusion-button.button-banner.button-default:focus,
+.fusion-button.button-banner.button-default:active {
+  background: #1c427c !important;
+  background-image: none !important;
+  border-color: #1c427c !important;
+}
+
+/* Drop the dated play icon on CTAs */
+.fusion-button .button-icon-left,
+.fusion-button .button-icon-right,
+.fusion-button .button-icon-divider-left,
+.fusion-button .button-icon-divider-right,
+.fusion-button .fa-play {
   display: none !important;
 }
 
-body.home .fusion-button .fusion-button-text,
-body.home .fusion-button .fusion-button-text-left,
-body.home .fusion-button .fusion-button-text-right {
+.fusion-button .fusion-button-text,
+.fusion-button .fusion-button-text-left,
+.fusion-button .fusion-button-text-right {
   padding-left: 0 !important;
 }
 
 /* Logo blue for in-copy accents that were #4a75cb */
-body.home .fusion-checklist .icon-wrapper {
+.fusion-checklist .icon-wrapper {
   background-color: #24549c !important;
 }
 
-body.home span[style*="#4a75cb"],
-body.home h3 span[style*="#4a75cb"] {
+span[style*="#4a75cb"],
+h3 span[style*="#4a75cb"] {
   color: #24549c !important;
 }
 
-body.home .fusion-social-networks .fusion-social-network-icon {
+.fusion-social-networks .fusion-social-network-icon {
   background-color: #111111 !important;
   border-color: #111111 !important;
 }
 
-body.home .fusion-footer .fusion-social-network-icon {
+/* Top bar socials: white glyphs on the blue bar, not black boxed badges.
+   The rule above is for footer / in-page boxed icons. */
+.fusion-body .fusion-secondary-header .fusion-social-links-header .fusion-social-network-icon {
+  background: none !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  border-color: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: #ffffff !important;
+  opacity: 0.92;
+}
+
+.fusion-body .fusion-secondary-header .fusion-social-links-header .fusion-social-network-icon:hover,
+.fusion-body .fusion-secondary-header .fusion-social-links-header .fusion-social-network-icon:focus {
+  color: #ffffff !important;
+  opacity: 1;
+}
+
+.fusion-footer .fusion-social-network-icon {
   background-color: #1a1a1a !important;
   border-color: #3a3a3a !important;
   color: #ffffff !important;
 }
 
-/* Compact footer: drop leftover Bath badges, duplicate CTA, empty columns */
+/* Compact footer: drop leftover Bath badges and empty columns.
+   The enquiry line and Free taster button stay visible. */
 .fusion-footer-widget-area {
   padding-top: 32px !important;
   padding-bottom: 16px !important;
@@ -563,7 +1140,7 @@ body.home .fusion-footer .fusion-social-network-icon {
 .fusion-footer-widget-area .widget-title {
   font-size: 13px !important;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
+  text-transform: uppercase !important;
   margin-bottom: 8px !important;
   font-weight: 600;
 }
@@ -585,14 +1162,63 @@ body.home .fusion-footer .fusion-social-network-icon {
   white-space: nowrap;
 }
 
-.fusion-footer-widget-area #text-2 .widget-title,
 .fusion-footer-widget-area #text-2 .cfJournal,
 .fusion-footer-widget-area #text-2 img[src*="crossfit-forge-logo"],
 .fusion-footer-widget-area #text-2 .fusion-separator,
-.fusion-footer-widget-area #text-2 .fusion-sep-clear,
-.fusion-footer-widget-area #text-2 p,
-.fusion-footer-widget-area #text-2 .fusion-button-wrapper {
+.fusion-footer-widget-area #text-2 .fusion-sep-clear {
   display: none !important;
+}
+
+.fusion-footer-widget-area #text-2 .textwidget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fusion-footer-widget-area #text-2 .widget-title {
+  margin-bottom: 8px !important;
+}
+
+.fusion-footer-widget-area #text-2 p {
+  order: 1;
+  display: block !important;
+  max-width: 36em;
+  margin: 0 auto 16px !important;
+  text-align: center;
+  color: #ffffff;
+}
+
+.fusion-footer-widget-area #text-2 .fusion-button-wrapper {
+  order: 2;
+  display: block !important;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto 8px !important;
+  text-align: center;
+}
+
+.fusion-footer-widget-area #text-2 .textwidget > a {
+  order: 3;
+  margin-top: 14px;
+}
+
+/* Dark footer (#2c2d2f): this button cannot stay near-black. */
+.fusion-footer-widget-area #text-2 .fusion-button.button-default {
+  width: 100% !important;
+  background: #24549c !important;
+  background-image: none !important;
+  border-color: #24549c !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  animation: none !important;
+}
+
+.fusion-footer-widget-area #text-2 .fusion-button.button-default:hover,
+.fusion-footer-widget-area #text-2 .fusion-button.button-default:focus,
+.fusion-footer-widget-area #text-2 .fusion-button.button-default:active {
+  background: #1c427c !important;
+  background-image: none !important;
+  border-color: #1c427c !important;
 }
 
 .fusion-footer-widget-area #text-2 img[src*="crossfit-journal"] {
@@ -684,9 +1310,35 @@ body.home #home-mission {
 }
 
 body.home #home-mission h2 {
-  max-width: 16.5em;
+  max-width: 22em;
   margin-bottom: 1.15em !important;
   font-weight: 700;
+}
+
+body.home .cft-home-h1 {
+  max-width: 12em;
+  margin: 0 0 0.45em;
+  color: #111111;
+  font-size: 40px;
+  line-height: 1.12;
+}
+
+body.home .tfs-slider .cft-slide-logo,
+body.home .tfs-slider .cft-slide-caption {
+  margin: 0.67em 0;
+}
+
+/* Flexslider sets every slide image to width:100% and display:block,
+   which pins the hero logo to the left of the centred caption and button. */
+body.home .tfs-slider .cft-slide-logo a {
+  display: block;
+  text-align: center;
+}
+
+body.home .tfs-slider .cft-slide-logo img {
+  display: inline-block;
+  width: auto;
+  max-width: 440px;
 }
 
 body.home #home-mission .fusion-checklist {
@@ -754,11 +1406,98 @@ body.home #home-mission .cft-home-mission-photo .fusion-column-wrapper {
   }
 }
 
+/* Homepage FAQ, between Why us and the community band. */
+body.home .fusion-fullwidth:has(.cft-why-values) > .fusion-row {
+  display: flex;
+  align-items: stretch;
+}
+
+body.home .fusion-fullwidth:has(.cft-why-values) .fusion-one-half,
+body.home .fusion-fullwidth:has(.cft-why-values) .fusion-column-wrapper,
+body.home .fusion-fullwidth:has(.cft-why-values) .fusion-column-table,
+body.home .fusion-fullwidth:has(.cft-why-values) .fusion-column-tablecell {
+  height: auto !important;
+  overflow: visible !important;
+}
+
+body.home .fusion-fullwidth:has(.cft-why-values) .fusion-column-last .fusion-column-wrapper {
+  height: 100% !important;
+  min-height: 100%;
+}
+
+body.home .fusion-column-wrapper:has(.cft-why-values) {
+  padding: 56px 48px 64px !important;
+}
+
+body.home .fusion-column-wrapper:has(.cft-why-values) .fusion-separator {
+  margin-top: 0 !important;
+  margin-bottom: 28px !important;
+}
+
+body.home .cft-why-title {
+  margin: 0 0 22px !important;
+}
+
+body.home .cft-why-values {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+body.home .cft-why-value h3 {
+  margin: 0 0 6px !important;
+  color: #24549c !important;
+  font-family: Archivo, Helvetica, Arial, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  line-height: 1.2 !important;
+  text-transform: uppercase !important;
+}
+
+body.home .cft-why-value p {
+  margin: 0;
+  color: #222222;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+@media only screen and (max-width: 800px) {
+  body.home .fusion-column-wrapper:has(.cft-why-values) {
+    padding: 36px 24px !important;
+  }
+}
+
+body.home #home-faq {
+  background: #ffffff !important;
+}
+
+body.home #home-faq .fusion-text {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.home #home-faq .cft-faq h2 {
+  margin: 0 0 18px;
+  color: #111111;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: left;
+}
+
+@media only screen and (max-width: 800px) {
+  body.home #home-faq .cft-faq h2 {
+    font-size: 32px;
+  }
+}
+
 /* Community band: photo cover instead of tiled dots */
 body.home #home-community,
 body.home .cft-home-community {
   background-size: cover !important;
-  background-position: center 28% !important;
+  background-position: center 42% !important; /* fistbump, keep faces in frame */
   background-repeat: no-repeat !important;
   position: relative;
   min-height: 700px;
@@ -776,7 +1515,7 @@ body.home .cft-home-community:before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(8, 10, 16, 0.22);
+  background: rgba(8, 10, 16, 0.38);
   pointer-events: none;
   z-index: 0;
 }
@@ -834,4 +1573,2136 @@ body.home #home-instagram .sbi_follow_btn,
 body.home #home-instagram .sbi_header_text,
 body.home #home-instagram .sb_instagram_header {
   display: none !important;
+}
+
+/* The gym / The Bridge S&C — review layouts (option 2 + 3) */
+body.cft-sc-page .cft-sc-reviewbar {
+  background: #111111 !important;
+  border: 0 !important;
+}
+
+body.cft-sc-page .cft-sc-review {
+  margin: 0;
+  padding: 12px 20px;
+  color: #ffffff;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+body.cft-sc-page .cft-sc-review a {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body.cft-sc-page .cft-sc-intro,
+body.cft-sc-page .cft-sc-beat,
+body.cft-sc-page .cft-sc-closer {
+  border: 0 !important;
+}
+
+body.cft-sc-page .cft-sc-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row,
+body.cft-sc-page .cft-sc-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+body.cft-sc-page .cft-sc-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-clearfix,
+body.cft-sc-page .cft-sc-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-clearfix {
+  display: none;
+}
+
+body.cft-sc-page .cft-sc-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half,
+body.cft-sc-page .cft-sc-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half {
+  float: none;
+  clear: none;
+  display: flex;
+  flex-direction: column;
+  width: 50% !important;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+body.cft-sc-page .cft-sc-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half .fusion-column-wrapper,
+body.cft-sc-page .cft-sc-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half .fusion-column-wrapper {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+@media only screen and (min-width: 851px) {
+  body.cft-sc-page .cft-sc-beat-alt > .fusion-row {
+    flex-direction: row-reverse;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  body.cft-sc-page .cft-sc-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row,
+  body.cft-sc-page .cft-sc-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  body.cft-sc-page .cft-sc-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half,
+  body.cft-sc-page .cft-sc-beat.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row > .fusion-one-half {
+    width: 100% !important;
+    float: none;
+  }
+}
+
+body.cft-sc-page .cft-sc-intro .fusion-one-half,
+body.cft-sc-page .cft-sc-intro .fusion-column-wrapper,
+body.cft-sc-page .cft-sc-beat .fusion-one-half,
+body.cft-sc-page .cft-sc-beat .fusion-column-wrapper {
+  min-height: 460px !important;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-photo-kit,
+body.cft-sc-page .cft-sc-intro .cft-sc-photo-kit .fusion-column-wrapper,
+body.cft-sc-page .cft-sc-beat .cft-sc-photo-kit,
+body.cft-sc-page .cft-sc-beat .cft-sc-photo-kit .fusion-column-wrapper {
+  min-height: 620px !important;
+}
+
+body.cft-sc-page .cft-sc-beat .cft-sc-photo-hours,
+body.cft-sc-page .cft-sc-beat .cft-sc-photo-hours .fusion-column-wrapper,
+body.cft-sc-page .cft-sc-beat .cft-sc-photo-coffee,
+body.cft-sc-page .cft-sc-beat .cft-sc-photo-coffee .fusion-column-wrapper {
+  min-height: 520px !important;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-photo,
+body.cft-sc-page .cft-sc-intro .cft-sc-photo .fusion-column-wrapper {
+  min-height: 520px !important;
+}
+
+body.cft-sc-page .cft-sc-photo .fusion-column-wrapper {
+  position: relative !important;
+  overflow: hidden;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+
+body.cft-sc-page .cft-sc-photo-intro .fusion-column-wrapper {
+  background-position: center 36% !important; /* Bridge wall + overhead */
+}
+
+body.cft-sc-page .cft-sc-photo-hours .fusion-column-wrapper {
+  background-position: center 42% !important; /* cable fly, keep head */
+}
+
+body.cft-sc-page .cft-sc-photo-coffee .fusion-column-wrapper {
+  background-position: center 50% !important; /* coffee bar, chalkboard + machine */
+}
+
+body.cft-sc-page .cft-sc-photo-kit .fusion-column-wrapper {
+  padding: 0 !important;
+}
+
+body.cft-sc-page .cft-sc-photo-kit .fusion-text {
+  position: absolute;
+  inset: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.cft-sc-page .cft-sc-clip {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+body.cft-sc-page .cft-sc-photo-kit .cft-sc-clip {
+  object-position: center center;
+}
+
+/* Portrait gym film: let the intro column match 9:16 instead of a short crop. */
+body.cft-sc-page .cft-sc-intro .cft-sc-photo-kit,
+body.cft-sc-page .cft-sc-intro .cft-sc-photo-kit .fusion-column-wrapper {
+  aspect-ratio: 9 / 16;
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-copy,
+body.cft-sc-page .cft-sc-intro .cft-sc-copy .fusion-column-wrapper {
+  background-color: #363636 !important;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-copy .fusion-column-wrapper {
+  display: flex !important;
+  align-items: center;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-copy .fusion-text,
+body.cft-sc-page .cft-sc-intro .cft-sc-copy p,
+body.cft-sc-page .cft-sc-intro .cft-sc-copy h2 {
+  color: #ffffff !important;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-copy h2 {
+  margin: 0 0 0.55em;
+  font-size: 1.65rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-copy .fusion-column-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 56px !important;
+  padding-bottom: 56px !important;
+  padding-left: 7% !important;
+  padding-right: 10% !important;
+  color: #ffffff;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-copy .fusion-text,
+body.cft-sc-page .cft-sc-intro .cft-sc-copy h2,
+body.cft-sc-page .cft-sc-intro .cft-sc-copy p {
+  max-width: 40rem;
+  text-align: left !important;
+  color: #ffffff !important;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-copy p {
+  margin: 0 0 1.15em;
+}
+
+body.cft-sc-page .cft-sc-intro .cft-sc-copy p:last-child {
+  margin-bottom: 0;
+}
+
+body.cft-sc-page .cft-sc-kicker {
+  display: block;
+  margin: 0 0 0.55em;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #111111;
+}
+
+body.cft-sc-page .cft-sc-beat .name {
+  margin: 0 0 0.55em;
+}
+
+body.cft-sc-page .cft-sc-beat .theService {
+  margin: 0;
+}
+
+body.cft-sc-page .cft-sc-plans {
+  background: #111111 !important;
+  border: 0 !important;
+}
+
+body.cft-sc-page .cft-sc-plans .fusion-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: center;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+body.cft-sc-page .cft-sc-plans .fusion-one-third,
+body.cft-sc-page .cft-sc-plans .fusion-one-full {
+  float: none;
+  width: 100% !important;
+  max-width: 420px;
+  margin: 0 auto !important;
+}
+
+body.cft-sc-page .cft-sc-plan {
+  height: 100%;
+  padding: 8px;
+}
+
+body.cft-sc-page .cft-sc-plan-inner {
+  height: 100%;
+  padding: 36px 28px 40px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  text-align: center;
+  color: #ffffff;
+}
+
+body.cft-sc-page .cft-sc-plan h2,
+body.cft-sc-page .cft-sc-plan h3 {
+  margin: 0 0 0.35em;
+  color: #ffffff !important;
+  font-size: 1.15rem !important;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+body.cft-sc-page .cft-sc-price {
+  display: block;
+  margin: 0 0 0.85em;
+  font-size: 2.4rem;
+  line-height: 1;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+body.cft-sc-page .cft-sc-plan p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+body.cft-sc-page .cft-sc-closer {
+  background: #ffffff !important;
+}
+
+body.cft-sc-page .cft-sc-closer .fusion-text p {
+  max-width: 40em;
+  margin: 0 auto;
+  color: #111111;
+  text-align: center;
+}
+
+body.cft-sc-page .cft-sc-closer .fusion-button-wrapper {
+  display: block;
+  text-align: center;
+  margin-top: 22px;
+}
+
+body.cft-sc-page .cft-sc-facts {
+  margin: 16px 0 0;
+  text-align: center;
+  color: #111111;
+}
+
+body.cft-sc-page .cft-sc-facts a {
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body.cft-sc-page .cft-sc-facts a:hover {
+  color: #24549c;
+}
+
+@media only screen and (max-width: 850px) {
+  body.cft-sc-page .cft-sc-intro .fusion-one-half,
+  body.cft-sc-page .cft-sc-intro .fusion-column-wrapper,
+  body.cft-sc-page .cft-sc-beat .fusion-one-half,
+  body.cft-sc-page .cft-sc-beat .fusion-column-wrapper {
+    min-height: 360px !important;
+  }
+
+  body.cft-sc-page .cft-sc-intro .cft-sc-photo-kit,
+  body.cft-sc-page .cft-sc-intro .cft-sc-photo-kit .fusion-column-wrapper,
+  body.cft-sc-page .cft-sc-beat .cft-sc-photo-kit,
+  body.cft-sc-page .cft-sc-beat .cft-sc-photo-kit .fusion-column-wrapper {
+    aspect-ratio: 9 / 16;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
+  body.cft-sc-page .cft-sc-beat .cft-sc-photo-hours,
+  body.cft-sc-page .cft-sc-beat .cft-sc-photo-hours .fusion-column-wrapper,
+  body.cft-sc-page .cft-sc-beat .cft-sc-photo-coffee,
+  body.cft-sc-page .cft-sc-beat .cft-sc-photo-coffee .fusion-column-wrapper {
+    min-height: 420px !important;
+  }
+
+  body.cft-sc-page .cft-sc-intro .cft-sc-photo,
+  body.cft-sc-page .cft-sc-intro .cft-sc-photo .fusion-column-wrapper {
+    min-height: 420px !important;
+  }
+
+  body.cft-sc-page .cft-sc-intro .cft-sc-copy .fusion-column-wrapper {
+    min-height: 0 !important;
+    padding-top: 36px !important;
+    padding-bottom: 40px !important;
+    padding-left: 8% !important;
+    padding-right: 8% !important;
+  }
+
+  body.cft-sc-page .cft-sc-plans .fusion-row {
+    flex-direction: column;
+  }
+
+  body.cft-sc-page .cft-sc-plans .fusion-one-third,
+  body.cft-sc-page .cft-sc-plans .fusion-one-full {
+    width: 100% !important;
+    max-width: none;
+  }
+}
+
+/* Mobile nav: one full-screen list, with the header bar kept above it
+   so the same button can close it. The sticky copy stays hidden until
+   the header is stuck; forcing it hidden always made the button toggle
+   a menu that never appeared after the first scroll. */
+@media only screen and (max-width: 850px) {
+  html.cft-nav-open,
+  html.cft-nav-open body {
+    overflow: hidden !important;
+  }
+
+  .fusion-header-wrapper {
+    overflow: visible !important;
+    z-index: 100050 !important;
+    background-color: #ffffff !important;
+  }
+
+  .fusion-mobile-menu-icons {
+    position: relative;
+    z-index: 100060 !important;
+  }
+
+  html.cft-nav-open .fusion-mobile-menu-icons {
+    position: fixed !important;
+    top: 8px !important;
+    right: 16px !important;
+    left: auto !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 6px 4px !important;
+    background: #ffffff !important;
+    display: flex !important;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 18px;
+  }
+
+  html.cft-nav-open .fusion-mobile-menu-icons a {
+    float: none !important;
+    margin: 0 !important;
+    position: static !important;
+  }
+
+  .fusion-mobile-menu-design-modern .fusion-mobile-nav-holder,
+  .fusion-mobile-nav-holder {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    z-index: 100010 !important;
+    width: 100% !important;
+    max-height: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  .fusion-header-wrapper:not(.fusion-is-sticky) .fusion-mobile-sticky-nav-holder {
+    display: none !important;
+  }
+
+  .fusion-mobile-nav-holder > ul {
+    width: 100% !important;
+    float: none !important;
+  }
+
+  html.cft-nav-open .fusion-mobile-nav-holder > ul {
+    margin: 0 !important;
+    padding: 80px 0 56px !important;
+    /* Avada caps this list at 200px once the header is sticky.
+       On a long page that leaves two links and a white fade.
+       The full-screen panel is the scroller. */
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .fusion-mobile-nav-holder a {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+  }
+
+  html.cft-nav-open .fusion-mobile-nav-holder::after {
+    content: "";
+    position: sticky;
+    bottom: 0;
+    display: block;
+    height: 48px;
+    margin-top: -48px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff 72%);
+    pointer-events: none;
+  }
+}
+
+/* Community hub and offer pages: compact title, same treatment as
+   Programmes. The video strip and cards sit in the page body. */
+body.cft-community-page #wrapper .fusion-page-title-bar,
+body.cft-community-page .fusion-page-title-bar {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  max-width: none !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  background-image: none !important;
+  background-color: #ffffff !important;
+  background-size: auto !important;
+  background-position: 0 0 !important;
+  padding-top: 56px !important;
+  padding-bottom: 28px !important;
+  overflow: visible;
+  border: 0 !important;
+  box-shadow: none;
+}
+
+body.cft-community-page .fusion-page-title-bar:before {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+}
+
+body.cft-community-page .fusion-page-title-bar .fusion-page-title-row {
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+body.cft-community-page .fusion-page-title-bar .fusion-breadcrumbs,
+body.cft-community-page .fusion-page-title-bar .fusion-page-title-secondary {
+  display: none !important;
+}
+
+body.cft-community-page .fusion-page-title-bar h1 {
+  color: #111111 !important;
+  text-shadow: none !important;
+}
+
+body.cft-community-page {
+  overflow-x: hidden;
+}
+
+body.cft-community-page .cft-comm-strip {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: #0b0c0e;
+  overflow: hidden;
+}
+
+body.cft-community-page .cft-comm-strip-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  height: 480px;
+}
+
+body.cft-community-page .cft-comm-strip video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  pointer-events: none;
+  background: #0b0c0e;
+}
+
+body.cft-community-page .post-content .cft-comm {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 8px 0 64px;
+}
+
+body.cft-community-page .cft-comm-lead {
+  max-width: 40em;
+  margin: 8px auto 36px;
+  text-align: center;
+  color: #111111;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+body.cft-community-page .cft-comm-prose {
+  max-width: 42em;
+}
+
+body.cft-community-hub .cft-comm-prose {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+body.cft-community-hub .cft-comm > h2,
+body.cft-community-hub .cft-comm-prose h2,
+body.cft-community-hub.cft-community-page .cft-comm .cft-faq h2 {
+  text-align: center;
+}
+
+body.cft-community-page .cft-comm h2 {
+  margin: 36px 0 16px;
+  color: #111111;
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+body.cft-community-page .cft-comm h3 {
+  margin: 22px 0 8px;
+  color: #111111;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+body.cft-community-page .cft-comm-prose p {
+  margin: 0 0 16px;
+  color: #111111;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+body.cft-community-page .cft-comm-prose a {
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body.cft-community-page .cft-comm-prose ul {
+  margin: 0 0 16px;
+  padding-left: 1.2em;
+}
+
+body.cft-community-page .cft-comm-prose li {
+  margin: 0 0 10px;
+  color: #111111;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+body.cft-community-page .cft-comm-result {
+  margin: 28px 0 8px;
+  padding: 18px 20px 4px;
+  background: #f3f4f6;
+}
+
+body.cft-community-page .cft-comm-result h2 {
+  margin-top: 0;
+}
+
+body.cft-community-page .cft-fit-block h3 {
+  margin: 36px 0 12px;
+  color: #111111;
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+body.cft-community-page .cft-fit-podium {
+  margin-bottom: 8px;
+}
+
+body.cft-community-page .cft-fit-board-wrap {
+  overflow-x: auto;
+  margin: 0 0 8px;
+  -webkit-overflow-scrolling: touch;
+}
+
+body.cft-community-page table.cft-fit-board {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+body.cft-community-page table.cft-fit-board th,
+body.cft-community-page table.cft-fit-board td {
+  padding: 10px 10px 10px 0;
+  border-bottom: 1px solid #e4e4e4;
+  text-align: left;
+  white-space: nowrap;
+  color: #111111;
+  font-weight: 400;
+}
+
+body.cft-community-page table.cft-fit-board thead th {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #333333;
+}
+
+body.cft-community-page table.cft-fit-board tbody th {
+  font-weight: 700;
+}
+
+body.cft-community-page table.cft-fit-board td:nth-child(3),
+body.cft-community-page table.cft-fit-board td:nth-child(4) {
+  font-weight: 700;
+}
+
+body.cft-community-page .cft-fit-block p.cft-fit-note {
+  margin: 0 0 8px;
+  color: #333333;
+  font-size: 15px;
+}
+
+body.cft-community-page .cft-fit-acc {
+  margin-top: 28px;
+}
+
+body.cft-community-page .cft-fit-block .cft-fit-acc summary h3 {
+  margin: 0;
+}
+
+body.cft-community-page .cft-fit-acc-body {
+  padding: 4px 16px 8px 20px;
+}
+
+body.cft-community-page .cft-fit-acc .cft-fit-board-wrap {
+  margin: 12px 0 8px;
+}
+
+body.cft-community-page .cft-comm-events {
+  width: 100%;
+  margin: 0 0 16px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+body.cft-community-page .cft-comm-events th,
+body.cft-community-page .cft-comm-events td {
+  padding: 14px 18px 14px 0;
+  border-bottom: 1px solid #e4e4e4;
+  text-align: left;
+  vertical-align: top;
+  color: #111111;
+}
+
+body.cft-community-page .cft-comm-events thead th {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #333333;
+  white-space: nowrap;
+}
+
+body.cft-community-page .cft-comm-events thead th:nth-child(1) {
+  width: 30%;
+}
+
+body.cft-community-page .cft-comm-events thead th:nth-child(2) {
+  width: 24%;
+}
+
+body.cft-community-page .cft-comm-events tbody th {
+  font-weight: 700;
+}
+
+body.cft-community-page .cft-comm-copy .cft-comm-result {
+  margin-top: 8px;
+}
+
+body.cft-community-page .cft-comm-related {
+  max-width: 42em;
+  margin-top: 28px;
+  padding-top: 18px;
+  border-top: 1px solid #e4e4e4;
+}
+
+body.cft-community-page .cft-comm-related a {
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body.cft-community-page .cft-comm-band {
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+body.cft-community-page .cft-comm-band img {
+  aspect-ratio: 3 / 2;
+}
+
+body.cft-community-page .cft-comm-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 22px;
+}
+
+body.cft-community-page .cft-comm-card {
+  display: flex;
+  flex-direction: column;
+  color: #111111;
+  text-decoration: none;
+  background: #ffffff;
+}
+
+body.cft-community-page .cft-comm-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  background: #111111;
+}
+
+body.cft-community-page .cft-comm-card strong {
+  display: block;
+  margin-top: 14px;
+  font-size: 18px;
+  letter-spacing: 0.01em;
+}
+
+body.cft-community-page .cft-comm-card span {
+  display: block;
+  margin-top: 6px;
+  color: #333333;
+  line-height: 1.45;
+}
+
+body.cft-community-page .cft-comm-card em {
+  display: inline-block;
+  margin-top: auto;
+  padding-top: 16px;
+  font-style: normal;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+body.cft-community-page .cft-comm-card:hover em,
+body.cft-community-page .cft-comm-card:focus em {
+  color: #24549c;
+}
+
+body.cft-community-page .cft-comm-wide {
+  margin: 48px 0 0;
+}
+
+body.cft-community-page .cft-comm-wide img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+body.cft-community-page .cft-comm-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+body.cft-community-page .cft-comm-split img,
+body.cft-community-page .cft-comm-gallery img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #111111;
+}
+
+body.cft-community-page .cft-comm-split img {
+  aspect-ratio: 3 / 4;
+  max-height: 720px;
+}
+
+body.cft-community-page .cft-comm-split:has(img.cft-fit-joey) {
+  align-items: center;
+}
+
+body.cft-community-page .cft-comm-split img.cft-quiz-hero {
+  aspect-ratio: 4 / 3;
+  height: auto;
+  max-height: none;
+}
+
+body.cft-community-page .cft-comm-split img.cft-fit-joey {
+  aspect-ratio: auto;
+  height: auto;
+  max-height: none;
+  object-position: center center;
+}
+
+body.cft-community-page .cft-comm-copy h2 {
+  margin: 28px 0 10px;
+  color: #111111;
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+body.cft-community-page .cft-comm-copy .cft-comm-result h2 {
+  margin-top: 0;
+}
+
+body.cft-community-page .cft-comm-copy p,
+body.cft-community-page .cft-comm-copy li {
+  margin: 0 0 16px;
+  color: #111111;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+body.cft-community-page .cft-comm-copy ul {
+  margin: 0 0 16px;
+  padding-left: 1.2em;
+}
+
+body.cft-community-page .cft-comm-copy li {
+  margin-bottom: 8px;
+}
+
+body.cft-community-page .cft-comm-copy a {
+  color: #111111;
+}
+
+body.cft-community-page a.cft-comm-btn {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+body.cft-community-page .cft-comm-note {
+  color: #333333;
+}
+
+body.cft-community-page .cft-comm-btn {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 14px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: #111111;
+  color: #ffffff;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+body.cft-community-page .cft-comm-btn:hover,
+body.cft-community-page .cft-comm-btn:focus {
+  background: #24549c;
+  color: #ffffff;
+}
+
+body.cft-community-page button.cft-comm-inline,
+body.cft-community-page a.cft-comm-inline {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #111111;
+  font: inherit;
+  letter-spacing: 0;
+  text-transform: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+body.cft-community-page button.cft-comm-inline:hover,
+body.cft-community-page button.cft-comm-inline:focus,
+body.cft-community-page a.cft-comm-inline:hover,
+body.cft-community-page a.cft-comm-inline:focus {
+  background: transparent;
+  color: #24549c;
+}
+
+body.cft-community-page .cft-comm-steps {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+  counter-reset: cft-step;
+}
+
+body.cft-community-page .cft-comm-copy .cft-comm-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0;
+  padding: 12px 0;
+  border-top: 1px solid #e4e4e4;
+}
+
+body.cft-community-page .cft-comm-steps li::before {
+  flex: 0 0 1.6em;
+}
+
+body.cft-community-page .cft-comm-copy .cft-comm-steps li:last-child {
+  border-bottom: 1px solid #e4e4e4;
+}
+
+body.cft-community-page .cft-comm-steps li::before {
+  counter-increment: cft-step;
+  content: counter(cft-step);
+  font-weight: 700;
+}
+
+body.cft-community-page .cft-comm-offer {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  align-items: stretch;
+  margin: 48px 0 0;
+  background: #f3f4f6;
+}
+
+body.cft-community-page .cft-comm-offer p.cft-comm-offer-figure {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 28px 24px;
+  background: #111111;
+  color: #ffffff;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+body.cft-community-page .cft-comm-offer div {
+  padding: 28px 32px;
+}
+
+body.cft-community-page #wrapper .post-content .cft-comm .cft-comm-offer h2 {
+  margin: 0 0 8px;
+  color: #333333;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em !important;
+  line-height: 1.4;
+  text-transform: uppercase !important;
+}
+
+body.cft-community-page .cft-comm-offer p {
+  margin: 0;
+  color: #111111;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+body.cft-community-page .cft-comm-offer.cft-meet-next {
+  grid-template-columns: 1fr;
+  margin: 4px 0 8px;
+}
+
+body.cft-community-page .cft-comm-offer.cft-meet-next p.cft-comm-offer-figure {
+  padding: 18px 20px;
+  font-size: 28px;
+}
+
+body.cft-community-page .cft-comm-offer.cft-meet-next div {
+  padding: 16px 20px 18px;
+}
+
+body.cft-community-page .cft-meet-list {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+body.cft-community-page .cft-comm-copy .cft-meet-list li {
+  margin: 0;
+  padding: 12px 0;
+  border-top: 1px solid #e4e4e4;
+}
+
+body.cft-community-page .cft-comm-copy .cft-meet-list li:last-child {
+  border-bottom: 1px solid #e4e4e4;
+}
+
+body.cft-community-page .cft-comm-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+body.cft-community-page .cft-comm-gallery.cft-comm-trio {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+body.cft-community-page .cft-comm-gallery img {
+  aspect-ratio: 3 / 4;
+}
+
+body.cft-community-page .cft-comm-gallery.cft-comm-band img {
+  aspect-ratio: 3 / 2;
+  height: auto;
+}
+
+body.cft-community-page .cft-comm-copy p.cft-fit-status {
+  margin: 4px 0 18px;
+  padding-top: 12px;
+  border-top: 1px solid #e4e4e4;
+  font-weight: 700;
+}
+
+body.cft-community-page .cft-fit-block {
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid #e4e4e4;
+}
+
+body.cft-community-page .cft-comm .cft-fit-block h2 {
+  margin-top: 0;
+}
+
+body.cft-community-page .cft-fit-block p,
+body.cft-community-page .cft-fit-day dd {
+  margin: 0 0 16px;
+  color: #111111;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+body.cft-community-page .cft-fit-block p.cft-fit-kicker {
+  margin: 0 0 12px;
+  color: #333333;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+body.cft-community-page .cft-fit-enter {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 40px;
+  align-items: start;
+}
+
+body.cft-community-page .cft-fit-block p.cft-fit-price {
+  margin: 8px 0 0;
+  padding: 16px 18px;
+  background: #f3f4f6;
+  font-weight: 700;
+}
+
+body.cft-community-page .cft-fit-cats,
+body.cft-community-page .cft-fit-asks,
+body.cft-community-page .cft-fit-score ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+body.cft-community-page .cft-fit-cats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+body.cft-community-page .cft-fit-cats li,
+body.cft-community-page .cft-fit-asks li,
+body.cft-community-page .cft-fit-score li {
+  margin: 0;
+}
+
+body.cft-community-page .cft-fit-cats li {
+  padding: 16px 14px;
+  border: 1px solid #e4e4e4;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+body.cft-community-page .cft-fit-events {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+body.cft-community-page .cft-fit-event {
+  padding: 18px 18px 4px;
+  background: #f3f4f6;
+}
+
+body.cft-community-page .cft-comm .cft-fit-event h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+body.cft-community-page .cft-fit-score {
+  margin-top: 28px;
+}
+
+body.cft-community-page .cft-fit-score ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+body.cft-community-page .cft-fit-score li {
+  padding: 14px 0 0;
+  border-top: 2px solid #111111;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+body.cft-community-page .cft-fit-score strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 28px;
+  line-height: 1;
+}
+
+body.cft-community-page .cft-fit-block .cft-fit-score p {
+  max-width: 46em;
+  color: #333333;
+  font-size: 16px;
+}
+
+body.cft-community-page .cft-fit-photos {
+  margin-top: 56px;
+}
+
+body.cft-community-page .cft-fit-day {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 36px;
+  margin: 0;
+}
+
+body.cft-community-page .cft-fit-day div {
+  padding-top: 12px;
+  border-top: 1px solid #e4e4e4;
+}
+
+body.cft-community-page .cft-fit-day .cft-span {
+  grid-column: 1 / -1;
+}
+
+body.cft-community-page .cft-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+body.cft-community-page .cft-pair article {
+  padding: 18px 18px 4px;
+  background: #f3f4f6;
+}
+
+body.cft-community-page .cft-fit-block a {
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body.cft-community-page .cft-fit-day dt {
+  color: #333333;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+body.cft-community-page .cft-fit-day dd {
+  margin: 8px 0 0;
+}
+
+body.cft-community-page .cft-fit-lead {
+  max-width: 40em;
+}
+
+body.cft-community-page .cft-fit-asks {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+body.cft-community-page .cft-fit-asks li {
+  padding: 18px 16px;
+  background: #111111;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+body.cft-community-page .cft-fit-block p.cft-fit-close {
+  max-width: 40em;
+  margin-bottom: 0;
+}
+
+@media only screen and (max-width: 850px) {
+  body.cft-community-page #wrapper .fusion-page-title-bar,
+  body.cft-community-page .fusion-page-title-bar {
+    height: auto !important;
+    min-height: 0 !important;
+    padding-top: 48px !important;
+    padding-bottom: 24px !important;
+  }
+
+  body.cft-community-page .cft-comm-strip-inner {
+    grid-template-columns: 1fr;
+    height: 520px;
+  }
+
+  body.cft-community-page .cft-comm-strip video:not(.is-primary) {
+    display: none;
+  }
+
+  body.cft-community-page .cft-comm-cards,
+  body.cft-community-page .cft-comm-split,
+  body.cft-community-page .cft-comm-gallery,
+  body.cft-community-page .cft-comm-gallery.cft-comm-trio {
+    grid-template-columns: 1fr;
+  }
+
+  body.cft-community-page .cft-comm-events thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  body.cft-community-page .cft-comm-events,
+  body.cft-community-page .cft-comm-events tbody,
+  body.cft-community-page .cft-comm-events tr,
+  body.cft-community-page .cft-comm-events th,
+  body.cft-community-page .cft-comm-events td {
+    display: block;
+    width: auto;
+  }
+
+  body.cft-community-page .cft-comm-events tr {
+    padding: 14px 0 6px;
+    border-top: 1px solid #e4e4e4;
+  }
+
+  body.cft-community-page .cft-comm-events th,
+  body.cft-community-page .cft-comm-events td {
+    padding: 0 0 8px;
+    border-bottom: 0;
+  }
+
+  body.cft-community-page .cft-comm-events td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 2px;
+    color: #333333;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  body.cft-community-page .post-content .cft-comm {
+    padding-bottom: 40px;
+  }
+
+  body.cft-community-page .cft-fit-enter,
+  body.cft-community-page .cft-fit-events,
+  body.cft-community-page .cft-fit-day,
+  body.cft-community-page .cft-fit-score ul {
+    grid-template-columns: 1fr;
+  }
+
+  body.cft-community-page .cft-fit-asks,
+  body.cft-community-page .cft-pair,
+  body.cft-community-page .cft-comm-offer {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Reusable FAQ accordion. Used by the [cft_faq] shortcode. */
+.cft-faq {
+  interpolate-size: allow-keywords;
+}
+
+.cft-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cft-faq-item {
+  background: #f3f4f6;
+}
+
+.cft-faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 16px 16px 20px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.cft-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.cft-faq-item summary::marker {
+  content: "";
+}
+
+.cft-faq summary h3 {
+  margin: 0;
+  flex: 1 1 auto;
+  color: #111111;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.cft-faq-item summary::after {
+  content: "";
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  background-color: #111111;
+  background-image:
+    linear-gradient(#ffffff, #ffffff),
+    linear-gradient(#ffffff, #ffffff);
+  background-position: center, center;
+  background-size: 12px 1.5px, 1.5px 12px;
+  background-repeat: no-repeat;
+  transition: transform 0.25s ease, background-color 0.2s ease;
+}
+
+.cft-faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.cft-faq-item summary:hover::after,
+.cft-faq-item summary:focus-visible::after {
+  background-color: #24549c;
+}
+
+.cft-faq-item summary:hover,
+.cft-faq-item summary:focus-visible {
+  background: #eceef1;
+}
+
+.cft-faq-item summary:focus-visible {
+  outline: 2px solid #24549c;
+  outline-offset: -2px;
+}
+
+.cft-faq-item::details-content {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.28s ease, content-visibility 0.28s allow-discrete;
+}
+
+.cft-faq-item[open]::details-content {
+  height: auto;
+}
+
+.cft-faq-a {
+  margin: 0 20px 0 20px;
+  padding: 2px 52px 18px 0;
+  border-top: 1px solid #e0e2e6;
+}
+
+.cft-faq-a p,
+body.cft-community-page .cft-fit-block .cft-faq-a p {
+  margin: 12px 0 0;
+  color: #111111;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.cft-faq-a a {
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cft-faq-a a:hover,
+.cft-faq-a a:focus {
+  color: #24549c;
+}
+
+body.cft-community-page .cft-comm .cft-faq h2 {
+  margin-bottom: 16px;
+}
+
+body.cft-community-page .cft-comm .cft-faq summary h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cft-faq-item summary::after,
+  .cft-faq-item::details-content {
+    transition: none;
+  }
+}
+
+/* Homepage hero. Large type and pills, set in the site's own
+   Archivo and blue, with the wordmark and a left-hand cluster
+   rather than a town-name poster and a button column. */
+body.home .tfs-slider .background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.28) 46%, rgba(0, 0, 0, 0) 72%);
+}
+
+body.home .cft-hero-slide.slide-content-container {
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  height: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  transform: none !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 7vw !important;
+  box-sizing: border-box;
+  text-align: left !important;
+}
+
+body.home .cft-hero-slide .slide-content {
+  display: block !important;
+  width: 100% !important;
+  max-width: 1180px !important;
+  margin: 0 auto !important;
+  text-align: left !important;
+}
+
+body.home .cft-hero {
+  width: 100%;
+  max-width: 620px;
+}
+
+body.home .cft-hero-logo {
+  display: block;
+  width: 250px;
+  height: auto;
+  margin: 0 0 18px;
+}
+
+body.home .cft-hero-rule {
+  display: block;
+  width: 48px;
+  height: 3px;
+  margin: 0 0 18px;
+  background: #24549c;
+}
+
+body.home .cft-hero-title {
+  margin: 0 !important;
+  max-width: 12em;
+  color: #f4f1ea !important;
+  font-family: Archivo, Helvetica, Arial, sans-serif !important;
+  font-weight: 700 !important;
+  font-size: clamp(34px, 3.8vw, 52px) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.03em !important;
+  text-transform: none !important;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
+}
+
+body.home .cft-hero-promise {
+  margin: 16px 0 0;
+  max-width: 38em;
+  color: #f4f1ea;
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.45;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
+}
+
+body.home .cft-hero-values {
+  margin: 14px 0 0;
+  color: #f4f1ea;
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
+}
+
+body.home .cft-hero-actions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+body.home .cft-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 232px;
+  margin: 0;
+  padding: 16px 28px;
+  border: 0;
+  border-radius: 999px;
+  background: #24549c;
+  color: #ffffff !important;
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  box-shadow: none;
+  transition: background-color 0.15s ease;
+}
+
+body.home .cft-pill:hover,
+body.home .cft-pill:focus {
+  background: #1c427c;
+  color: #ffffff !important;
+}
+
+body.home .cft-pill:focus-visible {
+  outline: 2px solid #f4f1ea;
+  outline-offset: 3px;
+}
+
+/* Other homepage CTAs use the same pill, so the page matches the hero. */
+body.home a.fusion-button.button-default,
+body.home a.fusion-button.button-custom {
+  background: #24549c !important;
+  background-image: none !important;
+  border-color: #24549c !important;
+  border-radius: 999px !important;
+  letter-spacing: 0.12em !important;
+}
+
+body.home a.fusion-button.button-default .fusion-button-text,
+body.home a.fusion-button.button-default .fusion-button-text-left,
+body.home a.fusion-button.button-default .fusion-button-text-right,
+body.home a.fusion-button.button-custom .fusion-button-text,
+body.home a.fusion-button.button-custom .fusion-button-text-left,
+body.home a.fusion-button.button-custom .fusion-button-text-right,
+body.home a.fusion-button.button-default,
+body.home a.fusion-button.button-custom {
+  color: #ffffff !important;
+}
+
+body.home a.fusion-button.button-default:hover,
+body.home a.fusion-button.button-default:focus,
+body.home a.fusion-button.button-default:active,
+body.home a.fusion-button.button-custom:hover,
+body.home a.fusion-button.button-custom:focus,
+body.home a.fusion-button.button-custom:active {
+  background: #1c427c !important;
+  background-image: none !important;
+  border-color: #1c427c !important;
+}
+
+body.home .modal-footer .fusion-button,
+body.home .modal-footer .fusion-button:hover,
+body.home .modal-footer .fusion-button:focus {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: #333333 !important;
+  letter-spacing: 0.04em !important;
+  box-shadow: none !important;
+}
+
+@media only screen and (max-width: 800px) {
+  body.home .tfs-slider .background::after {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.55) 55%, rgba(0, 0, 0, 0.72) 100%);
+  }
+
+  body.home .cft-hero-slide.slide-content-container {
+    align-items: flex-end !important;
+    padding: 0 22px 72px !important;
+  }
+
+  body.home .cft-hero {
+    max-width: none;
+  }
+
+  body.home .cft-hero-logo {
+    width: 200px;
+  }
+
+  body.home .cft-hero-title {
+    font-size: clamp(30px, 8.5vw, 40px) !important;
+  }
+
+  body.home .cft-hero-promise {
+    font-size: 15px;
+  }
+
+  body.home .cft-hero-values {
+    font-size: 12px;
+  }
+
+  body.home .cft-pill {
+    min-width: 0;
+    padding: 14px 18px;
+    font-size: 12px;
+  }
+}
+
+body.cft-wl-page .cft-wl-wrap.fusion-fullwidth {
+  padding: 0 !important;
+}
+
+body.cft-wl-page .cft-wl-wrap > .fusion-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+body.cft-wl-page .cft-wl-band {
+  display: flex;
+  align-items: stretch;
+  flex: 0 0 auto;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: #dddddd;
+  color: #111111;
+}
+
+body.cft-wl-page .cft-wl-band-dark {
+  background: #363636;
+  color: #ffffff;
+}
+
+body.cft-wl-page .cft-wl-band-light {
+  background: #ffffff;
+}
+
+body.cft-wl-page .cft-wl-band-flip {
+  flex-direction: row-reverse;
+}
+
+body.cft-wl-page .cft-wl-media {
+  position: relative;
+  flex: 0 0 380px;
+  width: 380px;
+  min-width: 0;
+  max-width: 46%;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  background: #111111;
+}
+
+body.cft-wl-page .cft-wl-media video.cft-wl-clip {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+body.cft-wl-page .cft-wl-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 56px 7%;
+}
+
+body.cft-wl-page .cft-wl-copy h2 {
+  margin: 0 0 0.55em;
+  max-width: 36rem;
+  font-size: 28px;
+  line-height: 1.2;
+  color: inherit;
+}
+
+body.cft-wl-page .cft-wl-copy p {
+  margin: 0;
+  max-width: 36rem;
+  color: inherit;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+body.cft-wl-page .cft-wl-close {
+  width: 100%;
+  background: #ffffff;
+  text-align: center;
+  padding: 56px 24px 72px;
+  box-sizing: border-box;
+}
+
+body.cft-wl-page .cft-wl-close p {
+  max-width: 40em;
+  margin: 0 auto 8px;
+  color: #111111;
+}
+
+@media only screen and (max-width: 850px) {
+  body.cft-wl-page .cft-wl-band,
+  body.cft-wl-page .cft-wl-band-flip {
+    flex-direction: column;
+  }
+
+  body.cft-wl-page .cft-wl-media {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 9 / 16;
+    max-height: none;
+  }
+
+  body.cft-wl-page .cft-wl-media video.cft-wl-clip {
+    max-width: 100%;
+  }
+
+  body.cft-wl-page .cft-wl-copy {
+    padding: 32px 24px 40px;
+  }
+}
+
+/* Pricing enquiry on The Bridge membership card */
+body.cft-sc-page .cft-sc-price-cta {
+  margin: 1.25em 0 0;
+}
+
+body.cft-sc-page .cft-sc-price-btn {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 12px 18px;
+  background: #ffffff;
+  color: #111111 !important;
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  text-transform: none;
+}
+
+body.cft-sc-page .cft-sc-price-btn:hover,
+body.cft-sc-page .cft-sc-price-btn:focus {
+  background: #e6e6e6;
+  color: #111111 !important;
+  text-decoration: none;
+}
+
+
+/* Contact page. Same split as the gym pages. The WodBoard form iframe is untouched. */
+body.page-id-847 .cft-contact-intro,
+body.page-id-847 .cft-contact-form,
+body.page-id-847 .cft-contact-map {
+  border: 0 !important;
+}
+
+body.page-id-847 .cft-contact-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+body.page-id-847 .cft-contact-intro > .fusion-row > .fusion-clearfix {
+  display: none;
+}
+
+body.page-id-847 .cft-contact-intro > .fusion-row > .fusion-one-half {
+  float: none;
+  clear: none;
+  display: flex;
+  flex-direction: column;
+  width: 50% !important;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+body.page-id-847 .cft-contact-intro .fusion-column-wrapper {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 560px !important;
+}
+
+body.page-id-847 .cft-contact-photo .fusion-column-wrapper {
+  background-size: cover !important;
+  background-position: center 38% !important;
+  background-repeat: no-repeat !important;
+}
+
+body.page-id-847 .cft-contact-copy,
+body.page-id-847 .cft-contact-copy .fusion-column-wrapper {
+  background-color: #363636 !important;
+}
+
+body.page-id-847 .cft-contact-copy .fusion-column-wrapper {
+  display: flex !important;
+  align-items: center;
+}
+
+body.page-id-847 .cft-contact-copy h2,
+body.page-id-847 .cft-contact-copy p,
+body.page-id-847 .cft-contact-copy a {
+  color: #ffffff !important;
+}
+
+body.page-id-847 .cft-contact-copy h2 {
+  margin: 0 0 0.55em;
+  font-size: 1.65rem;
+}
+
+body.page-id-847 .cft-contact-copy p {
+  margin: 0 0 1em;
+  line-height: 1.5;
+}
+
+body.page-id-847 .cft-contact-copy p:last-child {
+  margin-bottom: 0;
+}
+
+body.page-id-847 .cft-contact-copy a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body.page-id-847 .cft-contact-form {
+  background: #ffffff !important;
+}
+
+body.page-id-847 .cft-contact-form .fusion-text {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.page-id-847 .cft-contact-form h2,
+body.page-id-847 .cft-contact-form p {
+  text-align: center;
+}
+
+body.page-id-847 .cft-contact-form h2 {
+  margin: 0 0 0.4em;
+}
+
+body.page-id-847 .cft-contact-form p {
+  margin: 0 0 1.25em;
+}
+
+body.page-id-847 .cft-contact-map {
+  padding: 0 !important;
+}
+
+body.page-id-847 .cft-contact-map iframe,
+body.page-id-847 .cft-contact-form iframe {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+@media only screen and (max-width: 850px) {
+  body.page-id-847 .cft-contact-intro.fusion-fullwidth.hundred-percent-fullwidth.fusion-equal-height-columns > .fusion-row {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  body.page-id-847 .cft-contact-intro > .fusion-row > .fusion-one-half {
+    width: 100% !important;
+  }
+
+  body.page-id-847 .cft-contact-photo .fusion-column-wrapper {
+    min-height: 420px !important;
+  }
+}
+
+
+/* Contact: short title, form first. No second photo block. */
+body.page-id-847 .fusion-page-title-bar {
+  background-image: none !important;
+  background-color: #ffffff !important;
+  border: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 22px 20px 0 !important;
+}
+
+body.page-id-847 .fusion-page-title-bar::before {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+}
+
+body.page-id-847 .fusion-page-title-row,
+body.page-id-847 .fusion-page-title-wrapper,
+body.page-id-847 .fusion-page-title-captions {
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 0 !important;
+}
+
+body.page-id-847 .fusion-page-title-bar h1 {
+  color: #111111 !important;
+  margin: 0 !important;
+  text-shadow: none !important;
+}
+
+body.page-id-847 .fusion-page-title-secondary,
+body.page-id-847 .fusion-page-title-bar .fusion-breadcrumbs {
+  display: none !important;
+}
+
+body.page-id-847 .cft-contact-facts {
+  margin: 0 0 18px;
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #333333;
+}
+
+body.page-id-847 .cft-contact-facts a {
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+
+/* Reading type locked to the weightlifting page.
+   Avada's dynamic CSS loads after this file and sets Raleway,
+   14px body copy, and loose heading line-heights. These rules
+   win. Homepage keeps its own display sizes. Small labels,
+   prices, and flip-box titles stay at their own size. */
+body,
+#wrapper,
+.fusion-body,
+.post-content,
+.fusion-text,
+p,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.fusion-button,
+.fusion-main-menu,
+.fusion-main-menu .sub-menu,
+.fusion-main-menu .sub-menu li a,
+.fusion-megamenu-title,
+.fusion-megamenu-widgets-container,
+.fusion-footer,
+.fusion-footer-widget-area,
+.fusion-footer-widget-area .widget-title,
+.fusion-person .person-name,
+.fusion-person .person-title,
+.fusion-person .person-content,
+input,
+textarea,
+select,
+button,
+label {
+  font-family: Archivo, Helvetica, Arial, sans-serif !important;
+}
+
+body:not(.home) .fusion-page-title-bar h1 {
+  font-family: Archivo, Helvetica, Arial, sans-serif !important;
+  font-size: 35px !important;
+  font-weight: 500 !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.02em !important;
+  text-transform: none !important;
+}
+
+body:not(.home) #wrapper #main h2,
+body:not(.home) #wrapper #main h3 {
+  font-family: Archivo, Helvetica, Arial, sans-serif !important;
+  font-size: 28px !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.02em !important;
+  text-transform: none !important;
+}
+
+body:not(.home) #wrapper #main p,
+body:not(.home) #wrapper #main li,
+body.home #wrapper #main p,
+body.home #wrapper #main li {
+  font-family: Archivo, Helvetica, Arial, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 1.55 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+
+body.cft-sc-page #wrapper #main .cft-sc-plan h2,
+body.cft-sc-page #wrapper #main .cft-sc-plan h3 {
+  font-size: 1.15rem !important;
+  font-weight: 600 !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+body.cft-community-page #wrapper #main .cft-comm-offer h2 {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1.4 !important;
+  text-transform: uppercase !important;
+}
+
+body.cft-community-page #wrapper #main p.cft-comm-offer-figure {
+  font-size: 34px !important;
+  font-weight: 700 !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.02em !important;
+}
+
+body.cft-community-page #wrapper #main .cft-meet-next p.cft-comm-offer-figure {
+  font-size: 28px !important;
+}
+
+body.cft-community-page #wrapper #main p.cft-fit-kicker {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1.4 !important;
+  text-transform: uppercase !important;
+}
+
+body.cft-sc-page #wrapper #main .cft-sc-kicker {
+  font-size: 0.78rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.14em !important;
+  line-height: 1.4 !important;
+  text-transform: uppercase !important;
+}
+
+body:not(.home) #wrapper #main h2.flip-box-heading,
+body:not(.home) #wrapper #main h3.flip-box-heading,
+body:not(.home) #wrapper #main .flip-box-heading {
+  font-size: 19px !important;
+  line-height: 1.2 !important;
 }

@@ -5,38 +5,21 @@ function theme_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 
-function cft_home_type_fonts() {
-	if ( ! is_front_page() ) {
-		return;
-	}
+function cft_type_fonts() {
 	wp_enqueue_style(
-		'cft-home-fonts',
-		'https://fonts.googleapis.com/css?family=Archivo:400,600,700&display=swap',
+		'cft-type-fonts',
+		'https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&display=swap',
 		array(),
 		null
 	);
 }
-add_action( 'wp_enqueue_scripts', 'cft_home_type_fonts', 20 );
+add_action( 'wp_enqueue_scripts', 'cft_type_fonts', 20 );
 
 function avada_lang_setup() {
 	$lang = get_stylesheet_directory() . '/languages';
 	load_child_theme_textdomain( 'Avada', $lang );
 }
 add_action( 'after_setup_theme', 'avada_lang_setup' );
-
-function sd_nav_menu_attr( $atts, $item, $args )
-{
-	// The ID of the target menu item
-	$menu_target = 8016;
-
-	// inspect $item
-	if ($item->ID == $menu_target) {
-	$atts['data-toggle'] = 'modal';
-    $atts['data-target'] = '.contact-us-popup';
-	}
-	return $atts;
-}
-add_filter( 'nav_menu_link_attributes', 'sd_nav_menu_attr', 10, 3 );
 
 function remove_dashboard_meta() {
         remove_meta_box( 'dashboard_incoming_links', 'dashboard', 'normal' );
@@ -285,7 +268,7 @@ if ( ! function_exists( 'avada_modern_menu' ) ) {
 
 			$html .= '<div class="fusion-mobile-menu-icons">';
 			if ( ! function_exists( 'ubermenu_get_menu_instance_by_theme_location' ) || ( function_exists( 'ubermenu_get_menu_instance_by_theme_location' ) && ! ubermenu_get_menu_instance_by_theme_location( 'main_navigation' ) ) ) {
-				$html .= '<a href="#" class="fusion-icon fusion-icon-bars"></a><a href="tel:07700170518" style="line-height: 22px"><i class="fa fa-phone"></i></a>';
+				$html .= '<a href="#" class="fusion-icon fusion-icon-bars"></a><a href="tel:+447700170518" style="line-height: 22px"><i class="fa fa-phone"></i></a>';
 			}
 
 			if ( ( 'v4' == Avada()->settings->get( 'header_layout' ) || 'Top' != Avada()->settings->get( 'header_position' ) ) && ( 'Tagline And Search' == $header_content_3 || 'Search' == $header_content_3 ) ) {
@@ -328,4 +311,758 @@ function cft_instagram_feed_shortcode() {
 	return do_shortcode( '[instagram-feed num=6 cols=6 colstablet=3 colsmobile=2 showheader=false showbutton=false showfollow=false imagepadding=4]' );
 }
 add_shortcode( 'cft_instagram_feed', 'cft_instagram_feed_shortcode' );
+
+/**
+ * Programmes only: three muted looping portrait clips under the page title.
+ * Hooked on avada_before_main so it sits after the title bar, not inside it.
+ */
+function cft_programmes_video_strip() {
+	if ( ! is_page( 12401 ) ) {
+		return;
+	}
+
+	$base  = trailingslashit( content_url( 'uploads/cft-programmes' ) );
+	$clips = array(
+		array(
+			'mp4'     => 'cft-programmes-bike.mp4',
+			'webm'    => 'cft-programmes-bike.webm',
+			'poster'  => 'cft-programmes-bike.jpg',
+			'primary' => false,
+		),
+		array(
+			'mp4'     => 'cft-programmes-coach.mp4',
+			'webm'    => 'cft-programmes-coach.webm',
+			'poster'  => 'cft-programmes-coach.jpg',
+			'primary' => true,
+		),
+		array(
+			'mp4'     => 'cft-programmes-pullup.mp4',
+			'webm'    => 'cft-programmes-pullup.webm',
+			'poster'  => 'cft-programmes-pullup.jpg',
+			'primary' => false,
+		),
+	);
+	?>
+	<section class="cft-programmes-strip" aria-label="Gym footage">
+		<p class="screen-reader-text">Gym footage</p>
+		<div class="cft-programmes-strip-inner">
+			<?php foreach ( $clips as $clip ) : ?>
+				<?php $is_primary = ! empty( $clip['primary'] ); ?>
+				<video
+					class="cft-programmes-clip<?php echo $is_primary ? ' is-primary' : ''; ?>"
+					<?php echo $is_primary ? 'autoplay' : ''; ?>
+					muted
+					loop
+					playsinline
+					webkit-playsinline
+					preload="<?php echo $is_primary ? 'auto' : 'none'; ?>"
+					poster="<?php echo esc_url( $base . $clip['poster'] ); ?>"
+					aria-hidden="true"
+					disablepictureinpicture
+					controlslist="nodownload nofullscreen noremoteplayback"
+				>
+					<source src="<?php echo esc_url( $base . $clip['webm'] ); ?>" type="video/webm">
+					<source src="<?php echo esc_url( $base . $clip['mp4'] ); ?>" type="video/mp4">
+				</video>
+			<?php endforeach; ?>
+		</div>
+	</section>
+	<?php
+}
+add_action( 'avada_before_main', 'cft_programmes_video_strip', 5 );
+
+function cft_programmes_video_strip_play() {
+	if ( ! is_page( 12401 ) ) {
+		return;
+	}
+	?>
+	<script>
+	(function () {
+		var mq = window.matchMedia('(max-width: 850px)');
+		document.querySelectorAll('.cft-programmes-strip video').forEach(function (video) {
+			video.muted = true;
+			video.defaultMuted = true;
+			video.setAttribute('muted', '');
+			video.playsInline = true;
+			if (mq.matches && !video.classList.contains('is-primary')) {
+				return;
+			}
+			var play = video.play();
+			if (play && play.catch) {
+				play.catch(function () {});
+			}
+		});
+	})();
+	</script>
+	<?php
+}
+add_action( 'wp_footer', 'cft_programmes_video_strip_play', 30 );
+
+function cft_sc_body_class( $classes ) {
+	if ( is_page( 'the-bridge' ) ) {
+		$classes[] = 'cft-sc-page';
+	}
+	if ( is_page( array( 'community', 'bring-a-friend', 'fittest-in-ba', 'charity-throwdown', 'mumfit', 'new-member-meet-and-greet', 'quiz-night' ) ) ) {
+		$classes[] = 'cft-community-page';
+	}
+	if ( is_page( 'community' ) ) {
+		$classes[] = 'cft-community-hub';
+	}
+	if ( is_page( 'weightlifting' ) ) {
+		$classes[] = 'cft-split-page';
+		$classes[] = 'cft-wl-page';
+	}
+	return $classes;
+}
+add_filter( 'body_class', 'cft_sc_body_class' );
+
+/**
+ * Home has no title bar. The slider logo is an H2 whose only content is a
+ * link to this page, so Google's first heading is the URL. Replace that
+ * slide with a real H1. If the slider markup is not what we expect, fall
+ * back to demoting the logo and placing the H1 in the mission section.
+ */
+function cft_home_heading_buffer_start() {
+	if ( is_front_page() ) {
+		ob_start( 'cft_home_heading_buffer' );
+	}
+}
+add_action( 'template_redirect', 'cft_home_heading_buffer_start' );
+
+function cft_home_hero_markup() {
+	$contact = esc_url( home_url( '/contact/' ) );
+	$classes = esc_url( home_url( '/programmes/' ) );
+	$logo    = esc_url( content_url( 'uploads/cfTrowbridge_white-1.png' ) );
+
+	return '<div class="cft-hero">'
+		. '<img class="cft-hero-logo" src="' . $logo . '" alt="CrossFit Trowbridge" width="280" height="78" />'
+		. '<span class="cft-hero-rule" aria-hidden="true"></span>'
+		. '<h1 class="cft-hero-title">Building a happier, healthier, stronger you.</h1>'
+		. '<p class="cft-hero-promise">Our promise is to inspire, educate and support our members to live healthy and happy lives. We do this in an inclusive, fun community environment.</p>'
+		. '<p class="cft-hero-values">inspire · educate · support · inclusive · fun · community</p>'
+		. '<div class="cft-hero-actions">'
+		. '<a class="cft-pill" href="' . $contact . '">Contact Us</a>'
+		. '<a class="cft-pill" href="' . $classes . '">Classes</a>'
+		. '</div>'
+		. '</div>';
+}
+
+function cft_home_why_markup() {
+	$values = array(
+		array(
+			'Inspire',
+			'We aim to be the spark that gets you excited about your health and fitness. We set the example in our own lives and we strive to keep our community accountable.',
+		),
+		array(
+			'Educate',
+			'“Teach a man to fish and he will never go hungry.” We consistently share our knowledge with the community and give you the tools to live a happy and healthy life.',
+		),
+		array(
+			'Support',
+			'We meet every member of the community, regardless of the level they are at. We understand when you need encouragement or a kick up the ass. We are relentless in our support through your fitness journey. Our success is your success, and your success is our success.',
+		),
+		array(
+			'Inclusive',
+			'If you have seen Dodgeball, we are the average Joes. We pride ourselves on the inclusivity of our community, and everyone is welcome. We constantly review how we can improve our diversity.',
+		),
+		array(
+			'Fun',
+			'Fitness should be fun. We strive to make your hour with us the best hour of your day. Gone are the days of loathing the gym. We want you excited and looking forward to arriving. We promise to set the tone and bring the energy to each class and interaction.',
+		),
+		array(
+			'Community',
+			'This encompasses everything above. We are a family, a tribe, a community of very different people, connected and united by our willingness to do our best and leave our ego at the door.',
+		),
+	);
+
+	$html = '<div class="cft-why-values">';
+	foreach ( $values as $value ) {
+		$html .= '<div class="cft-why-value"><h3>' . esc_html( $value[0] ) . '</h3><p>' . esc_html( $value[1] ) . '</p></div>';
+	}
+	$html .= '</div>';
+
+	return $html;
+}
+
+function cft_home_replace_why_us( $html ) {
+	$replaced = preg_replace(
+		'/<h2 style="text-align: left;">Why us<\/h2>\s*<h4 style="text-align: left;">.*?<\/h4>\s*<p style="letter-spacing: 4px;[^"]*">Adam Shackell<\/p>\s*<p style="letter-spacing: 4px;[^"]*">.*?<\/p>/s',
+		'<h2 class="cft-why-title" style="text-align: left;">Why us</h2>' . cft_home_why_markup(),
+		$html,
+		1,
+		$count
+	);
+
+	return $count ? $replaced : $html;
+}
+
+function cft_home_heading_buffer( $html ) {
+	if ( ! is_string( $html ) || '' === $html ) {
+		return $html;
+	}
+
+	$replaced = preg_replace(
+		'/(<div class="slide-content"[^>]*>).*?(<\/div>\s*<\/div>\s*<div class="background)/s',
+		'$1' . cft_home_hero_markup() . '$2',
+		$html,
+		1,
+		$count
+	);
+
+	if ( $count ) {
+		$html = preg_replace(
+			'/slide-content-center/',
+			'slide-content-center cft-hero-slide',
+			$replaced,
+			1
+		);
+		$html = str_replace(
+			'Our mission is to help people of all fitness levels change their life through exercise and nutrition.',
+			'Our promise is to inspire, educate and support our members to live healthy and happy lives. We do this in an inclusive, fun community environment.',
+			$html
+		);
+		$html = cft_home_replace_why_us( $html );
+		return $html;
+	}
+
+	$html = preg_replace(
+		'/<div class="heading ([^"]*)"><h2 style="([^"]*)">(.*?)<\/h2><\/div>/s',
+		'<div class="heading $1"><div class="cft-slide-logo" style="$2">$3</div></div>',
+		$html,
+		1
+	);
+
+	$html = preg_replace(
+		'/<div class="caption ([^"]*)"><h3 style="([^"]*)">(.*?)<\/h3><\/div>/s',
+		'<div class="caption $1"><p class="cft-slide-caption" style="$2">$3</p></div>',
+		$html,
+		1
+	);
+
+	$h1       = '<h1 class="cft-home-h1">CrossFit and open gym in Trowbridge</h1>';
+	$replaced = preg_replace(
+		'/(<h2 style="text-align: left; margin-top: 0px !important;">)/',
+		$h1 . '$1',
+		$html,
+		1,
+		$count
+	);
+	if ( $count ) {
+		$html = $replaced;
+	}
+
+	return $html;
+}
+
+/**
+ * Community hub: three muted portrait clips under the title.
+ */
+function cft_community_video_strip() {
+	if ( ! is_page( 'community' ) ) {
+		return;
+	}
+
+	$base  = trailingslashit( content_url( 'uploads/cft-community' ) );
+	$clips = array(
+		array(
+			'stem'    => 'cft-comm-bar',
+			'primary' => false,
+		),
+		array(
+			'stem'    => 'cft-comm-pull',
+			'primary' => true,
+		),
+		array(
+			'stem'    => 'cft-comm-step',
+			'primary' => false,
+		),
+	);
+	?>
+	<section class="cft-comm-strip" aria-label="Gym footage">
+		<p class="screen-reader-text">Gym footage</p>
+		<div class="cft-comm-strip-inner">
+			<?php foreach ( $clips as $clip ) : ?>
+				<?php $is_primary = ! empty( $clip['primary'] ); ?>
+				<video
+					class="cft-comm-clip<?php echo $is_primary ? ' is-primary' : ''; ?>"
+					<?php echo $is_primary ? 'autoplay' : ''; ?>
+					muted
+					loop
+					playsinline
+					webkit-playsinline
+					preload="<?php echo $is_primary ? 'auto' : 'none'; ?>"
+					poster="<?php echo esc_url( $base . $clip['stem'] . '.jpg' ); ?>"
+					aria-hidden="true"
+					disablepictureinpicture
+					controlslist="nodownload nofullscreen noremoteplayback"
+				>
+					<source src="<?php echo esc_url( $base . $clip['stem'] . '.webm' ); ?>" type="video/webm">
+					<source src="<?php echo esc_url( $base . $clip['stem'] . '.mp4' ); ?>" type="video/mp4">
+				</video>
+			<?php endforeach; ?>
+		</div>
+	</section>
+	<?php
+}
+add_action( 'avada_before_main', 'cft_community_video_strip', 5 );
+
+function cft_community_video_strip_play() {
+	if ( ! is_page( 'community' ) ) {
+		return;
+	}
+	?>
+	<script>
+	(function () {
+		var mq = window.matchMedia('(max-width: 850px)');
+		document.querySelectorAll('.cft-comm-strip video').forEach(function (video) {
+			video.muted = true;
+			video.defaultMuted = true;
+			video.setAttribute('muted', '');
+			video.playsInline = true;
+			if (mq.matches && !video.classList.contains('is-primary')) {
+				return;
+			}
+			var play = video.play();
+			if (play && play.catch) {
+				play.catch(function () {});
+			}
+		});
+	})();
+	</script>
+	<?php
+}
+add_action( 'wp_footer', 'cft_community_video_strip_play', 30 );
+
+/**
+ * Reusable FAQ accordion. Question is the first line, answer is the rest.
+ *
+ * [cft_faq]
+ * [cft_faq_item]
+ * Question text
+ * Answer text, including links.
+ * [/cft_faq_item]
+ * [/cft_faq]
+ */
+function cft_join_us_menu_link( $atts, $item ) {
+	if ( isset( $item->ID ) && 8016 === (int) $item->ID ) {
+		$atts['href'] = esc_url( home_url( '/contact/#cft-enquire' ) );
+	}
+	return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'cft_join_us_menu_link', 10, 2 );
+
+function cft_contact_enquire_anchor( $content ) {
+	if ( ! is_page( 'contact' ) || false !== strpos( $content, 'id="cft-enquire"' ) ) {
+		return $content;
+	}
+	$updated = preg_replace(
+		'/(<h[1-6][^>]*>\s*)Email The Bridge/i',
+		'<span id="cft-enquire"></span>$1Email The Bridge',
+		$content,
+		1
+	);
+	return is_string( $updated ) ? $updated : $content;
+}
+add_filter( 'the_content', 'cft_contact_enquire_anchor', 20 );
+
+function cft_faq_item_parts( $raw ) {
+	$raw = trim( (string) $raw );
+	$raw = preg_replace( '/<\/p>\s*<p[^>]*>/i', "\n", $raw );
+	$raw = preg_replace( '/<\/?p[^>]*>/i', '', $raw );
+	$raw = preg_replace( '/<br\s*\/?>/i', "\n", $raw );
+	$raw = trim( $raw );
+
+	$lines = preg_split( "/\r\n|\n|\r/", $raw );
+	$lines = array_values(
+		array_filter(
+			array_map( 'trim', $lines ),
+			static function ( $line ) {
+				return '' !== $line && ! preg_match( '/^(?:<br\s*\/?>|&lt;br\s*\/?&gt;)$/i', $line );
+			}
+		)
+	);
+	if ( empty( $lines ) ) {
+		return array( '', '' );
+	}
+
+	$question = trim( wp_strip_all_tags( array_shift( $lines ) ) );
+	$answer   = trim( implode( "\n", $lines ) );
+
+	return array( $question, $answer );
+}
+
+function cft_faq_shortcode( $atts, $content = null ) {
+	$atts = shortcode_atts(
+		array(
+			'title' => 'Questions people ask',
+		),
+		$atts,
+		'cft_faq'
+	);
+
+	preg_match_all( '/\[cft_faq_item\](.*?)\[\/cft_faq_item\]/s', (string) $content, $matches );
+	if ( empty( $matches[1] ) ) {
+		return '';
+	}
+
+	$html  = '<section class="cft-faq">';
+	$title = trim( (string) $atts['title'] );
+	if ( '' !== $title ) {
+		$html .= '<h2>' . esc_html( $title ) . '</h2>';
+	}
+	$html .= '<div class="cft-faq-list">';
+
+	foreach ( $matches[1] as $raw ) {
+		list( $question, $answer ) = cft_faq_item_parts( $raw );
+		if ( '' === $question ) {
+			continue;
+		}
+		$html .= '<details class="cft-faq-item">';
+		$html .= '<summary><h3>' . esc_html( $question ) . '</h3></summary>';
+		$html .= '<div class="cft-faq-a">' . wpautop( wp_kses_post( $answer ) ) . '</div>';
+		$html .= '</details>';
+	}
+
+	$html .= '</div></section>';
+	return $html;
+}
+add_shortcode( 'cft_faq', 'cft_faq_shortcode' );
+
+function cft_community_disable_wpautop() {
+	if ( is_page( array( 'community', 'bring-a-friend', 'fittest-in-ba', 'charity-throwdown', 'mumfit', 'new-member-meet-and-greet', 'quiz-night', 'weightlifting' ) ) ) {
+		remove_filter( 'the_content', 'wpautop' );
+		remove_filter( 'the_content', 'shortcode_unautop' );
+	}
+}
+add_action( 'wp', 'cft_community_disable_wpautop' );
+
+/**
+ * Muted looping open-gym clips on The Bridge S&C page (hours + kit rows).
+ */
+function cft_sc_clip_shortcode( $atts ) {
+	$atts = shortcode_atts( array( 'clip' => '' ), $atts );
+	$clip = sanitize_key( $atts['clip'] );
+	if ( ! in_array( $clip, array( 'kit', 'film' ), true ) ) {
+		return '';
+	}
+
+	$base = trailingslashit( content_url( 'uploads' ) );
+	$stem = ( 'film' === $clip ) ? 'cft-gym-film' : 'cft-gym-sc-' . $clip;
+	$ver  = ( 'film' === $clip ) ? '20261009a' : '20260930d';
+	$title = 'Walkthrough of The Bridge Strength & Conditioning open gym in Trowbridge';
+	ob_start();
+	?>
+	<video
+		class="cft-sc-clip"
+		autoplay
+		muted
+		loop
+		playsinline
+		webkit-playsinline
+		preload="auto"
+		poster="<?php echo esc_url( $base . $stem . '.webp?v=' . $ver ); ?>"
+		title="<?php echo esc_attr( $title ); ?>"
+		aria-hidden="true"
+		disablepictureinpicture
+		controlslist="nodownload nofullscreen noremoteplayback"
+	>
+		<source src="<?php echo esc_url( $base . $stem . '.webm?v=' . $ver ); ?>" type="video/webm">
+		<source src="<?php echo esc_url( $base . $stem . '.mp4?v=' . $ver ); ?>" type="video/mp4">
+	</video>
+	<?php
+	return ob_get_clean();
+}
+add_shortcode( 'cft_sc_clip', 'cft_sc_clip_shortcode' );
+
+function cft_sc_clip_play() {
+	if ( ! is_page( 'the-bridge' ) ) {
+		return;
+	}
+	?>
+	<script>
+	(function () {
+		document.querySelectorAll('video.cft-sc-clip').forEach(function (video) {
+			video.muted = true;
+			video.defaultMuted = true;
+			video.setAttribute('muted', '');
+			video.playsInline = true;
+			var play = video.play();
+			if (play && play.catch) {
+				play.catch(function () {});
+			}
+		});
+	})();
+	</script>
+	<?php
+}
+add_action( 'wp_footer', 'cft_sc_clip_play', 30 );
+
+/**
+ * Avada registers portfolio URLs from $smof_data['portfolio_slug'].
+ * After a rewrite flush that global is empty, so stories 404 at
+ * /testimonials/{slug}/ while the listing still links there.
+ */
+function cft_portfolio_testimonials_slug() {
+	register_post_type(
+		'avada_portfolio',
+		array(
+			'labels'          => array(
+				'name'          => 'Portfolio',
+				'singular_name' => 'Portfolio',
+			),
+			'public'          => true,
+			'has_archive'     => true,
+			'rewrite'         => array(
+				'slug' => 'testimonials',
+			),
+			'supports'        => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', 'page-attributes', 'post-formats' ),
+			'can_export'      => true,
+		)
+	);
+}
+add_action( 'init', 'cft_portfolio_testimonials_slug', 20 );
+
+function cft_mobile_nav_open_class() {
+	?>
+	<script>
+	(function () {
+		function menuPanel() {
+			var stuck = document.querySelector('.fusion-header-wrapper.fusion-is-sticky');
+			if (stuck) {
+				return document.querySelector('.fusion-mobile-sticky-nav-holder');
+			}
+			return document.querySelector('.fusion-secondary-main-menu .fusion-mobile-nav-holder:not(.fusion-mobile-sticky-nav-holder)')
+				|| document.querySelector('.fusion-mobile-nav-holder:not(.fusion-mobile-sticky-nav-holder)');
+		}
+
+		function isOpen(el) {
+			return !!(el && window.getComputedStyle(el).display !== 'none' && el.getBoundingClientRect().height > 40);
+		}
+
+		function setOpen(open) {
+			var current = menuPanel();
+			document.documentElement.classList.toggle('cft-nav-open', !!open);
+			document.querySelectorAll('.fusion-mobile-nav-holder').forEach(function (el) {
+				if (el !== current) {
+					el.style.display = 'none';
+				}
+			});
+			if (current) {
+				current.style.display = open ? 'block' : 'none';
+				current.style.height = '';
+			}
+			var bars = document.querySelector('.fusion-icon-bars');
+			if (bars) {
+				bars.setAttribute('aria-expanded', open ? 'true' : 'false');
+			}
+		}
+
+		function onBarsClick(event) {
+			if (!event.target.closest('.fusion-icon-bars')) {
+				return;
+			}
+			event.preventDefault();
+			event.stopImmediatePropagation();
+			var panel = menuPanel();
+			setOpen(!isOpen(panel));
+		}
+
+		document.addEventListener('click', onBarsClick, true);
+
+		document.addEventListener('click', function (event) {
+			if (!document.documentElement.classList.contains('cft-nav-open')) {
+				return;
+			}
+			var link = event.target.closest('.fusion-mobile-nav-holder a');
+			if (link) {
+				setOpen(false);
+			}
+		});
+
+		function unbindAvadaToggle() {
+			if (window.jQuery) {
+				window.jQuery('.fusion-icon-bars').off('click');
+			}
+		}
+		window.addEventListener('scroll', function () {
+			if (!document.documentElement.classList.contains('cft-nav-open')) {
+				return;
+			}
+			var current = menuPanel();
+			if (!isOpen(current)) {
+				setOpen(true);
+			}
+		}, { passive: true });
+
+		document.addEventListener('DOMContentLoaded', function () {
+			window.setTimeout(unbindAvadaToggle, 0);
+		});
+		window.addEventListener('load', unbindAvadaToggle);
+	})();
+	</script>
+	<?php
+}
+add_action( 'wp_footer', 'cft_mobile_nav_open_class', 50 );
+
+function cft_home_meta_description() {
+	if ( ! is_front_page() || defined( 'WPSEO_VERSION' ) || defined( 'RANK_MATH_VERSION' ) ) {
+		return;
+	}
+
+	$description = 'Open gym from 4am to 11pm, seven days a week, plus CrossFit classes at The Bridge in Trowbridge. Free parking for 30 cars. Book a free taster.';
+	echo '<meta name="description" content="' . esc_attr( $description ) . '">' . "\n";
+}
+add_action( 'wp_head', 'cft_home_meta_description', 1 );
+
+function cft_community_document_title( $title ) {
+	if ( is_page( 'hyrox' ) ) {
+		return 'Hyrox in Trowbridge | CrossFit Trowbridge';
+	}
+	if ( is_page( 'weightlifting' ) ) {
+		return 'Weightlifting Gym in Trowbridge | CrossFit Trowbridge';
+	}
+	if ( is_page( 'community' ) ) {
+		return 'Gym Events and Community | CrossFit Trowbridge';
+	}
+	if ( is_page( 'fittest-in-ba' ) ) {
+		return 'Fittest in BA 2026 | Fitness Competition, Trowbridge';
+	}
+	if ( is_page( 'bring-a-friend' ) ) {
+		return 'Bring a Friend to CrossFit | CrossFit Trowbridge';
+	}
+	if ( is_page( 'mumfit' ) ) {
+		return 'MumFit: Postnatal Fitness Classes in Trowbridge';
+	}
+	if ( is_page( 'charity-throwdown' ) ) {
+		return 'Charity Pairs Throwdown | CrossFit Trowbridge';
+	}
+	if ( is_page( 'new-member-meet-and-greet' ) ) {
+		return 'New Member Meet and Greet | CrossFit Trowbridge';
+	}
+	if ( is_page( 'quiz-night' ) ) {
+		return 'Quiz Night, 13 November | CrossFit Trowbridge';
+	}
+	return $title;
+}
+add_filter( 'pre_get_document_title', 'cft_community_document_title' );
+
+function cft_community_meta_description() {
+	if ( defined( 'WPSEO_VERSION' ) || defined( 'RANK_MATH_VERSION' ) ) {
+		return;
+	}
+
+	$description = '';
+	if ( is_page( 'hyrox' ) ) {
+		$description = 'CrossFit Trowbridge was the first Hyrox gym in Trowbridge. Hybrid classes mix ski, row, bike or run, carries, and lifts, coached and scaled.';
+	} elseif ( is_page( 'weightlifting' ) ) {
+		$description = 'A weightlifting gym in Trowbridge. Open gym with platforms and barbells, 4am to 11pm, plus coached Olympic lifting with Sally Bennett.';
+	} elseif ( is_page( 'community' ) ) {
+		$description = 'Partner workouts, MumFit, Fittest in BA, charity throwdowns and quiz nights at The Bridge in Trowbridge. See what\'s on, who it\'s for and how to book.';
+	} elseif ( is_page( 'fittest-in-ba' ) ) {
+		$description = 'Fittest in BA 2026 results from The Bridge in Trowbridge. Joey Harrison won overall in 27:13. Full leaderboards for every age category.';
+	} elseif ( is_page( 'bring-a-friend' ) ) {
+		$description = 'Bring a friend to a coached class at The Bridge, Trowbridge. Next partner workout Wednesday 4 November. If they join, your next month is half price.';
+	} elseif ( is_page( 'mumfit' ) ) {
+		$description = 'MumFit is a postnatal fitness class at CrossFit Trowbridge. Train with your baby, no childcare needed. Mondays and Fridays at 12:30pm at The Bridge.';
+	} elseif ( is_page( 'charity-throwdown' ) ) {
+		$description = 'An annual pairs fitness competition at The Bridge, Trowbridge, raising money for Child.org and Make 2nds Count. Three workouts, any ability, cake after.';
+	} elseif ( is_page( 'new-member-meet-and-greet' ) ) {
+		$description = 'New to CrossFit Trowbridge? Join the meet and greet on the last Saturday of each month: group workout, coffee and cake on us, and time with the coaches.';
+	} elseif ( is_page( 'quiz-night' ) ) {
+		$description = 'Friday 13 November 2026 quiz night at The Bridge. Twelve tables, teams of about six, with sports, music and guess the biscuit rounds.';
+	}
+	if ( ! $description ) {
+		return;
+	}
+
+	echo '<meta name="description" content="' . esc_attr( $description ) . '">' . "\n";
+}
+add_action( 'wp_head', 'cft_community_meta_description', 1 );
+
+function cft_hyrox_legacy_redirect() {
+	if ( ! is_404() ) {
+		return;
+	}
+
+	$path = isset( $_SERVER['REQUEST_URI'] ) ? wp_parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ) : '';
+	$path = trim( (string) $path, '/' );
+	if ( ! in_array( $path, array( 'hybrid_fitness', 'hybrid-fitness' ), true ) ) {
+		return;
+	}
+
+	$page = get_page_by_path( 'hyrox' );
+	if ( ! $page ) {
+		return;
+	}
+
+	wp_safe_redirect( get_permalink( $page ), 301 );
+	exit;
+}
+add_action( 'template_redirect', 'cft_hyrox_legacy_redirect' );
+
+/**
+ * WodBoard form 1083 is the one with the lead automations.
+ * Do not set data-auto: that opens the popup on load and it sits badly over the page.
+ */
+function cft_automation_form_popup() {
+	if ( ! is_page( 'contact' ) ) {
+		return;
+	}
+	echo '<script>(function(e,v,i,n,j,m){m=e.getElementById("evini_popup_script");n=m||e.createElement(v);n.dataset.eviniFormId=[n.dataset.eviniFormId||\'\',"526|1083|9183a314dd9570eb"].join(",");;if(!m){n.id="evini_popup_script";n.async=1;n.src=i;j=e.querySelector(v);j.parentNode.insertBefore(n,j)}})(document,"script","https://www.wodboard.com/popup.js?t=1792577458");</script>';
+}
+add_action( 'wp_footer', 'cft_automation_form_popup', 20 );
+
+function cft_wl_clip_shortcode( $atts ) {
+	$atts = shortcode_atts( array( 'clip' => '' ), $atts );
+	$clip = sanitize_key( $atts['clip'] );
+	if ( ! in_array( $clip, array( 'platform', 'barbell', 'overhead', 'coach' ), true ) ) {
+		return '';
+	}
+
+	$base = trailingslashit( content_url( 'uploads/cft-wl' ) );
+	$file = 'cft-wl-' . $clip;
+	ob_start();
+	?>
+	<video
+		class="cft-wl-clip cft-wl-clip-<?php echo esc_attr( $clip ); ?>"
+		autoplay
+		muted
+		loop
+		playsinline
+		webkit-playsinline
+		preload="auto"
+		poster="<?php echo esc_url( $base . $file . '.jpg' ); ?>"
+		aria-hidden="true"
+		disablepictureinpicture
+		controlslist="nodownload nofullscreen noremoteplayback"
+	>
+		<source src="<?php echo esc_url( $base . $file . '.mp4' ); ?>" type="video/mp4">
+	</video>
+	<?php
+	return ob_get_clean();
+}
+add_shortcode( 'cft_wl_clip', 'cft_wl_clip_shortcode' );
+
+function cft_wl_clip_play() {
+	if ( ! is_page( 'weightlifting' ) ) {
+		return;
+	}
+	?>
+	<script>
+	(function () {
+		document.querySelectorAll('video.cft-wl-clip').forEach(function (video) {
+			video.muted = true;
+			video.defaultMuted = true;
+			video.setAttribute('muted', '');
+			video.playsInline = true;
+			var play = video.play();
+			if (play && play.catch) {
+				play.catch(function () {});
+			}
+		});
+	})();
+	</script>
+	<?php
+}
+add_action( 'wp_footer', 'cft_wl_clip_play', 30 );
 
